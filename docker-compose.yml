@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  backend:
+    build: backend
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend:/opt/app
+      - /opt/app/node_modules
+    command: ["npm", "start"]
+
+  frontend:
+    build: frontend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./frontend:/opt/app
+      - /opt/app/node_modules
+    command: ["npm", "run", "serve"]
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: development
+      POSTGRES_PASSWORD: example
+    ports:
+      - 5432:5432
+    networks:
+      - postgres
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    links:
+      - db
+    ports:
+      - 8081:8080
+    networks:
+      - postgres
+
+networks:
+  postgres:
+    driver: bridge
+volumes:
+  postgres-db:
