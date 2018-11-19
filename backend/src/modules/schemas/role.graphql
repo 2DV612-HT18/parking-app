@@ -1,4 +1,0 @@
-  type Role {
-    id: Int
-    role: String
-  }
