@@ -1,0 +1,9 @@
+  type User {
+    id: Int!
+    role: Role
+    firstName: String
+    lastName: String
+    email: String
+    personalNumber: String
+    password: String
+  }
