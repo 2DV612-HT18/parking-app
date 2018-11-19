@@ -1,6 +1,0 @@
-  type Query {
-    userById(id: Int!): User
-    userByEmail(email: String): User
-    roleById(id: Int!): Role
-    roleByName(role: String): Role
-  }

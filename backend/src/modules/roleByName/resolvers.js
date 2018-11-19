@@ -10,8 +10,6 @@ export const resolvers = {
       return getRoleName(args.role)
     },
   },
-//  Mutation: {
-//  },
 };
 
 // Testing
