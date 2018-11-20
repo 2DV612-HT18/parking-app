@@ -9,7 +9,7 @@ import generateSchema from "./lib/generateSchema";
       schema: generateSchema()
     });
 
-    await createTypeormConnection("development").then(function (connection){
+    await createTypeormConnection("development").then((connection) => {
       const role1 = new Role(21, "User")
       const role2 = new Role(22, "ParkingOwner")      
       return connection.manager.save([role1, role2])
