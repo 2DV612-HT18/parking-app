@@ -1,5 +1,5 @@
 export const resolvers = {
-  Query: {
+  Mutation: {
     addRole: (_, args) => {
       // TODO
       
