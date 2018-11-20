@@ -9,9 +9,11 @@ import generateSchema from "./lib/generateSchema";
       schema: generateSchema()
     });
 
-    await createTypeormConnection("development").then((connection) => {
+    await createTypeormConnection("development").then(async (connection) => {
       const role1 = new Role(21, "User")
-      const role2 = new Role(22, "ParkingOwner")      
+      const role2 = new Role(22, "ParkingOwner")
+      let data = await connection.getRepository(Role).find({ where: {role: role1.role }})
+      if (data.length < 1)    
       return connection.manager.save([role1, role2])
     });
     
