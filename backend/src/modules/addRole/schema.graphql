@@ -1,0 +1,3 @@
+  type Mutation {
+    addRole(id: Int!, role: String!): Role
+  }
