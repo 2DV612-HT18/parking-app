@@ -28,5 +28,12 @@ export default new EntitySchema({
     password: {
       type: "varchar"
     },
+  },
+  relations: {
+    roles: {
+        target: "Role",
+        type: "many-to-one",
+        joinTable: true,
+    }
   }
 });
