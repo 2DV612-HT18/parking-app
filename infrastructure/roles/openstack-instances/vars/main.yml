@@ -1,0 +1,13 @@
+prefix: PA
+servers:
+  - name: app1
+    image: "{{ubuntu_image}}"
+    flavor: "{{app1_flavor}}"
+    key: "{{keyname}}"
+    security_groups: "{{app1_sg}}"
+    availability_zone: "{{zone}}"
+    wait: yes
+    auto_ip: no
+    meta:
+      group: application
+      fixed_ip: "{{ app1_fixed_ip }}"
