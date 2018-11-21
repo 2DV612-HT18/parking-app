@@ -6,4 +6,4 @@
 
   roles:
     - openstack-network
-    #- openstack-instances
+    - openstack-instances
