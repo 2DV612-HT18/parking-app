@@ -3,5 +3,5 @@
   hosts: parkingapp
   become: true
   roles:
-    - common
-    # - nginx
+    - ../roles/common
+    - ../roles/docker
