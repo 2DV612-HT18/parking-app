@@ -5,6 +5,8 @@ zone: "Education"
 keyname: "2dv612"
 key_location: "~/.ssh/2dv612.pem"
 ansible_python_interpreter: /usr/bin/python3
+remote_user: ubuntu
+docker_group: docker
 
 # Network related
 networkname: "PA_Network"
