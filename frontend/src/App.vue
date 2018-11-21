@@ -2,7 +2,7 @@
   <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
+        <span>PARKER </span>
         <span class="font-weight-light">PARKING APP</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
