@@ -17,6 +17,13 @@ To see if anything is running, enter:
 docker-compose ps
 ```
 
+If the backend or frontend does not start because of missing npm packages, run:
+```docker
+docker-compose down
+docker-compose build --no-cache
+docker-compose up
+```
+
 Backend will be found at: [http://localhost:4000](http://localhost:4000)
 
 Frontend will be found at: [http://localhost:8080](http://localhost:8080)
