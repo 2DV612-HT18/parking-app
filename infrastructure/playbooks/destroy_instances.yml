@@ -1,0 +1,18 @@
+---
+- name: Destroy
+  hosts: localhost
+  remote_user: root
+  tasks:
+    - name: Kill Application instance
+      os_server:
+        state: absent
+        name: "PA_app1"
+      tags:
+        - PA_app1
+
+    - name: Kill Jump server instance
+      os_server:
+        state: absent
+        name: "PA_JumpServer"
+      tags:
+        - PA_JumpServer

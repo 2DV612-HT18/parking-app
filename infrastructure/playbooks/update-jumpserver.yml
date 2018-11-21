@@ -1,0 +1,6 @@
+---
+- name: Install security updates on Jumpserver instance
+  hosts: jumpserver
+  become: true
+  roles:
+    - common

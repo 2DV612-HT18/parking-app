@@ -1,0 +1,7 @@
+---
+- name: Provision parking app instance
+  hosts: parkingapp
+  become: true
+  roles:
+    - common
+    # - nginx
