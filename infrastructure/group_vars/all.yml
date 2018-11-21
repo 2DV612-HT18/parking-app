@@ -25,15 +25,15 @@ fixed_ip:
     sg: "{{ js_sg }}"
 
 # Application
-app1_hostname: "ACME_LoadBalancer"
+# app1_hostname: "ACME_LoadBalancer"
 app1_flavor: "c1-r1-d10"
 app1_sg: "SSHInt,HTTP"
 app1_fixed_ip: 192.168.0.11
 #app1_public: 194.47.206.156
 
 # Jump server
-js_hostname: "ACME_JumpServer"
+js_hostname: "PA_JumpServer"
 js_flavor: "c1-r05-d10"
 js_sg: "SSHExt"
 js_fixed_ip: 192.168.0.10
-#js_public: 194.47.206.46
+js_public: 194.47.206.217
