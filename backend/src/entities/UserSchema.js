@@ -10,8 +10,30 @@ export default new EntitySchema({
       type: "int",
       generated: true
     },
+    role: {
+      type: "varchar"
+    },
+    firstName: {
+      type: "varchar"
+    },
+    lastName: {
+      type: "varchar"
+    },
     email: {
       type: "varchar"
+    },
+    personalNumber: {
+      type: "varchar"
+    },
+    password: {
+      type: "varchar"
+    },
+  },
+  relations: {
+    roles: {
+        target: "Role",
+        type: "many-to-one",
+        joinTable: true,
     }
   }
 });
