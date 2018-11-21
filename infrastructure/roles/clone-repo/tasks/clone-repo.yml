@@ -1,0 +1,20 @@
+---
+- name: Create app dir
+  file:
+    path: /opt/app
+    state: directory
+    owner: "{{ remote_user }}"
+    group: "{{ remote_user }}"
+  tags:
+    - deploy-key
+
+- name: Clone the repo to /opt/app
+  git:
+    repo: "{{ git_repo }}"
+    dest: /opt/app
+    accept_hostkey: yes
+    key_file: "{{ dest_deploy_key }}"
+  # become_user: "{{ remote_user }}"
+  # become: true
+  # tags:
+  #   - deploy-key
