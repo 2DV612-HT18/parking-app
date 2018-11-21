@@ -17,3 +17,6 @@
 # Provision the instances
 # - import_playbook: update-jumpserver.yml
 - import_playbook: playbooks/parkingapp.yml
+
+# Run tests
+- import_playbook: test/main.yml
