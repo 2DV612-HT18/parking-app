@@ -17,21 +17,21 @@ export const resolvers = {
         let user = new User(data[0].role, data[0].firstName, data[0].lastName, data[0].email, data[0].personalNumber, data[0].password)
         
         // Promise to get the result from the bcrypt.compare
-        const result = await new Promise((resolve, reject) => {
+        const passwordMatches = await new Promise((resolve, reject) => {
           bcrypt.compare(args.password, user.password, (err, res) => {
             if (err)
             reject(err)
             resolve(res)
           });
         })
-        console.log(result)
-        if (result) { 
+
+        // If password matches
+        if (passwordMatches) { 
           // return {token, user}
         } else {
           // Return nothing? / Throw error
         }           
-      }
-      else {       
+      } else {       
         // No user found
       }      
     },
