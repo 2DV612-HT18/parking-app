@@ -10,6 +10,9 @@ ansible_python_interpreter: /usr/bin/python3
 remote_user: ubuntu
 docker_group: docker
 
+# Server public URL
+server_name: "cscloud486.lnu.se"
+
 # Network related
 networkname: "PA_Network"
 subnetname: "PA_Subnet"
@@ -33,7 +36,7 @@ fixed_ip:
 app1_flavor: "c1-r1-d10"
 app1_sg: "SSHInt,HTTP"
 app1_fixed_ip: 192.168.0.11
-#app1_public: 194.47.206.156
+app1_public: 194.47.206.230
 
 # Jump server
 js_hostname: "PA_JumpServer"
