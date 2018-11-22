@@ -1,5 +1,4 @@
   type User {
-    id: Int!
     role: String
     firstName: String
     lastName: String
