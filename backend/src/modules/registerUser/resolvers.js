@@ -31,8 +31,7 @@ export const resolvers = {
         // call send email function
         emailSender.sendEmail(args.email);        
         return connection.manager.save(user) 
-      }
-      else {
+      } else {
         // Throw Error?
       }
     },
