@@ -5,7 +5,7 @@
     path: "{{ dest_deploy_key }}"
     state: absent
   tags:
-    - deploy-key
+    - deploy
 
 - name: Test that deploy key is absent
   stat:
@@ -13,4 +13,4 @@
   register: key
   failed_when: key.stat.exists == True
   tags:
-    - deploy-key
+    - deploy

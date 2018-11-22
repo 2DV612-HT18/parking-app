@@ -6,7 +6,7 @@
     owner: "{{ remote_user }}"
     group: "{{ remote_user }}"
   tags:
-    - deploy-key
+    - deploy
 
 - name: Clone the repo to /opt/app
   git:
@@ -19,4 +19,4 @@
   become_user: "{{ remote_user }}"
   become: true
   tags:
-    - deploy-key
+    - deploy

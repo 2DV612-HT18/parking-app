@@ -17,13 +17,13 @@
     owner: "{{ remote_user }}"
     group: "{{ remote_user }}"
   tags:
-    - deploy-key
+    - deploy
 
 # See: https://stackoverflow.com/a/37096534/100134
 - name: Ensure setfacl support is present.
   package: name=acl
   tags:
-    - deploy-key
+    - deploy
 
 - name: Test that deploy key exists
   stat:
@@ -31,4 +31,4 @@
   register: key
   failed_when: key.stat.exists == False
   tags:
-    - deploy-key
+    - deploy
