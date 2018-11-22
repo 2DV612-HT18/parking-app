@@ -1,16 +1,4 @@
 ---
-
-- name: Install docker packages
-  apt:
-    name: "{{ item }}"
-    state: present
-    update_cache: yes
-  with_items:
-    - apt-transport-https
-    - ca-certificates
-    - curl
-    - software-properties-common
-
 - name: Add Docker s official GPG key
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
