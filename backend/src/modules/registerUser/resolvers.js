@@ -19,6 +19,7 @@ export const resolvers = {
           resolve(hash)
         })
       })
+      
       let user = new User(args.role, args.firstName, args.lastName, args.email, args.personalNumber, hashedPassword)
       let userRepository = connection.getRepository(User)
 
