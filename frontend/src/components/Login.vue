@@ -1,13 +1,26 @@
 <template>
-    <div id="login">
-        <h1>Login</h1>
-        <input type="text" name="username" v-model="input.username" placeholder="Username" />
-        <input type="password" name="password" v-model="input.password" placeholder="Password" />
-        <button type="button" v-on:click="login()">Login</button>
-    </div>
+  <div id="login">
+    <h1>Login</h1>
+    <input
+      type="text"
+      name="username"
+      v-model="input.username"
+      placeholder="Username"
+    />
+    <input
+      type="password"
+      name="password"
+      v-model="input.password"
+      placeholder="Password"
+    />
+    <button type="button" v-on:click="login();">Login</button>
+  </div>
 </template>
 
 <script>
+import { onLogin } from "@/vue-apollo";
+import LoginUser from "@/graphql/LoginUser.gql";
+
 export default {
   name: "Login",
   data() {
@@ -19,7 +32,26 @@ export default {
     };
   },
   methods: {
-    login() {
+    async login() {
+      const result = await this.$apollo.mutate({
+        mutation: LoginUser,
+        variables: {
+          email: this.input.username,
+          password: this.input.password
+        }
+      });
+
+      const data = result.data.loginUser;
+      // Token exists
+      if (data && data.token) {
+        const apolloClient = this.$apollo.provider.defaultClient;
+        // Sets token in localhost
+        await onLogin(apolloClient, data.token);
+      } else {
+        // Login unsuccessful
+      }
+    },
+    loginMock() {
       if (this.input.username != "" && this.input.password != "") {
         if (
           this.input.username == this.$parent.mockAccount.username &&
