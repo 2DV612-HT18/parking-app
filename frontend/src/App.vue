@@ -2,8 +2,7 @@
   <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>PARKER </span>
-        <span class="font-weight-light">PARKING APP</span>
+        <span>PARKER </span> <span class="font-weight-light">PARKING APP</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
@@ -15,9 +14,7 @@
       </v-btn>
     </v-toolbar>
 
-    <v-content>
-      <router-view/>
-    </v-content>
+    <v-content> <router-view /> </v-content>
   </v-app>
 </template>
 

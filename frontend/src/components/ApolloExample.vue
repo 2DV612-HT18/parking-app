@@ -8,7 +8,7 @@
         placeholder="Type a name"
         class="input"
         id="field-name"
-      >
+      />
     </div>
 
     <!-- Apollo watched Graphql query -->
@@ -32,9 +32,7 @@
     </ApolloQuery>
 
     <!-- Tchat example -->
-    <ApolloQuery
-      :query="require('../graphql/Messages.gql')"
-    >
+    <ApolloQuery :query="require('../graphql/Messages.gql')">
       <ApolloSubscribeToMore
         :document="require('../graphql/MessageAdded.gql')"
         :update-query="onMessageAdded"
@@ -57,32 +55,28 @@
       :mutation="require('../graphql/AddMessage.gql')"
       :variables="{
         input: {
-          text: newMessage,
-        },
+          text: newMessage
+        }
       }"
       class="form"
-      @done="newMessage = ''"
+      @done="newMessage = '';"
     >
       <template slot-scope="{ mutate }">
-        <form v-on:submit.prevent="formValid && mutate()">
+        <form v-on:submit.prevent="formValid && mutate();">
           <label for="field-message">Message</label>
           <input
             id="field-message"
             v-model="newMessage"
             placeholder="Type a message"
             class="input"
-          >
+          />
         </form>
       </template>
     </ApolloMutation>
 
     <div class="images">
-      <div
-        v-for="file of files"
-        :key="file.id"
-        class="image-item"
-      >
-        <img :src="`${$filesRoot}/${file.path}`" class="image"/>
+      <div v-for="file of files" :key="file.id" class="image-item">
+        <img :src="`${$filesRoot}/${file.path}`" class="image" />
       </div>
     </div>
 
@@ -94,7 +88,7 @@
         accept="image/*"
         required
         @change="onUploadImage"
-      >
+      />
     </div>
   </div>
 </template>
