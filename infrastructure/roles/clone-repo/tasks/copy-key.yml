@@ -11,7 +11,7 @@
 
 - name: Copy the ssh key
   copy:
-    content: "{{ deploy_key }}"
+    src: "{{ deploy_key }}"
     dest: "{{ dest_deploy_key }}"
     mode: 0600
     owner: "{{ remote_user }}"
