@@ -33,10 +33,10 @@
 #   command: "openstack floating ip set --port {{ vip.port.id }} {{ lb_public }}"
 #   register: floating_ip
 
-# - name: "Set monitor fixed ip to Monitor Public IP: {{ mon_public }}"
-#   ignore_errors: yes
-#   hosts: localhost
-#   command: "openstack floating ip set --port monitor {{ mon_public }}"
+- name: "Set app1 fixed ip to public ip: {{ app1_public }}"
+  ignore_errors: yes
+  hosts: localhost
+  command: "openstack floating ip set --port app1 {{ app1_public }}"
 
 - name: "Set jumpserver fixed ip to Jumpserver Public IP: {{ js_public }}"
   ignore_errors: yes
