@@ -1,0 +1,7 @@
+---
+- name: Start docker compose
+  docker_service:
+    project_src: "{{ app_dir }}"
+  register: output
+  tags:
+    - deploy
