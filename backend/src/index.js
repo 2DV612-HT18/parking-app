@@ -1,4 +1,5 @@
 import { GraphQLServer } from "graphql-yoga";
+import jwt from "express-jwt";
 import Role from "./models/Role";
 import createTypeormConnection from "./lib/createTypeormConnection";
 import generateSchema from "./lib/generateSchema";
@@ -6,8 +7,31 @@ import generateSchema from "./lib/generateSchema";
 (async () => {
   try {
     const server = new GraphQLServer({
-      schema: generateSchema()
+      schema: generateSchema(),
+      context: ({ request }) => ({
+        userId: request.user.id
+      })
     });
+
+    // Validate token
+    server.express.use(
+      jwt({
+        secret: process.env.SESSION_SECRET || "devsecret",
+        credentialsRequired: false,
+        getToken: req => {
+          if (
+            req.headers.authorization &&
+            req.headers.authorization.split(" ")[0] === "Bearer"
+          ) {
+            return req.headers.authorization.split(" ")[1];
+          }
+          if (req.query && req.query.token) {
+            return req.query.token;
+          }
+          return null;
+        }
+      })
+    );
 
     const connection = await createTypeormConnection("development");
 
