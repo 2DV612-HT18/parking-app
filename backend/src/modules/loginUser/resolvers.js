@@ -1,5 +1,6 @@
 import { getConnection } from "typeorm";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 import User from "../../models/User";
 
@@ -14,14 +15,7 @@ export const resolvers = {
 
       // If user exists
       if (data.length === 1) {
-        const user = new User(
-          data[0].role,
-          data[0].firstName,
-          data[0].lastName,
-          data[0].email,
-          data[0].personalNumber,
-          data[0].password
-        );
+        const user = data[0];
 
         const passwordMatches = await bcrypt.compare(
           args.password,
@@ -30,12 +24,18 @@ export const resolvers = {
 
         // If password matches
         if (passwordMatches) {
-          // return {token, user}
-        } else {
-          // Return nothing? / Throw error
+          // Create token
+          const token = await jwt.sign(
+            { id: user.id },
+            process.env.SESSION_SECRET || "devsecret",
+            { expiresIn: 1000 * 60 * 60 * 24 } // 1 day
+          );
+
+          // User is logged in
+          return { token, user };
         }
       }
-      // No user found
+      // No user found or password didn't match
       return null;
     }
   }
