@@ -3,13 +3,15 @@ import jwt from "express-jwt";
 import Role from "./models/Role";
 import createTypeormConnection from "./lib/createTypeormConnection";
 import generateSchema from "./lib/generateSchema";
+import permissions from "./permissions";
 
 (async () => {
   try {
     const server = new GraphQLServer({
       schema: generateSchema(),
+      middlewares: [permissions],
       context: ({ request }) => ({
-        userId: request.user.id
+        user: request.user
       })
     });
 
