@@ -1,6 +1,6 @@
 ---
 
-- name: Create security group HTTP
+- name: Create SG HTTP
   os_security_group:
     state: present
     name: HTTP
@@ -17,6 +17,12 @@
     state: present
     name: SSHInt
     description: Allows internal SSH traffic to server
+
+- name: Create SG to allow 8080 for demo
+  os_security_group:
+    state: present
+    name: HTTP8080
+    description: Allows HTTP traffic on port 8080
 
 - name: Creating rules for SG HTTP
   os_security_group_rule:
@@ -41,3 +47,11 @@
     port_range_min: 22
     port_range_max: 22
     remote_ip_prefix: "{{ subnet }}"
+
+- name: Creating rules for SG HTTP 8080
+  os_security_group_rule:
+    security_group: HTTP8080
+    protocol: tcp
+    port_range_min: 8080
+    port_range_max: 8080
+    remote_ip_prefix: 0.0.0.0/0
