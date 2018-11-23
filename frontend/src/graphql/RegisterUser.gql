@@ -1,4 +1,5 @@
 mutation registerUser(
+  $role: String!
   $firstName: String!
   $lastName: String!
   $email: String!
@@ -6,6 +7,7 @@ mutation registerUser(
   $password: String!
 ) {
   registerUser(
+    role: $role
     firstName: $firstName
     lastName: $lastName
     email: $email

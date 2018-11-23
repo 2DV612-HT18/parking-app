@@ -64,6 +64,9 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+import RegisterUser from "@/graphql/RegisterUser.gql";
+
   export default {
     data: () => ({
       validForm: false,
@@ -90,9 +93,38 @@
       ]
     }),
     methods: {
-      register(){
+      async register(){
         console.log("Lets register this user: " + this.email);
+
+        const result = await this.$apollo.mutate({
+        mutation: RegisterUser,
+        variables: {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          personalNumber: this.pnr,
+          password: this.password,
+          role: "Role1"
+        }
+      });
+
+  const data = result.data.registerUser;
+      // Token exists
+      if (data ) {
+        
+
+        // Redirect to homepage
+        this.$router.push("/");
+        console.log("successfull: " + this.email);
+      } else {
+        // register unsuccessful
+        console.log("unsuccessfull: " + this.email);
       }
+
+      }
+
+
+      
     }
   }
 </script>
