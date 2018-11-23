@@ -1,19 +1,46 @@
 <template>
-  <div id="login">
-    <h1>Login</h1>
-    <input
-      type="text"
-      name="username"
-      v-model="input.username"
-      placeholder="Username"
-    />
-    <input
-      type="password"
-      name="password"
-      v-model="input.password"
-      placeholder="Password"
-    />
-    <button type="button" v-on:click="login();">Login</button>
+  <div>
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout align-center justify-center>
+          <v-flex xs12 sm8 md4>
+            <v-card class="elevation-12">
+              <v-toolbar dark color="primary">
+                <v-toolbar-title>Login</v-toolbar-title>
+              </v-toolbar>
+              <v-card-text>
+                <v-form v-model="validForm">
+                  <v-text-field
+                    type="text"
+                    name="username"
+                    v-model="input.username"
+                    :rules="emailRules"
+                    placeholder="Username"
+                  />
+                  <v-text-field
+                    type="password"
+                    name="password"
+                    v-model="input.password"
+                    :rules="passwordRules"
+                    placeholder="Password"
+                  />
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn 
+                  color="primary"
+                  :disabled="!validForm" 
+                  v-on:click="login();">
+                  Login
+                </v-btn>
+              <v-btn to="/register" color="primary">Not a member?</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
   </div>
 </template>
 
@@ -26,6 +53,14 @@ export default {
   name: "Login",
   data() {
     return {
+      validForm: false,
+      emailRules: [
+        v => !!v || 'E-mail is required to login',
+        v => /.+@.+/.test(v) || 'E-mail must be valid'
+      ],
+      passwordRules: [
+        v => !!v || 'Password is required'
+      ],
       input: {
         username: "",
         password: ""
@@ -75,13 +110,4 @@ export default {
   }
 };
 </script>
-<style scoped>
-#login {
-  width: 500px;
-  border: 1px solid #cccccc;
-  background-color: #ffffff;
-  margin: auto;
-  margin-top: 200px;
-  padding: 20px;
-}
-</style>
+
