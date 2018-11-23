@@ -1,3 +1,3 @@
 ---
-
+- include: copy-prod-compose.yml
 - include: start-service.yml
