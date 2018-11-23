@@ -1,13 +1,16 @@
 <template>
-  <div><Login /></div>
+  <div>
+    <div v-if="user">
+      <h1>Hello {{ user.email }}!</h1>
+    </div>
+    <div v-else><router-link to="/login">Login</router-link></div>
+  </div>
 </template>
 
 <script>
-import Login from "@/components/Login";
+import { mapState } from "vuex";
 
 export default {
-  components: {
-    Login
-  }
+  computed: mapState(["user"])
 };
 </script>
