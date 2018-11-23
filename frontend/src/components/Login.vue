@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import { onLogin } from "@/vue-apollo";
 import LoginUser from "@/graphql/LoginUser.gql";
 
@@ -32,6 +33,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(["setUser"]),
     async login() {
       const result = await this.$apollo.mutate({
         mutation: LoginUser,
@@ -47,6 +49,10 @@ export default {
         const apolloClient = this.$apollo.provider.defaultClient;
         // Sets token in localhost
         await onLogin(apolloClient, data.token);
+        await this.setUser(data.user);
+
+        // Redirect to homepage
+        this.$router.push("/");
       } else {
         // Login unsuccessful
       }
