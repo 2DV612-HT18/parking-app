@@ -9,7 +9,7 @@ export const resolvers = {
       const userRepository = connection.getRepository(User);
 
       // Return authenticated user
-      return userRepository.findOne({ where: { email: user.email } });
+      return userRepository.findOne({ where: { id: user.id } });
     }
   }
 };
