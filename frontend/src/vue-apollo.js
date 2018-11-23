@@ -113,3 +113,12 @@ export async function onLogout(apolloClient) {
     console.log("%cError on cache reset (logout)", "color: orange;", e.message);
   }
 }
+
+// Authentication middleware
+export function authenticated({ next, router }) {
+  if (!localStorage.getItem(AUTH_TOKEN)) {
+    return router.push({ name: "login" });
+  }
+
+  return next();
+}
