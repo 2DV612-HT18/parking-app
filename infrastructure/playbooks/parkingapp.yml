@@ -7,4 +7,4 @@
     - ../roles/docker
     - ../roles/clone-repo
     - ../roles/start-docker-service
-    - ../roles/nginx
+    # - ../roles/nginx
