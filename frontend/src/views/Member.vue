@@ -1,9 +1,7 @@
 <template>
   <div>
-    <div v-if="user">
-      <h1>Hello {{ user.email }}!</h1>
-    </div>
-    <div v-else><router-link to="/login">Login</router-link></div>
+    <h1>Members area</h1>
+    <div v-if="user">Email: {{ user.email }}</div>
   </div>
 </template>
 

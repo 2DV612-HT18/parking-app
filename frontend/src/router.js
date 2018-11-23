@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
+import Member from "./views/Member.vue";
 
 import { authenticated } from "./vue-apollo";
 
@@ -13,7 +13,7 @@ const router = new Router({
     {
       path: "/",
       name: "home",
-      component: Home,
+      component: Member,
       meta: {
         middleware: authenticated
       }
