@@ -1,0 +1,45 @@
+---
+- name: Destroy
+  hosts: localhost
+  remote_user: root
+  tasks:
+    - name: Remove fixed ips
+      os_port:
+        state: absent
+        name: "{{ item.name }}"
+      with_items: "{{ fixed_ip }}"
+
+    - name: Remove security group HTTP
+      os_security_group:
+        state: absent
+        name: HTTP
+
+    - name: Remove security group HTTP8080
+      os_security_group:
+        state: absent
+        name: HTTP8080
+
+    - name: Remove security group SSH External
+      os_security_group:
+        state: absent
+        name: SSHExt
+
+    - name: Remove security group SSH Internal
+      os_security_group:
+        state: absent
+        name: SSHInt
+
+    - name: Remove Router
+      os_router:
+       state: absent
+       name: "{{router}}"
+
+    - name: Remove subnet
+      os_subnet:
+       state: absent
+       name: "{{subnetname}}"
+
+    - name: Remove network
+      os_network:
+       state: absent
+       name: "{{networkname}}"

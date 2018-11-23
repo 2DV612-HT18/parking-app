@@ -1,0 +1,22 @@
+---
+
+- name: Create network and create instances
+  hosts: localhost
+  gather_facts: false
+  remote_user: root
+
+  roles:
+    - openstack-network
+    - openstack-instances
+
+- name: Provision the instances
+  hosts: all
+  gather_facts: false
+  remote_user: root
+
+# Provision the instances
+# - import_playbook: update-jumpserver.yml
+- import_playbook: playbooks/parkingapp.yml
+
+# Run tests
+- import_playbook: test/main.yml

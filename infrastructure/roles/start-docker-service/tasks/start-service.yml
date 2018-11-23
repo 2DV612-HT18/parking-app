@@ -1,0 +1,9 @@
+---
+- name: Start docker compose
+  docker_service:
+    build: yes
+    project_src: "{{ app_dir }}"
+    state: present
+  register: output
+  tags:
+    - deploy

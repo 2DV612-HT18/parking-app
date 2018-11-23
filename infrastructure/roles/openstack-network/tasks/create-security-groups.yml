@@ -1,0 +1,57 @@
+---
+
+- name: Create SG HTTP
+  os_security_group:
+    state: present
+    name: HTTP
+    description: Allows HTTP traffic to server
+
+- name: Create SG SSH External
+  os_security_group:
+    state: present
+    name: SSHExt
+    description: Allows external SSH traffic to server
+
+- name: Create SG SSH Internal
+  os_security_group:
+    state: present
+    name: SSHInt
+    description: Allows internal SSH traffic to server
+
+- name: Create SG to allow 8080 for demo
+  os_security_group:
+    state: present
+    name: HTTP8080
+    description: Allows HTTP traffic on port 8080
+
+- name: Creating rules for SG HTTP
+  os_security_group_rule:
+    security_group: HTTP
+    protocol: tcp
+    port_range_min: 80
+    port_range_max: 80
+    remote_ip_prefix: 0.0.0.0/0
+
+- name: Create rule for SG SSHExt
+  os_security_group_rule:
+    security_group: SSHExt
+    protocol: tcp
+    port_range_min: 22
+    port_range_max: 22
+    remote_ip_prefix: 0.0.0.0/0
+
+- name: Create rule for SG SSHInt
+  os_security_group_rule:
+    security_group: SSHInt
+    protocol: tcp
+    port_range_min: 22
+    port_range_max: 22
+    remote_ip_prefix: "{{ subnet }}"
+
+- name: Creating rules for SG HTTP 8080
+  os_security_group_rule:
+    security_group: HTTP8080
+    protocol: tcp
+    port_range_min: 8080
+    port_range_max: 8080
+    remote_ip_prefix: 0.0.0.0/0

@@ -1,0 +1,16 @@
+---
+
+- name: Remove the ssh key
+  file:
+    path: "{{ dest_deploy_key }}"
+    state: absent
+  tags:
+    - deploy
+
+- name: Test that deploy key is absent
+  stat:
+    path: "{{ dest_deploy_key }}"
+  register: key
+  failed_when: key.stat.exists == True
+  tags:
+    - deploy

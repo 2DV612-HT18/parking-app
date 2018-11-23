@@ -1,0 +1,46 @@
+---
+# Globals
+ubuntu_image: "dec4c641-2949-4857-b31f-822a1567e233" # Ubuntu 18.04
+zone: "Education"
+keyname: "2dv612"
+key_location: "~/.ssh/2dv612.pem"
+deploy_key: "~/.ssh/deploy_key_gh"
+git_repo: "git@github.com:2DV612-HT18/parking-app.git"
+ansible_python_interpreter: /usr/bin/python3
+remote_user: ubuntu
+docker_group: docker
+
+# Server public URL
+server_name: "cscloud486.lnu.se"
+
+# Network related
+networkname: "PA_Network"
+subnetname: "PA_Subnet"
+subnet: "192.168.0.0/24"
+router: "PA_Router"
+DNS1: "8.8.8.8"
+DNS2: "8.8.4.4"
+gateway: "192.168.0.1"
+
+# Fixed ips
+fixed_ip:
+  - name: app1
+    ip: "{{ app1_fixed_ip}}"
+    sg: "{{ app1_sg }}"
+  - name: jumpserver
+    ip: "{{ js_fixed_ip }}"
+    sg: "{{ js_sg }}"
+
+# Application
+# app1_hostname: "ACME_LoadBalancer"
+app1_flavor: "c1-r1-d10"
+app1_sg: "SSHInt,HTTP,HTTP8080"
+app1_fixed_ip: 192.168.0.11
+app1_public: 194.47.206.230
+
+# Jump server
+js_hostname: "PA_JumpServer"
+js_flavor: "c1-r05-d10"
+js_sg: "SSHExt"
+js_fixed_ip: 192.168.0.10
+js_public: 194.47.206.217

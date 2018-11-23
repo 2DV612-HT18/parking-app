@@ -1,0 +1,8 @@
+---
+
+- name: Test suite
+  hosts: all
+  gather_facts: false
+  remote_user: root
+
+- import_playbook: test_docker.yml

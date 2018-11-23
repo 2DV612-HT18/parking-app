@@ -1,0 +1,10 @@
+---
+- name: Provision parking app instance
+  hosts: parkingapp
+  become: true
+  roles:
+    - ../roles/common
+    - ../roles/docker
+    - ../roles/clone-repo
+    - ../roles/start-docker-service
+    # - ../roles/nginx
