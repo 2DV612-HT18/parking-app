@@ -10,7 +10,7 @@ export const resolvers = {
       const verificationToken = args.token;
 
       // Remove token
-      return null;
+      return true;
     }
   }
 };
