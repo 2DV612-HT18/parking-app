@@ -13,9 +13,10 @@ export const resolvers = {
         const user = data[0];
         // Remove token from Redis? 
       
+        // Return true; logout successful
         return true;
       }
-      // If no user found
+      // If no user found; logout unsuccessful
       return false;
     }
   }
