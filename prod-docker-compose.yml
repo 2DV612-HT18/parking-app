@@ -3,6 +3,8 @@ version: "3"
 services:
   nginx:
     build: nginx
+    env_file:
+      - .env.prod.local
     depends_on:
       - backend
       - frontend
@@ -19,9 +21,8 @@ services:
     build:
       context: frontend
       dockerfile: Build.dockerfile
-    environment:
-      - VUE_APP_GRAPHQL_HTTP=http://api.localhost
-      - VUE_APP_GRAPHQL_WS=ws://api.localhost
+    env_file:
+      - .env.prod.local
     volumes:
       - frontend:/opt/app/dist
       - /opt/app/node_modules
