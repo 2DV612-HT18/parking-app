@@ -7,24 +7,41 @@ services:
       - db
     networks:
     - postgres
+    - parkingapp
     ports:
       - "4000:4000"
     volumes:
       - ./backend:/opt/app
       - /opt/app/node_modules
     command: ["npm", "start"]
+    
+  nginx:
+    build: nginx
+    environment:
+      SERVER_NAME: {{ server_name }}
+      SERVER_NAME_BACKEND: api.{{ server_name }}
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - parkingapp
+    ports:
+      - 80:80
+    volumes:
+     - ./nginx/parkingapp_backend.conf:/etc/nginx/sites-enabled/default.conf
+     - ./nginx/parkingapp_frontend.conf:/etc/nginx/sites-enabled/front.conf
+     - frontend:/var/www/app/
 
   frontend:
-    build: frontend
+    build:
+      context: frontend
+      dockerfile: Build.dockerfile
     environment:
-      - VUE_APP_GRAPHQL_HTTP=http://{{app1_public}}:4000
-      - VUE_APP_GRAPHQL_WS=ws://{{app1_public}}:4000
-    ports:
-      - "8080:8080"
+      VUE_APP_GRAPHQL_HTTP: http://api.{{ server_name }}
+      VUE_APP_GRAPHQL_WS: ws://api.{{ server_name }}
     volumes:
-      - ./frontend:/opt/app
+      - frontend:/opt/app/dist
       - /opt/app/node_modules
-    command: ["npm", "run", "serve"]
 
   db:
     image: postgres:latest
@@ -38,17 +55,18 @@ services:
     volumes:
       - postgres-db:/var/lib/postgresql/data
 
-  adminer:
-    image: adminer
-    links:
-      - db
+  redis:
+    image: redis:latest
+    volumes:
+      - redis:/var/lib/redis/data
     ports:
-      - 8081:8080
-    networks:
-      - postgres
+      - "6379:6379"
 
 networks:
+  parkingapp:
   postgres:
     driver: bridge
 volumes:
   postgres-db:
+  redis:
+  frontend:
