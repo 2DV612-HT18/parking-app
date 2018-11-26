@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  nginx:
+    build: nginx
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - parkingapp
+    ports:
+      - 80:80
+    volumes:
+     - ./nginx/parkingapp_backend.conf:/etc/nginx/sites-enabled/default.conf
+     - ./nginx/parkingapp_frontend.conf:/etc/nginx/sites-enabled/front.conf
+     - frontend:/var/www/app/
+
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Build.dockerfile
+    environment:
+      - VUE_APP_GRAPHQL_HTTP=http://api.localhost
+      - VUE_APP_GRAPHQL_WS=ws://api.localhost
+    volumes:
+      - frontend:/opt/app/dist
+      - /opt/app/node_modules
+
+volumes:
+  frontend:
