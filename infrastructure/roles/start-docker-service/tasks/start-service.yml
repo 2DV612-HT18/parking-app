@@ -1,4 +1,9 @@
 ---
+- name: Remove frontend volume
+  docker_volume:
+    name: app_frontend
+    state: absent
+
 - name: Start docker compose
   docker_service:
     build: yes
