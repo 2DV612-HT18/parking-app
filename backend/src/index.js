@@ -1,4 +1,5 @@
 import { GraphQLServer } from "graphql-yoga";
+import Redis from "ioredis";
 import jwt from "express-jwt";
 import Role from "./models/Role";
 import createTypeormConnection from "./lib/createTypeormConnection";
@@ -7,10 +8,16 @@ import permissions from "./permissions";
 
 (async () => {
   try {
+    const redis = new Redis(
+      process.env.REDIS_PORT || 6379,
+      process.env.REDIS_HOST || "redis"
+    );
+
     const server = new GraphQLServer({
       schema: generateSchema(),
       middlewares: [permissions],
       context: ({ request }) => ({
+        redis,
         user: request.user
       })
     });
