@@ -7,6 +7,7 @@ export default shield({
   },
   Mutation: {
     registerUser: not(isAuthenticated),
-    loginUser: not(isAuthenticated)
+    loginUser: not(isAuthenticated),
+    logoutUser: isAuthenticated
   }
 });
