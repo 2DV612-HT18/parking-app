@@ -1,0 +1,5 @@
+type Vehicle {
+  id: ID
+  user: String
+  registrationNumber: String
+}

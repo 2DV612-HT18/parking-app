@@ -1,11 +1,20 @@
 import {getConnection} from "typeorm";
 import Vehicle from "../../models/Vehicle";
+import User from "../../models/User";
 
 export const resolvers = {
   Mutation: {
-    addVehicle: async (_, args) => {
+    addVehicle: async (_, args, { user }) => {
+    // addVehicle: async (_, args) => {
       const connection = getConnection()
-      const vehicle = new Vehicle(args.id, args.user, args.registrationNumber)
+      // get logged in users id
+      const userRepository = connection.getRepository(User);
+      const loggedInUser = userRepository.findOne({ where: { id: user.id } });
+
+      console.log("logged in user: ");
+      console.log(loggedInUser);
+
+      const vehicle = new Vehicle(args.id, args.loggedInUser, args.registrationNumber)
       const vehicleRepository = connection.getRepository(Vehicle)
 
       // Query the database to check if vehicle exists with rolename specified.
