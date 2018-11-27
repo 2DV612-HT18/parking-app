@@ -18,8 +18,8 @@ services:
   nginx:
     image: nginx
     environment:
-      SERVER_NAME: localhost
-      SERVER_NAME_BACKEND: api.localhost
+      SERVER_NAME: cscloud486.lnu.se
+      SERVER_NAME_BACKEND: api.cscloud486.lnu.se
     depends_on:
       - backend
       - frontend
