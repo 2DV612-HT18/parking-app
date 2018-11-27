@@ -17,6 +17,7 @@ import permissions from "./permissions";
       schema: generateSchema(),
       middlewares: [permissions],
       context: ({ request }) => ({
+        request,
         redis,
         user: request.user
       })
