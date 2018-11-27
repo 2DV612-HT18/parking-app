@@ -21,7 +21,8 @@
     "merge-graphql-schemas": "^1.5.8",
     "nodemailer": "^4.7.0",
     "pg": "^7.6.1",
-    "typeorm": "^0.2.9"
+    "typeorm": "^0.2.9",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
