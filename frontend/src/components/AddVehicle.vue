@@ -49,7 +49,7 @@ import AddVehicle from "@/graphql/AddVehicle.gql";
           }
         });
       const data = result.data.addVehicle;
-      // Token exists
+      
       if (data) {
         //Wihoo, I have new car
         console.log("successfull: " + this.registrationNumber);
