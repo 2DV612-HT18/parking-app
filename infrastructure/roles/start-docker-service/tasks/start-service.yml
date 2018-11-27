@@ -4,6 +4,8 @@
     build: yes
     nocache: yes
     project_src: "{{ app_dir }}"
+    files:
+      - prod-docker-compose.yml
     state: present
   register: output
   tags:
