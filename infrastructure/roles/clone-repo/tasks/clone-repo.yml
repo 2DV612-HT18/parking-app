@@ -15,7 +15,8 @@
     accept_hostkey: yes
     ssh_opts: "-o StrictHostKeyChecking=no"
     key_file: "{{ dest_deploy_key }}"
-    version: master
+    version: release-production
+    force: yes
   become_user: "{{ remote_user }}"
   become: true
   tags:
