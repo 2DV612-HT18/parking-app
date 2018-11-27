@@ -1,23 +1,8 @@
-import { getConnection } from "typeorm";
-import jwt from "jsonwebtoken";
-import User from "../../models/User";
+import removeUserSessions from "../../lib/redis/removeUserSessions";
 
 export const resolvers = {
   Mutation: {
-    logoutUser: async (_, args) => {
-      const connection = getConnection();
-      const userRepository = connection.getRepository(User);
-      const data = await userRepository.find({ where: { email: args.email } });
-
-      if (data.length === 1) {
-        const user = data[0];
-        // Remove token from Redis? 
-      
-        // Return true; logout successful
-        return true;
-      }
-      // If no user found; logout unsuccessful
-      return false;
-    }
+    logoutUser: async (_, __, { user, redis }) =>
+      removeUserSessions(user.id, redis)
   }
 };
