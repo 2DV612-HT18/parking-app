@@ -12,13 +12,13 @@ export default new EntitySchema({
     },
     registrationNumber: {
         type: "varchar"
-    }
+    },
+},
+relations: {
+  user: {
+      target: "User",
+      type: "many-to-one",
+      joinTable: true,
   },
-  relations: {
-    users: {
-        target: "User",
-        type: "one-to-one",
-        inverseSide: "Vehicle",
-    }
-  }
+}
 });

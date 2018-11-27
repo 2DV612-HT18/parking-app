@@ -36,7 +36,7 @@ export default new EntitySchema({
         joinTable: true,
     },
     vehicles: {
-        target: "Vehicles",
+        target: "Vehicle",
         type: "one-to-many",
         joinTable: true,
     },
