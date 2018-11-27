@@ -1,10 +1,25 @@
 version: "3"
 
 services:
+  backend:
+    build: backend
+    links:
+      - db
+    networks:
+    - postgres
+    - parkingapp
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend:/opt/app
+      - /opt/app/node_modules
+    command: ["npm", "start"]
+
   nginx:
-    build: nginx
-    env_file:
-      - .env.prod.local
+    image: nginx
+    environment:
+      SERVER_NAME: localhost
+      SERVER_NAME_BACKEND: api.localhost
     depends_on:
       - backend
       - frontend
@@ -13,19 +28,46 @@ services:
     ports:
       - 80:80
     volumes:
-     - ./nginx/parkingapp_backend.conf:/etc/nginx/sites-enabled/default.conf
-     - ./nginx/parkingapp_frontend.conf:/etc/nginx/sites-enabled/front.conf
      - frontend:/var/www/app/
+     - ./nginx/nginx.conf:/etc/nginx/nginx.template
+     - ./nginx/run_nginx.sh:/etc/nginx/run_nginx.sh
+    command: ./etc/nginx/run_nginx.sh
 
   frontend:
     build:
       context: frontend
       dockerfile: Build.dockerfile
-    env_file:
-      - .env.prod.local
+    # environment:
+    #   VUE_APP_GRAPHQL_HTTP: http://api.localhost
+    #   VUE_APP_GRAPHQL_WS: ws://api.localhost
     volumes:
       - frontend:/opt/app/dist
       - /opt/app/node_modules
 
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: development
+      POSTGRES_PASSWORD: example
+    ports:
+      - 5432:5432
+    networks:
+      - postgres
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+  redis:
+    image: redis:latest
+    volumes:
+      - redis:/var/lib/redis/data
+    ports:
+      - "6379:6379"
+
+networks:
+  parkingapp:
+  postgres:
+    driver: bridge
 volumes:
+  postgres-db:
+  redis:
   frontend:
