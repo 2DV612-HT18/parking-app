@@ -34,6 +34,11 @@ export default new EntitySchema({
         target: "Role",
         type: "many-to-one",
         joinTable: true,
-    }
+    },
+    vehicles: {
+        target: "Vehicles",
+        type: "one-to-many",
+        joinTable: true,
+    },
   }
 });
