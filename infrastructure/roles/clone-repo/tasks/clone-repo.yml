@@ -21,3 +21,9 @@
   become: true
   tags:
     - deploy
+
+- name: Permissions on run_nginx.sh
+  file:
+    path: /opt/app/nginx/run_nginx.sh
+    state: file
+    mode: "a+x"
