@@ -18,15 +18,15 @@
     name: SSHInt
     description: Allows internal SSH traffic to server
 
-- name: Create SG to allow port 81 (server) for demo
-  os_security_group:
-    state: present
-    name: HTTP81
-    description: Allows HTTP traffic on port 81
+# - name: Create SG to allow port 81 (server) for demo
+#   os_security_group:
+#     state: present
+#     name: HTTP81
+#     description: Allows HTTP traffic on port 81
 
 - name: Creating rules for SG HTTP
   os_security_group_rule:
-    security_group: HTTP,HTTP81
+    security_group: HTTP
     protocol: tcp
     port_range_min: 80
     port_range_max: 81
