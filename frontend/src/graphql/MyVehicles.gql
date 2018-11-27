@@ -1,0 +1,10 @@
+mutation addVehicle(
+  $registrationNumber: String!
+) {
+  addVehicle(
+    registrationNumber: $registrationNumber
+  ) {
+    id
+    registrationNumber
+  }
+}
