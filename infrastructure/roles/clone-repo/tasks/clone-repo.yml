@@ -31,4 +31,9 @@
 - name: Create env.prod.local file from vault
   template:
     src: .env.prod.local.j2
-    dest: /opt/app/.env.local.prod
+    dest: /opt/app/.env.prod.local
+
+- name: Remove .git folder
+  file:
+    path: /opt/app/.git
+    state: absent
