@@ -8,8 +8,8 @@ const emailSender = {
     transporter : nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'parkwisely@gmail.com',
-            pass: 'secretpark'
+            user: process.env.NODEMAILER_USER,
+            pass: process.env.NODEMAILER_PASSWORD
         }
     }),
 
