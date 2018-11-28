@@ -28,6 +28,9 @@ export default new EntitySchema({
     password: {
       type: "varchar"
     },
+    verified: {
+      type: "boolean"
+    },
   },
   relations: {
     roles: {

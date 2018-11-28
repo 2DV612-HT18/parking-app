@@ -5,4 +5,5 @@ type User {
   lastName: String
   email: String
   personalNumber: String
+  verified: Boolean
 }

@@ -20,7 +20,8 @@ export const resolvers = {
         args.lastName,
         args.email,
         args.personalNumber,
-        hashedPassword
+        hashedPassword,
+        false
       );
       const userRepository = connection.getRepository(User);
 
