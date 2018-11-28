@@ -1,5 +1,25 @@
 # 2DV612-Team2
+# Environment file
+The file **.env.dev.local** in the root of the project needs to have the following variables:
 
+
+```env
+# DB CONFIG
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_DB=postgres
+
+# REDIS CONFIG
+REDIS_PORT=6379
+REDIS_HOST=redis
+
+# NODEMAILER CONFIG
+NODEMAILER_USER=
+NODEMAILER_PASSWORD=
+
+# BASE URL
+SITE_BASE_URL=http://localhost:8080
+```
 # How to run
 
 ## Start backend, frontend and db:
