@@ -33,11 +33,12 @@ export const resolvers = {
 
         // Create email token
         const token = await createEmailConfirmToken(user.id, redis);
-        // TODO: use token in email
-        console.log(token);
+        //console.log(token);
+        const url = process.env.URL || "http://localhost:8080";
+        const link = url + "/verify?token=" + token;
 
         // call send email function
-        emailSender.sendEmail(args.email);
+        emailSender.sendEmail(args.email, link);
 
         return user;
       }
