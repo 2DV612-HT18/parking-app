@@ -5,9 +5,11 @@ services:
     build: backend
     links:
       - db
+      - redis
     networks:
-    - postgres
-    - parkingapp
+      - postgres
+      - redis
+      - parkingapp
     ports:
       - "4000:4000"
     volumes:
@@ -42,6 +44,8 @@ services:
       - redis:/var/lib/redis/data
     ports:
       - "6379:6379"
+    networks:
+      - redis
 
   adminer:
     image: adminer
@@ -55,6 +59,8 @@ services:
 networks:
   parkingapp:
   postgres:
+    driver: bridge
+  redis:
     driver: bridge
 volumes:
   postgres-db:

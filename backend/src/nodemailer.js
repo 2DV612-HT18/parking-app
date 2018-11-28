@@ -15,7 +15,7 @@ const emailSender = {
 
 
     // method to send mail with defined transport object
-    sendEmail(email) {
+    sendEmail(email, link) {
         // setup email data with unicode symbols
 
         emailSender.transporter.sendMail(
@@ -23,7 +23,7 @@ const emailSender = {
             to: email, // list of receivers
             subject: 'Hello ✔', // Subject line
             text: 'Welcome to Parker App', // plain text body
-            html: '<b>Thank you for choosing Parker App</b>'}, (error, info) => {
+            html: '<b>Thank you for choosing Parker App</b><br><a href="' + link + '">Click HERE to verify your account!</a>'}, (error, info) => {
             if (error) {
                 return console.log(error);
             }
