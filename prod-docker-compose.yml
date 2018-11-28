@@ -9,11 +9,13 @@ services:
       ORM_ENTITIES_PROD: dist/entities/**/*.js
       ORM_MIGRATIONS_PROD: dist/migrations/**/*.js
       ORM_SUBSCRIBERS_PROD: dist/subscribers/**/*.js
+      URL: http://cscloud486.lnu.se
     links:
       - db
     networks:
     - postgres
     - parkingapp
+    - redis
     ports:
       - "4000:4000"
     volumes:
@@ -70,10 +72,14 @@ services:
       - redis:/var/lib/redis/data
     ports:
       - "6379:6379"
+    networks:
+      - redis
 
 networks:
   parkingapp:
   postgres:
+    driver: bridge
+  redis:
     driver: bridge
 volumes:
   postgres-db:
