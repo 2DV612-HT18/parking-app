@@ -13,7 +13,7 @@ export const resolvers = {
 
       if (userId) {
         // Set verified to true.
-        const user = await userRepository.findOne({ where: { id: userId } });
+        const user = await userRepository.findOne(userId);
         user.verified = true
         await connection.manager.save(user)
 
