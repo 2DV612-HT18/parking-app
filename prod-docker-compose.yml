@@ -2,7 +2,9 @@ version: "3"
 
 services:
   backend:
-    build: backend
+    build:
+      context: backend
+      dockerfile: Build.dockerfile
     links:
       - db
     networks:
@@ -11,9 +13,8 @@ services:
     ports:
       - "4000:4000"
     volumes:
-      - ./backend:/opt/app
       - /opt/app/node_modules
-    command: ["npm", "start"]
+    command: ["npm", "run", "serve"]
 
   nginx:
     image: nginx
