@@ -29,7 +29,8 @@ export default new EntitySchema({
       type: "varchar"
     },
     verified: {
-      type: "boolean"
+      type: "boolean",
+      default: false
     },
   },
   relations: {
