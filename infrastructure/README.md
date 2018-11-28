@@ -15,7 +15,14 @@ ansible-playbook playbooks/parkingapp.yml --vault-password-file $FILE
 ansible-playbook destroy_all.yml
 ```
 
-## Destroy only instances
+## Destroy instances only
 ```bash
 ansible-playbook playbooks/destroy_instances.yml
 ```
+
+# SETUP
+
+- Download openrc, source it
+- Keys in ~/.ssh/ by default
+  - ssh-add key from openstack
+  - get deploy key from GH
