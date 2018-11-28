@@ -13,7 +13,8 @@ export const resolvers = {
 
       if (userId) {
         // TODO: Update user to be confirmed here
-
+        user = await userRepository.find({ where: { email: userId } });
+        console.log(user);
         // Remove token from redis
         await redis.del(`${CONFIRM_EMAIL_PREFIX}${token}`);
 
