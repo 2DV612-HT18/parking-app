@@ -5,6 +5,10 @@ services:
     build:
       context: backend
       dockerfile: Build.dockerfile
+    environment:
+      ORM_ENTITIES_PROD: dist/entities/**/*.js
+      ORM_MIGRATIONS_PROD: dist/migrations/**/*.js
+      ORM_SUBSCRIBERS_PROD: dist/subscribers/**/*.js
     links:
       - db
     networks:

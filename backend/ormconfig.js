@@ -9,9 +9,9 @@ module.exports = [
     port: 5432,
     synchronize: true,
     logging: true,
-    entities: ["src/entities/**/*.js"],
-    migrations: ["src/migrations/**/*.js"],
-    subscribers: ["src/subscribers/**/*.js"],
+    entities: [process.env.ORM_ENTITIES_PROD || "src/entities/**/*.js"],
+    migrations: [process.env.ORM_MIGRATIONS_PROD || "src/migrations/**/*.js"],
+    subscribers: [process.env.ORM_SUBSCRIBERS_PROD || "src/subscribers/**/*.js"],
     cli: {
       entitiesDir: "src/entities",
       migrationsDir: "src/migrations",
