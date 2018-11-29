@@ -1,3 +1,3 @@
   type Query {
-    getAllRoles(showHidden: boolean!): var
+    getAllRoles(showHidden: Boolean!): Role
   }

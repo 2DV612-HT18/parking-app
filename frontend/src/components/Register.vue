@@ -31,17 +31,19 @@
                     label="Password"
                     required
                   ></v-text-field>
+                  <v-select
+                    v-model="role"
+                    :items="roles"
+                    :rules="roleRules"
+                    label="Role"
+                    required
+                  >
+                  <v-option v-for="role in roles" :key="role.name">
+                    {{ role.name }}
+                  </v-option>
+                  </v-select>
                 </v-form>
               </v-card-text>
-
-              <v-flex xs12 sm6 d-flex>
-                <v-select
-                v-model="rol"
-                :items="roles"
-                label="Solo field"
-                solo
-                ></v-select>
-
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn to="/">Cancel</v-btn>
@@ -58,10 +60,12 @@
 <script>
 import { mapMutations } from "vuex";
 import RegisterUser from "@/graphql/RegisterUser.gql";
+import GetRoles from "@/graphql/GetRoles.gql";
 export default {
   data: () => ({
 
-    Roles: ['User', 'ParkingOwner'], //to do Role = value from query.
+    //Roles: ['User', 'ParkingOwner'], //to do Role = value from query.
+    roles: [],
 
     validForm: false,
     firstName: "",
@@ -77,14 +81,13 @@ export default {
     pnrRules: [v => !!v || "Personal number is required"],
     password: "",
     passwordRules: [v => !!v || "Password is required"],
-      rol: '',
-      passwordRules: [
-        v => !!v || 'Must select a role'
-      ]
+    role: "",
+    roleRules: [v => !!v || "Must select a role"]
   }),
   methods: {
     async register() {
       console.log("Lets register this user: " + this.email);
+      console.log(this.role)
       const result = await this.$apollo.mutate({
         mutation: RegisterUser,
         variables: {
@@ -93,7 +96,7 @@ export default {
           email: this.email,
           personalNumber: this.pnr,
           password: this.password,
-          role: this.rol
+          role: this.role
         }
       });
       const data = result.data.registerUser;
@@ -106,7 +109,20 @@ export default {
         // register unsuccessful
         console.log("unsuccessfull: " + this.email);
       }
+    },
+    async getRoles() {
+      console.log("PINGPONG")
+      this.roles = await this.$apollo.query({
+        query: GetRoles,
+        variables: {
+          hidden: false
+        }
+      })
+    },
+  },
+    created() {
+      this.getRoles(); 
     }
-  }
+  
 };
 </script>
