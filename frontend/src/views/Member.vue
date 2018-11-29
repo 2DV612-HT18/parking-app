@@ -10,7 +10,7 @@
               <div v-if="user">Email: {{ user.email }}</div>
             </v-card-text>
         </v-card>
-        <MyVehicles/>
+        <MyVehicles v-if="user" :vehicles="user.vehicles"/>
         <AddVehicle/>
       </v-container>
     </v-content>
@@ -24,6 +24,7 @@ import MyInfo from "@/graphql/MyInfo.gql";
 import AddVehicle from "@/components/AddVehicle.vue";
 import MyVehicles from "@/components/MyVehicles.vue";
 import { onLogout } from "@/vue-apollo";
+import { setTimeout } from 'timers';
 
 export default {
   computed: mapState(["user"]),
@@ -42,7 +43,6 @@ export default {
         const user = data.data.myInfo;
         // Update store
         this.setUser(user);
-        console.log(user);
         // Log out user if we can't get user
         if (!user) {
           const apolloClient = this.$apollo.provider.defaultClient;
