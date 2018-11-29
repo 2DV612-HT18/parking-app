@@ -16,6 +16,7 @@ export const resolvers = {
       const user = new User(
         0,
         args.role,
+        [],
         args.firstName,
         args.lastName,
         args.email,
@@ -34,9 +35,9 @@ export const resolvers = {
 
         // Create email token
         const token = await createEmailConfirmToken(user.id, redis);
-        //console.log(token);
+        // console.log(token);
         const url = process.env.URL || "http://localhost:8080";
-        const link = url + "/verify?token=" + token;
+        const link = `${url}/verify?token=${token}`;
 
         // call send email function
         emailSender.sendEmail(args.email, link);
