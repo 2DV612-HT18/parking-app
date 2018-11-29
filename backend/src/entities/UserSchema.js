@@ -31,18 +31,13 @@ export default new EntitySchema({
     verified: {
       type: "boolean",
       default: false
-    },
+    }
   },
   relations: {
     roles: {
-        target: "Role",
-        type: "many-to-one",
-        joinTable: true,
-    },
-    vehicles: {
-        target: "Vehicle",
-        type: "one-to-many",
-        joinTable: true,
-    },
+      target: "Role",
+      type: "many-to-one",
+      joinTable: true
+    }
   }
 });

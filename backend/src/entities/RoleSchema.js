@@ -13,12 +13,5 @@ export default new EntitySchema({
     role: {
       type: "varchar"
     }
-  },
-  relations: {
-    users: {
-        target: "User",
-        type: "one-to-many",
-        inverseSide: 'Role',
-    }
   }
 });
