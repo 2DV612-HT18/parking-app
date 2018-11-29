@@ -6,4 +6,5 @@ type User {
   email: String
   personalNumber: String
   verified: Boolean
+  vehicles: [Vehicle]
 }

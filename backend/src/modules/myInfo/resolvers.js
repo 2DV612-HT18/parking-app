@@ -9,15 +9,16 @@ export const resolvers = {
       const connection = getConnection();
       const userRepository = connection.getRepository(User);
 
-      // Return authenticated user
-      return userRepository.findOne({ where: { id: user.id } });
-    },
-    vehicles: async (_, __, { user }) => {
-      const connection = getConnection();
+      const oneUser = await userRepository.findOne({ where: { id: user.id } });
+
       const vehicleRepository = connection.getRepository(Vehicle);
 
-      // Return vehivles
-      return vehicleRepository.find({ where: { user: user} });
+      oneUser.vehicle = await vehicleRepository.find({ where: { userid: user.id} });
+
+      // Return authenticated user
+      return oneUser
+
+
     }
   }
 };
