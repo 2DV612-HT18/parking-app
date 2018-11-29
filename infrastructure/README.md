@@ -24,5 +24,5 @@ ansible-playbook playbooks/destroy_instances.yml
 
 - Download openrc, source it
 - Keys in ~/.ssh/ by default
-  - ssh-add key from openstack
+  - ssh-add key from openstack (change permissions as well)
   - get deploy key from GH
