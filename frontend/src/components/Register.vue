@@ -33,6 +33,15 @@
                   ></v-text-field>
                 </v-form>
               </v-card-text>
+
+              <v-flex xs12 sm6 d-flex>
+                <v-select
+                v-model="rol"
+                :items="roles"
+                label="Solo field"
+                solo
+                ></v-select>
+
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn to="/">Cancel</v-btn>
@@ -51,6 +60,9 @@ import { mapMutations } from "vuex";
 import RegisterUser from "@/graphql/RegisterUser.gql";
 export default {
   data: () => ({
+
+    Roles: ['User', 'ParkingOwner'], //to do Role = value from query.
+
     validForm: false,
     firstName: "",
     firstNameRules: [v => !!v || "First name is required"],
@@ -64,7 +76,11 @@ export default {
     pnr: "",
     pnrRules: [v => !!v || "Personal number is required"],
     password: "",
-    passwordRules: [v => !!v || "Password is required"]
+    passwordRules: [v => !!v || "Password is required"],
+      rol: '',
+      passwordRules: [
+        v => !!v || 'Must select a role'
+      ]
   }),
   methods: {
     async register() {
@@ -77,7 +93,7 @@ export default {
           email: this.email,
           personalNumber: this.pnr,
           password: this.password,
-          role: "User"
+          role: this.rol
         }
       });
       const data = result.data.registerUser;
