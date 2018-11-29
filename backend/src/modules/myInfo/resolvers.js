@@ -8,7 +8,7 @@ export const resolvers = {
       const connection = getConnection();
       const userRepository = connection.getRepository(User);
 
-      return await userRepository.findOne({ relations: ["vehicles"],where: { id: user.id } });
+      return userRepository.findOne({ relations: ["vehicles"],where: { id: user.id } });
     }
   }
 };
