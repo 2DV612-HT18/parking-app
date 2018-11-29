@@ -27,8 +27,7 @@ import VerifyEmail from "@/graphql/VerifyEmail.gql";
     }),
       methods: {
         async verifyEmail(){
-          console.log("Lets verify with " + this.$router.currentRoute.query.token);
-
+          
           const result = await this.$apollo.mutate({
             mutation: VerifyEmail,
               variables: {
@@ -39,10 +38,8 @@ import VerifyEmail from "@/graphql/VerifyEmail.gql";
 
           const data = result.data.verifyEmail;
           if (data ) {
-            console.log("email verify successfull");
             this.success=true;
           } else {
-            console.log("email verify unsuccessfull");
             this.fail=true
           }
         } 
