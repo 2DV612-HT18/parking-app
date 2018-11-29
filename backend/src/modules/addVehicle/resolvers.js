@@ -14,7 +14,12 @@ export const resolvers = {
       console.log("logged in user: ");
       console.log(loggedInUser);
 
-      const vehicle = new Vehicle(args.id, args.loggedInUser, args.registrationNumber)
+      const vehicle = new Vehicle(
+          0,
+          args.loggedInUser,
+          args.registrationNumber
+      );
+
       const vehicleRepository = connection.getRepository(Vehicle)
 
       // Query the database to check if vehicle exists with rolename specified.
