@@ -13,7 +13,7 @@ export const resolvers = {
 
       const vehicleRepository = connection.getRepository(Vehicle);
 
-      oneUser.vehicles = await vehicleRepository.find({ where: { userid: user.id} });
+      oneUser.vehicles = await vehicleRepository.find({ where: { user: oneUser} });
 
       // Return authenticated user
       return oneUser

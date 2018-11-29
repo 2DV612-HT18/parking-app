@@ -1,5 +1,5 @@
 type Vehicle {
   id: ID
-  userid: Int
+  user: User
   registrationNumber: String
 }

@@ -1,7 +1,7 @@
 export default class Vehicle {
-  constructor(id, userid, registrationNumber) {
+  constructor(id, user, registrationNumber) {
     this.id = id;
-    this.userid = userid;
+    this.user = user;
     this.registrationNumber = registrationNumber;
   }
 }

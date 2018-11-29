@@ -18,7 +18,7 @@ export const resolvers = {
 
       const vehicle = new Vehicle(
           0,
-          loggedInUser.id,
+          loggedInUser,
           args.registrationNumber
       );
       console.log(vehicle);
