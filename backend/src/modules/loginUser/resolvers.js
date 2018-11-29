@@ -25,6 +25,11 @@ export const resolvers = {
 
         // If password matches
         if (passwordMatches) {
+          // Prevent login is user is not verified
+          if (!user.verified) {
+            return null;
+          }
+
           // Create token
           const token = await jwt.sign(
             { id: user.id },
