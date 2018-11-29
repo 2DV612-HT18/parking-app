@@ -28,12 +28,21 @@ export default new EntitySchema({
     password: {
       type: "varchar"
     },
+    verified: {
+      type: "boolean",
+      default: false
+    },
   },
   relations: {
     roles: {
         target: "Role",
         type: "many-to-one",
         joinTable: true,
-    }
+    },
+    vehicles: {
+        target: "Vehicle",
+        type: "one-to-many",
+        joinTable: true,
+    },
   }
 });

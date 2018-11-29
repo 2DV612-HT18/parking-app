@@ -37,6 +37,7 @@
                   <v-text-field
                     v-model="password"
                     :rules="passwordRules"
+                    :type="'password'"
                     label="Password"
                     required
                   ></v-text-field>
@@ -66,7 +67,6 @@
 <script>
 import { mapMutations } from "vuex";
 import RegisterUser from "@/graphql/RegisterUser.gql";
-
   export default {
     data: () => ({
       validForm: false,
@@ -95,7 +95,6 @@ import RegisterUser from "@/graphql/RegisterUser.gql";
     methods: {
       async register(){
         console.log("Lets register this user: " + this.email);
-
         const result = await this.$apollo.mutate({
         mutation: RegisterUser,
         variables: {
@@ -107,12 +106,10 @@ import RegisterUser from "@/graphql/RegisterUser.gql";
           role: "Role1"
         }
       });
-
   const data = result.data.registerUser;
       // Token exists
       if (data ) {
         
-
         // Redirect to homepage
         this.$router.push("/");
         console.log("successfull: " + this.email);
@@ -120,12 +117,8 @@ import RegisterUser from "@/graphql/RegisterUser.gql";
         // register unsuccessful
         console.log("unsuccessfull: " + this.email);
       }
-
       }
-
-
       
     }
   }
 </script>
-
