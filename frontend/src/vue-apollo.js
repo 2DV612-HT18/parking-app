@@ -122,3 +122,12 @@ export function authenticated({ next, router }) {
 
   return next();
 }
+
+// Guest middleware
+export function notAuthenticated({ next, router }) {
+  if (localStorage.getItem(AUTH_TOKEN)) {
+    return router.push({ name: "home" });
+  }
+
+  return next();
+}
