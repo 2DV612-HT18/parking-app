@@ -9,17 +9,20 @@ export const resolvers = {
       const connection = getConnection()
       // get logged in users id
       const userRepository = connection.getRepository(User);
-      const loggedInUser = userRepository.findOne({ where: { id: user.id } });
+      const loggedInUser = await userRepository.findOne({ where: { id: user.id } });
 
       console.log("logged in user: ");
+
       console.log(loggedInUser);
+      console.log(loggedInUser.id);
 
       const vehicle = new Vehicle(
           0,
-          args.loggedInUser,
+          loggedInUser.id,
           args.registrationNumber
       );
-
+      console.log(vehicle);
+      
       const vehicleRepository = connection.getRepository(Vehicle)
 
       // Query the database to check if vehicle exists with rolename specified.
