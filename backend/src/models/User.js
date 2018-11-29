@@ -1,5 +1,5 @@
 export default class User {
-  constructor(id, role, vehicles, firstName, lastName, email, personalNumber, password) {
+  constructor(id, role, vehicles, firstName, lastName, email, personalNumber, password, verified) {
     this.id = id;
     this.role = role;
     this.vehicles = vehicles;
