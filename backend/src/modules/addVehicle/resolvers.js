@@ -1,37 +1,40 @@
-import {getConnection} from "typeorm";
+import { getConnection } from "typeorm";
 import Vehicle from "../../models/Vehicle";
 import User from "../../models/User";
 
 export const resolvers = {
   Mutation: {
     addVehicle: async (_, args, { user }) => {
-    // addVehicle: async (_, args) => {
-      const connection = getConnection()
+      // addVehicle: async (_, args) => {
+      const connection = getConnection();
       // get logged in users id
       const userRepository = connection.getRepository(User);
-      const loggedInUser = userRepository.findOne({ where: { id: user.id } });
+      const loggedInUser = await userRepository.findOne({
+        where: { id: user.id }
+      });
 
       console.log("logged in user: ");
+
       console.log(loggedInUser);
+      console.log(loggedInUser.id);
 
-      const vehicle = new Vehicle(
-          0,
-          args.loggedInUser,
-          args.registrationNumber
-      );
+      const vehicle = new Vehicle(0, loggedInUser, args.registrationNumber);
 
-      const vehicleRepository = connection.getRepository(Vehicle)
+      const vehicleRepository = connection.getRepository(Vehicle);
 
       // Query the database to check if vehicle exists with rolename specified.
-      const data = await vehicleRepository.find({ where: {vehicle: args.vehicle }})
+      const exists = await vehicleRepository.findOne({
+        where: { registrationNumber: args.registrationNumber }
+      });
 
-      // If no role of the same name exists, add it.
-      if (data.length < 1) {
-        return connection.manager.save(vehicle)
+      // If no vehicle of the same name registration number, add it.
+      if (!exists) {
+        await connection.manager.save(vehicle);
+
+        return vehicle;
       }
-      else {
-        // Throw Error?
-      }
-    },
-  },
+      // Throw Error?
+      return null;
+    }
+  }
 };
