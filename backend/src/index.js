@@ -50,7 +50,7 @@ import permissions from "./permissions";
     const role2 = new Role(22, "ParkingOwner");
     const data = await connection
       .getRepository(Role)
-      .find({ where: { role: role1.role } });
+      .find({ where: { name: role1.role } });
     if (data.length < 1) {
       await connection.manager.save([role1, role2]);
     }

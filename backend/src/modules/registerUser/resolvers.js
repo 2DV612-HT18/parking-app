@@ -2,6 +2,7 @@ import { getConnection } from "typeorm";
 import User from "../../models/User";
 import emailSender from "../../nodemailer";
 import createEmailConfirmToken from "../../lib/redis/createEmailConfirmToken";
+import Role from "../../models/Role";
 
 const bcrypt = require("bcrypt");
 
@@ -13,9 +14,16 @@ export const resolvers = {
 
       const hashedPassword = await bcrypt.hash(args.password, saltRounds);
 
+      const roleRepository = connection.getRepository(Role);
+      const role = await roleRepository.findOne({ where: { name: args.role } });
+
+      // Can't add to role, registration unsuccessful
+      if (!role) {
+        return null;
+      }
+
       const user = new User(
         0,
-        args.role,
         args.firstName,
         args.lastName,
         args.email,
@@ -23,6 +31,9 @@ export const resolvers = {
         hashedPassword,
         false
       );
+
+      user.roles = [role];
+
       const userRepository = connection.getRepository(User);
 
       // Query the database to check if user exists with email specified.
@@ -34,9 +45,9 @@ export const resolvers = {
 
         // Create email token
         const token = await createEmailConfirmToken(user.id, redis);
-        //console.log(token);
+        // console.log(token);
         const url = process.env.URL || "http://localhost:8080";
-        const link = url + "/verify?token=" + token;
+        const link = `${url}/verify?token=${token}`;
 
         // call send email function
         emailSender.sendEmail(args.email, link);

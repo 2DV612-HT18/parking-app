@@ -22,18 +22,8 @@
                     label="Last name"
                     required
                   ></v-text-field>
-                  <v-text-field
-                    v-model="email"
-                    :rules="emailRules"
-                    label="E-mail"
-                    required
-                  ></v-text-field>
-                  <v-text-field
-                    v-model="pnr"
-                    :rules="pnrRules"
-                    label="Personal number"
-                    required
-                  ></v-text-field>
+                  <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+                  <v-text-field v-model="pnr" :rules="pnrRules" label="Personal number" required></v-text-field>
                   <v-text-field
                     v-model="password"
                     :rules="passwordRules"
@@ -45,16 +35,8 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn 
-                  to="/">
-                  Cancel
-                </v-btn>
-                <v-btn 
-                  color="primary" 
-                  v-on:click="register();"
-                  :disabled="!validForm">
-                  Submit
-                </v-btn>
+                <v-btn to="/">Cancel</v-btn>
+                <v-btn color="primary" v-on:click="register();" :disabled="!validForm">Submit</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -67,35 +49,27 @@
 <script>
 import { mapMutations } from "vuex";
 import RegisterUser from "@/graphql/RegisterUser.gql";
-  export default {
-    data: () => ({
-      validForm: false,
-      firstName: '',
-      firstNameRules: [
-        v => !!v || 'First name is required'
-      ],
-      lastName: '',
-      lastNameRules: [
-        v => !!v || 'Last name is required'
-      ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid'
-      ],
-      pnr: '',
-      pnrRules: [
-        v => !!v || 'Personal number is required'
-      ],
-      password: '',
-      passwordRules: [
-        v => !!v || 'Password is required'
-      ]
-    }),
-    methods: {
-      async register(){
-        console.log("Lets register this user: " + this.email);
-        const result = await this.$apollo.mutate({
+export default {
+  data: () => ({
+    validForm: false,
+    firstName: "",
+    firstNameRules: [v => !!v || "First name is required"],
+    lastName: "",
+    lastNameRules: [v => !!v || "Last name is required"],
+    email: "",
+    emailRules: [
+      v => !!v || "E-mail is required",
+      v => /.+@.+/.test(v) || "E-mail must be valid"
+    ],
+    pnr: "",
+    pnrRules: [v => !!v || "Personal number is required"],
+    password: "",
+    passwordRules: [v => !!v || "Password is required"]
+  }),
+  methods: {
+    async register() {
+      console.log("Lets register this user: " + this.email);
+      const result = await this.$apollo.mutate({
         mutation: RegisterUser,
         variables: {
           firstName: this.firstName,
@@ -103,13 +77,12 @@ import RegisterUser from "@/graphql/RegisterUser.gql";
           email: this.email,
           personalNumber: this.pnr,
           password: this.password,
-          role: "Role1"
+          role: "User"
         }
       });
-  const data = result.data.registerUser;
+      const data = result.data.registerUser;
       // Token exists
-      if (data ) {
-        
+      if (data) {
         // Redirect to homepage
         this.$router.push("/");
         console.log("successfull: " + this.email);
@@ -117,8 +90,7 @@ import RegisterUser from "@/graphql/RegisterUser.gql";
         // register unsuccessful
         console.log("unsuccessfull: " + this.email);
       }
-      }
-      
     }
   }
+};
 </script>

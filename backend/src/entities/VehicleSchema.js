@@ -11,14 +11,14 @@ export default new EntitySchema({
       generated: true
     },
     registrationNumber: {
-        type: "varchar"
-    },
-},
-relations: {
-  user: {
+      type: "varchar"
+    }
+  },
+  relations: {
+    user: {
       target: "User",
       type: "many-to-one",
-      joinTable: true,
-  },
-}
+      inverseSide: "vehicles"
+    }
+  }
 });
