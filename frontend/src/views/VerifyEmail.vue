@@ -5,8 +5,6 @@
 </template>
 
 <script>
-
-
 import VerifyEmail from "@/components/VerifyEmail";
 
 export default {

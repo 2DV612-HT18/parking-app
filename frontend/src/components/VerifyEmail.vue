@@ -1,20 +1,18 @@
 <template>
-<div>
-  <v-alert
+  <div>
+    <v-alert
       type="success"
       :value="success"
     >
-    Your email address has been successfully verified.
+      Your email address has been successfully verified.
     </v-alert>
-
- <v-alert
+    <v-alert
       :value="fail"
       type="error"
     >
       Your email address failed to verify.
     </v-alert>
-
-    </div>
+  </div>
 </template>
 
 <script>
@@ -23,8 +21,7 @@ import { mapMutations } from "vuex";
 import VerifyEmail from "@/graphql/VerifyEmail.gql";
 
   export default {
-
-      data: () => ({
+    data: () => ({
      success: false,
      fail: false
     }),
@@ -48,18 +45,12 @@ import VerifyEmail from "@/graphql/VerifyEmail.gql";
             console.log("email verify unsuccessfull");
             this.fail=true
           }
-
         } 
-        
-
       },
 
       created () {
         this.verifyEmail();
           
       }
-
     }
-
-
 </script>
