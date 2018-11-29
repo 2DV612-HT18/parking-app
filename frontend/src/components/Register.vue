@@ -77,7 +77,7 @@ export default {
           email: this.email,
           personalNumber: this.pnr,
           password: this.password,
-          role: "Role1"
+          role: "User"
         }
       });
       const data = result.data.registerUser;

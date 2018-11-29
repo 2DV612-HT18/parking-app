@@ -10,9 +10,6 @@ export default new EntitySchema({
       type: "int",
       generated: true
     },
-    role: {
-      type: "varchar"
-    },
     firstName: {
       type: "varchar"
     },
@@ -36,8 +33,14 @@ export default new EntitySchema({
   relations: {
     roles: {
       target: "Role",
-      type: "many-to-one",
-      joinTable: true
+      type: "many-to-many",
+      inverseSide: "users"
+    },
+    vehicles: {
+      target: "Vehicle",
+      type: "one-to-many",
+      joinTable: true,
+      inverseSide: "user"
     }
   }
 });

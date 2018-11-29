@@ -1,7 +1,6 @@
 export default class User {
   constructor(
     id,
-    role,
     firstName,
     lastName,
     email,
@@ -10,7 +9,6 @@ export default class User {
     verified
   ) {
     this.id = id;
-    this.role = role;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;

@@ -10,8 +10,16 @@ export default new EntitySchema({
       type: "int",
       generated: true
     },
-    role: {
+    name: {
       type: "varchar"
+    }
+  },
+  relations: {
+    users: {
+      target: "User",
+      type: "many-to-many",
+      joinTable: true,
+      inverseSide: "roles"
     }
   }
 });

@@ -17,7 +17,8 @@ export default new EntitySchema({
   relations: {
     user: {
       target: "User",
-      type: "many-to-one"
+      type: "many-to-one",
+      inverseSide: "vehicles"
     }
   }
 });

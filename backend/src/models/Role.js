@@ -1,6 +1,6 @@
 export default class Role {
-  constructor(id, role) {
+  constructor(id, name) {
     this.id = id;
-    this.role = role;
+    this.name = name;
   }
 }

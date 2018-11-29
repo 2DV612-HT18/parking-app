@@ -14,7 +14,6 @@ mutation registerUser(
     personalNumber: $personalNumber
     password: $password
   ) {
-    role
     firstName
     lastName
     email
