@@ -31,6 +31,16 @@
                     label="Password"
                     required
                   ></v-text-field>
+                  <v-select
+                    v-model="role"                   
+                    :rules="roleRules"
+                    :items="roles"
+                    item-value="name" 
+                    item-text="name"
+                    label="Role"
+                    required
+                  >                  
+                  </v-select>
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -49,8 +59,11 @@
 <script>
 import { mapMutations } from "vuex";
 import RegisterUser from "@/graphql/RegisterUser.gql";
+import GetRoles from "@/graphql/GetRoles.gql";
 export default {
   data: () => ({
+    
+    roles: [],
     validForm: false,
     firstName: "",
     firstNameRules: [v => !!v || "First name is required"],
@@ -64,11 +77,14 @@ export default {
     pnr: "",
     pnrRules: [v => !!v || "Personal number is required"],
     password: "",
-    passwordRules: [v => !!v || "Password is required"]
-  }),
+    passwordRules: [v => !!v || "Password is required"],
+    role: "",
+    roleRules: [v => !!v || "Must select a role"]
+  }),    
   methods: {
     async register() {
       console.log("Lets register this user: " + this.email);
+      console.log(this.role)
       const result = await this.$apollo.mutate({
         mutation: RegisterUser,
         variables: {
@@ -77,7 +93,7 @@ export default {
           email: this.email,
           personalNumber: this.pnr,
           password: this.password,
-          role: "User"
+          role: this.role
         }
       });
       const data = result.data.registerUser;
@@ -90,7 +106,19 @@ export default {
         // register unsuccessful
         console.log("unsuccessfull: " + this.email);
       }
-    }
+    },
+  },    
+    apollo: {
+      getAllRoles: {
+        query: GetRoles,
+        variables: {
+          showHidden: false
+        },
+        result(data) {          
+          this.roles = data.data.getAllRoles;      
+        }
+      }
   }
+  
 };
 </script>

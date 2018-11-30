@@ -10,6 +10,8 @@
             v-model="registrationNumber"
             :rules="registrationNumberRules"
             label="Registration number"
+            v-on:input="checkDuplicate($event, 'registrationNumber')"
+            :error-messages="formError"
             required
           ></v-text-field>
         </v-form>
@@ -18,30 +20,50 @@
         <v-spacer></v-spacer>
         <v-btn 
           color="primary" 
-          v-on:click="addVehicle();"
+          v-on:click="saveVehicle();"
           :disabled="!validForm">
           Add car
         </v-btn>
       </v-card-actions>
+      <v-alert
+        :value="submitError"
+        color="error"
+        icon="warning"
+      >
+        This is a error alert.
+      </v-alert>
     </v-card>
   </div>
 </template>
  
 <script>
-import { mapMutations } from "vuex";
 import AddVehicle from "@/graphql/AddVehicle.gql";
+import { mapState, mapMutations } from "vuex";
 
   export default {
     data: () => ({
+      submitError: false,
+      formError: "",
       validForm: false,
       registrationNumber: '',
       registrationNumberRules: [
         v => !!v || 'Registration number is required'
       ]
     }),
+    computed: mapState(["user"]),
     methods: {
-      async addVehicle(){
-        console.log("Dude let's add this car: " + this.registrationNumber);
+      ...mapMutations(["addVehicle"]),
+      checkDuplicate(value){
+        console.log(this.user.vehicles);
+        var duplicate = this.user.vehicles.find((car, index) => {
+          return car.registrationNumber === value;
+        });
+        if(duplicate)
+          this.formError = "You already have this car"
+        else
+          this.formError = null;
+      },
+      async saveVehicle(){
         const result = await this.$apollo.mutate({
           mutation: AddVehicle,
           variables: {
@@ -49,13 +71,13 @@ import AddVehicle from "@/graphql/AddVehicle.gql";
           }
         });
       const data = result.data.addVehicle;
-      
+      this.submitError = false;
       if (data) {
         //Wihoo, I have new car
-        console.log("successfull: " + this.registrationNumber);
+        this.addVehicle(data);
       } else {
         //Dude.. where's my car
-        console.log("unsuccessfull: " + this.registrationNumber);
+        this.submitError = "Car wasnt added " + data;
       }
     }
   }

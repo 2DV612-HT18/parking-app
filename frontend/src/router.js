@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Member from "./views/Member.vue";
 
-import { authenticated } from "./vue-apollo";
+import { authenticated, notAuthenticated } from "./vue-apollo";
 
 Vue.use(Router);
 
@@ -30,11 +30,17 @@ const router = new Router({
     {
       path: "/login",
       name: "login",
+      meta: {
+        middleware: notAuthenticated
+      },
       component: () => import("./views/Login.vue")
     },
     {
       path: "/register",
       name: "register",
+      meta: {
+        middleware: notAuthenticated
+      },
       component: () => import("./views/Register.vue")
     },
     {

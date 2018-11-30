@@ -2,25 +2,29 @@
   <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>PARKER </span> <span class="font-weight-light">PARKING APP</span>
+        <router-link class="logo" to="/">
+          <span>PARKER</span>
+          <span class="font-weight-light">PARKING APP</span>
+        </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
+      <logout/>
     </v-toolbar>
 
-    <v-content> <router-view /> </v-content>
+    <v-content>
+      <router-view/>
+    </v-content>
   </v-app>
 </template>
 
 <script>
+import Logout from "@/components/Logout";
+
 export default {
   name: "App",
+  components: {
+    Logout
+  },
   data() {
     return {
       //
@@ -28,3 +32,10 @@ export default {
   }
 };
 </script>
+
+<style>
+a.logo {
+  color: inherit;
+  text-decoration: inherit;
+}
+</style>
