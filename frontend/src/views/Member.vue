@@ -7,7 +7,7 @@
               <v-toolbar-title>Profile</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <div v-if="user">Email: {{ user.email }}</div>
+              <div v-if="user">Email: {{ user.email }} - Role: {{ user.roles[0].name }}</div>
             </v-card-text>
         </v-card>
         <MyVehicles v-if="user" :vehicles="user.vehicles"/>

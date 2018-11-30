@@ -6,8 +6,9 @@ export const resolvers = {
     getAllRoles: async (_, args) => {
       const connection = getConnection()
       const roleRepository = connection.getRepository(Role)
-      console.log(roleRepository)
-      return null
+      let data = await roleRepository.find()
+      console.log(data)
+      return data
     },
   },
 };
