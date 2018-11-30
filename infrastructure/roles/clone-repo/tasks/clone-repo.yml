@@ -15,7 +15,7 @@
     accept_hostkey: yes
     ssh_opts: "-o StrictHostKeyChecking=no"
     key_file: "{{ dest_deploy_key }}"
-    version: release-production
+    version: "{{ git_branch }}"
     force: yes
   become_user: "{{ remote_user }}"
   become: true
