@@ -32,15 +32,14 @@
                     required
                   ></v-text-field>
                   <v-select
-                    v-model="role"
-                    :items="roles"
+                    v-model="role"                   
                     :rules="roleRules"
+                    :items="roles"
+                    item-value="name" 
+                    item-text="name"
                     label="Role"
                     required
-                  >
-                  <v-option v-for="role in roles" :key="role.name">
-                    {{ role.name }}
-                  </v-option>
+                  >                  
                   </v-select>
                 </v-form>
               </v-card-text>
@@ -63,10 +62,8 @@ import RegisterUser from "@/graphql/RegisterUser.gql";
 import GetRoles from "@/graphql/GetRoles.gql";
 export default {
   data: () => ({
-
-    //Roles: ['User', 'ParkingOwner'], //to do Role = value from query.
+    
     roles: [],
-
     validForm: false,
     firstName: "",
     firstNameRules: [v => !!v || "First name is required"],
@@ -83,7 +80,7 @@ export default {
     passwordRules: [v => !!v || "Password is required"],
     role: "",
     roleRules: [v => !!v || "Must select a role"]
-  }),
+  }),    
   methods: {
     async register() {
       console.log("Lets register this user: " + this.email);
@@ -110,19 +107,18 @@ export default {
         console.log("unsuccessfull: " + this.email);
       }
     },
-    async getRoles() {
-      console.log("PINGPONG")
-      this.roles = await this.$apollo.query({
+  },    
+    apollo: {
+      getAllRoles: {
         query: GetRoles,
         variables: {
-          hidden: false
+          showHidden: false
+        },
+        result(data) {          
+          this.roles = data.data.getAllRoles;      
         }
-      })
-    },
-  },
-    created() {
-      this.getRoles(); 
-    }
+      }
+  }
   
 };
 </script>

@@ -1,5 +1,6 @@
-query getAllRoles($hidden: Boolean!){
-  getAllRoles(hidden: $hidden) {
-    role
+query getAllRoles($showHidden: Boolean!){
+  getAllRoles(showHidden: $showHidden) {
+    name
   }
 }
+
