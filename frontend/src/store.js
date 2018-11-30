@@ -5,11 +5,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    user: null
+    user: null,
   },
   mutations: {
     setUser(state, user) {
       state.user = user;
+    },
+    addVehicle(state, vehicle) {
+      state.user.vehicles.push(vehicle);
     }
   },
   actions: {}

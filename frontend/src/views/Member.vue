@@ -24,7 +24,6 @@ import MyInfo from "@/graphql/MyInfo.gql";
 import AddVehicle from "@/components/AddVehicle.vue";
 import MyVehicles from "@/components/MyVehicles.vue";
 import { onLogout } from "@/vue-apollo";
-import { setTimeout } from 'timers';
 
 export default {
   computed: mapState(["user"]),

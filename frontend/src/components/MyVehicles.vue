@@ -26,6 +26,7 @@
 <script>
 import { mapMutations } from "vuex";
 import gql from 'graphql-tag';
+
  export default {
   props: ['vehicles']
 }
