@@ -1,6 +1,9 @@
 query {
   myInfo {
     email
+    roles {
+      name
+    }
     vehicles {
       registrationNumber
     }
