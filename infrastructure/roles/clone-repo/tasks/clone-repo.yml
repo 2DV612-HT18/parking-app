@@ -15,8 +15,25 @@
     accept_hostkey: yes
     ssh_opts: "-o StrictHostKeyChecking=no"
     key_file: "{{ dest_deploy_key }}"
-    version: master
+    version: "{{ git_branch }}"
+    force: yes
   become_user: "{{ remote_user }}"
   become: true
   tags:
     - deploy
+
+- name: Permissions on run_nginx.sh
+  file:
+    path: /opt/app/nginx/run_nginx.sh
+    state: file
+    mode: "a+x"
+
+- name: Create env.prod.local file from vault
+  template:
+    src: .env.prod.local.j2
+    dest: /opt/app/.env.prod.local
+
+- name: Remove .git folder
+  file:
+    path: /opt/app/.git
+    state: absent

@@ -5,6 +5,7 @@ zone: "Education"
 keyname: "2dv612"
 key_location: "~/.ssh/2dv612.pem"
 deploy_key: "~/.ssh/deploy_key_gh"
+git_branch: master
 git_repo: "git@github.com:2DV612-HT18/parking-app.git"
 ansible_python_interpreter: /usr/bin/python3
 remote_user: ubuntu
@@ -34,7 +35,7 @@ fixed_ip:
 # Application
 # app1_hostname: "ACME_LoadBalancer"
 app1_flavor: "c1-r1-d10"
-app1_sg: "SSHInt,HTTP,HTTP8080,HTTP4000"
+app1_sg: "SSHInt,HTTP"
 app1_fixed_ip: 192.168.0.11
 app1_public: 194.47.206.230
 

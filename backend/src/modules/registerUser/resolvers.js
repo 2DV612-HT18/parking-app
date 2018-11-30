@@ -46,7 +46,7 @@ export const resolvers = {
         // Create email token
         const token = await createEmailConfirmToken(user.id, redis);
         // console.log(token);
-        const url = process.env.URL || "http://localhost:8080";
+        const url = process.env.SITE_BASE_URL || "http://localhost:8080";
         const link = `${url}/verify?token=${token}`;
 
         // call send email function

@@ -18,24 +18,18 @@
     name: SSHInt
     description: Allows internal SSH traffic to server
 
-- name: Create SG to allow 8080 for demo
-  os_security_group:
-    state: present
-    name: HTTP8080
-    description: Allows HTTP traffic on port 8080
-
-- name: Create SG to allow port 4000 (server) for demo
-  os_security_group:
-    state: present
-    name: HTTP4000
-    description: Allows HTTP traffic on port 4000
+# - name: Create SG to allow port 81 (server) for demo
+#   os_security_group:
+#     state: present
+#     name: HTTP81
+#     description: Allows HTTP traffic on port 81
 
 - name: Creating rules for SG HTTP
   os_security_group_rule:
     security_group: HTTP
     protocol: tcp
     port_range_min: 80
-    port_range_max: 80
+    port_range_max: 81
     remote_ip_prefix: 0.0.0.0/0
 
 - name: Create rule for SG SSHExt
@@ -54,18 +48,10 @@
     port_range_max: 22
     remote_ip_prefix: "{{ subnet }}"
 
-- name: Creating rules for SG HTTP 8080
-  os_security_group_rule:
-    security_group: HTTP8080
-    protocol: tcp
-    port_range_min: 8080
-    port_range_max: 8080
-    remote_ip_prefix: 0.0.0.0/0
-
-- name: Creating rules for SG HTTP 4000
-  os_security_group_rule:
-    security_group: HTTP4000
-    protocol: tcp
-    port_range_min: 4000
-    port_range_max: 4000
-    remote_ip_prefix: 0.0.0.0/0
+# - name: Creating rules for SG HTTP 4000
+#   os_security_group_rule:
+#     security_group: HTTP4000
+#     protocol: tcp
+#     port_range_min: 4000
+#     port_range_max: 4000
+#     remote_ip_prefix: 0.0.0.0/0

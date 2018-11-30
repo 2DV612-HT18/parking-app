@@ -1,9 +1,28 @@
 ---
+
+# - name: Stop docker-compose services
+#   docker_service:
+#     project_src: "{{ app_dir }}"
+#     build: no
+#     stopped: true
+#     state: absent
+#   tags:
+#     - deploy
+
+# - name: Remove frontend volume
+#   docker_volume:
+#     name: app_frontend
+#     state: absent
+#   tags:
+#     - deploy
+
 - name: Start docker compose
   docker_service:
     build: yes
     nocache: yes
     project_src: "{{ app_dir }}"
+    files:
+      - prod-docker-compose.yml
     state: present
   register: output
   tags:

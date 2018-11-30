@@ -6,9 +6,12 @@ services:
     links:
       - db
       - redis
+    env_file:
+      - .env.dev.local
     networks:
       - postgres
       - redis
+      - parkingapp
     ports:
       - "4000:4000"
     volumes:
@@ -27,9 +30,8 @@ services:
 
   db:
     image: postgres:latest
-    environment:
-      POSTGRES_USER: development
-      POSTGRES_PASSWORD: example
+    env_file:
+      - .env.dev.local
     ports:
       - 5432:5432
     networks:
@@ -56,6 +58,7 @@ services:
       - postgres
 
 networks:
+  parkingapp:
   postgres:
     driver: bridge
   redis:
