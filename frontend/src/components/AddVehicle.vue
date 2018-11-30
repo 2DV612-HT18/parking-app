@@ -30,7 +30,7 @@
         color="error"
         icon="warning"
       >
-        This is a error alert.
+        {{ submitError }}
       </v-alert>
     </v-card>
   </div>
@@ -54,7 +54,6 @@ import { mapState, mapMutations } from "vuex";
     methods: {
       ...mapMutations(["addVehicle"]),
       checkDuplicate(value){
-        console.log(this.user.vehicles);
         var duplicate = this.user.vehicles.find((car, index) => {
           return car.registrationNumber === value;
         });
@@ -77,7 +76,8 @@ import { mapState, mapMutations } from "vuex";
         this.addVehicle(data);
       } else {
         //Dude.. where's my car
-        this.submitError = "Car wasnt added " + data;
+        //Pls correct error message
+        this.submitError = "Car wasnt added, you probably already have this car";
       }
     }
   }
