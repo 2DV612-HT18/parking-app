@@ -4,6 +4,12 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
+            <v-snackbar
+              v-model="registered"
+              color="success"
+              :top="true"
+              :multi-line="true"                   
+            >You successfully registered your account, you've received a verification email, so please verify your account and then you can login!</v-snackbar>
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
                 <v-toolbar-title>Login</v-toolbar-title>
@@ -50,8 +56,8 @@ import { onLogin } from "@/vue-apollo";
 import LoginUser from "@/graphql/LoginUser.gql";
 
 export default {
-  name: "Login",
-  data() {
+  name: "Login",  
+  data() {    
     return {
       validForm: false,
       emailRules: [
@@ -64,7 +70,8 @@ export default {
       input: {
         username: "",
         password: ""
-      }
+      },
+      registered: this.$router.currentRoute.query.registered
     };
   },
   methods: {
@@ -106,7 +113,7 @@ export default {
       } else {
         alert("A username and password must be present");
       }
-    }
+    },
   }
 };
 </script>

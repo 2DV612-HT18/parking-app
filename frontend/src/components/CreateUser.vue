@@ -4,6 +4,18 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
+            <v-snackbar
+              v-model="success"
+              color="success"
+              :top="true"
+              :multi-line="true"                   
+            >{{ success_message }}</v-snackbar>
+            <v-snackbar
+              v-model="failed"
+              color="error"
+              :top="true"
+              :multi-line="true"                   
+            >{{ failed_message }}</v-snackbar>
             <v-card class="elevation-12">              
               <v-toolbar dark color="primary">
                 <v-toolbar-title>{{ form_title }}</v-toolbar-title>
@@ -65,7 +77,7 @@ const RegisterUser = require("@/graphql/RegisterUser.gql");
 const AddUser = require("@/graphql/AddUser.gql");
 
 export default {
-  props: ['form_title', "mutationName"],
+  props: ['form_title', 'mutationName', 'success_message', 'failed_message'],
   data: () => ({
     
     roles: [],
@@ -85,6 +97,8 @@ export default {
     passwordRules: [v => !!v || "Password is required"],
     role: "",
     roleRules: [v => !!v || "Must select a role"],
+    success: false,
+    failed: false,
   }),    
   methods: {
     async register() {
@@ -99,25 +113,30 @@ export default {
           role: this.role
         }
       });
+
+      // Register user
       if (this.mutationName == "RegisterUser") {
         const data = result.data.registerUser;
         // Token exists
         if (data) {
-          // Redirect to homepage 
-          // Flash message that user was created!         
-          this.$router.push("/");          
+          // Redirect to homepage
+          // Display snackbar! 
+          this.success = true         
+          this.$router.push({path: "/login", query: {registered: true}});          
         } else {
           // register unsuccessful
-          // Flash message that email was taken
+          // Display snackbar!
+          this.failed = true
           console.log("unsuccessfull: " + this.email);
-        }
+        } // Admin create a user
       } else if (this.mutationName = "AddUser") {
         const data = result.data.addUser;
         if (data) {
-          this.$router.push("/");
-          // Flash message that user was created!
-        } else {
-          // Flash message that email was taken
+          // Display snackbar! 
+          this.success = true                  
+        } else {          
+          // Display snackbar!
+          this.failed = true
         }
       }
     },
