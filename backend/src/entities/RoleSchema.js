@@ -16,6 +16,10 @@ export default new EntitySchema({
     registration: {
       type: "boolean",
       default: false
+    },
+    admin: {
+      type: "boolean",
+      default: false
     }
   },
   relations: {
