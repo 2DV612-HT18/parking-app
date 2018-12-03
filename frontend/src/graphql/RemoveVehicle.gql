@@ -1,0 +1,5 @@
+mutation removeVehicle($id: Int!) {
+  removeVehicle(
+    id: $id
+  )
+}
