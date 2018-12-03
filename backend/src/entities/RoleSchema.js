@@ -12,6 +12,14 @@ export default new EntitySchema({
     },
     name: {
       type: "varchar"
+    },
+    registration: {
+      type: "boolean",
+      default: false
+    },
+    admin: {
+      type: "boolean",
+      default: false
     }
   },
   relations: {

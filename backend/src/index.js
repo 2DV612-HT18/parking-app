@@ -46,10 +46,10 @@ import permissions from "./permissions";
     const connection = await createTypeormConnection("development");
 
     // Save standard roles if role table is empty
-    const role1 = new Role(21, "User");
-    const role2 = new Role(22, "ParkingOwner");
-    const role3 = new Role(23, "Administrator", true);
-    const role4 = new Role(24, "Parking Guard", false);
+    const role1 = new Role(21, "User", true, false);
+    const role2 = new Role(22, "ParkingOwner", true, false);
+    const role2 = new Role(23, "Administrator", true, false);
+    const role2 = new Role(24, "ParkingGuard", true, false);
     const data = await connection
       .getRepository(Role)
       .find({ where: { name: role1.name } });
