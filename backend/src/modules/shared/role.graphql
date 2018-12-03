@@ -1,4 +1,5 @@
 type Role {
   id: Int
   name: String
+  registration: Boolean
 }
