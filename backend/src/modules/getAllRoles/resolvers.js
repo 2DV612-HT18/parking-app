@@ -6,7 +6,7 @@ export const resolvers = {
     getAllRoles: async (_, args) => {
       const connection = getConnection()
       const roleRepository = connection.getRepository(Role)
-      let data = await roleRepository.find()
+      let data = await roleRepository.find({ where: { registration: true } })
       console.log(data)
       return data
     },
