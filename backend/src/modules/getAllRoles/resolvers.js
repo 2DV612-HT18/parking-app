@@ -8,7 +8,7 @@ export const resolvers = {
       const roleRepository = connection.getRepository(Role)
       let data
       if (user && user.admin) {
-        data = await roleRepository.find({ where: { registration: false } })
+        data = await roleRepository.find()
       } else {
         data = await roleRepository.find({ where: { registration: true } })
       }     
