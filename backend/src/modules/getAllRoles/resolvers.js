@@ -3,11 +3,15 @@ import {getConnection} from "typeorm";
 
 export const resolvers = {
   Query: {
-    getAllRoles: async (_, args) => {
+    getAllRoles: async (_, args, { user }) => {
       const connection = getConnection()
       const roleRepository = connection.getRepository(Role)
-      let data = await roleRepository.find({ where: { registration: true } })
-      console.log(data)
+      let data
+      if (user && user.admin) {
+        data = await roleRepository.find({ where: { registration: false } })
+      } else {
+        data = await roleRepository.find({ where: { registration: true } })
+      }     
       return data
     },
   },
