@@ -40,35 +40,35 @@
 import AddVehicle from "@/graphql/AddVehicle.gql";
 import { mapState, mapMutations } from "vuex";
 
-  export default {
-    data: () => ({
-      submitError: false,
-      formError: "",
-      validForm: false,
-      registrationNumber: '',
-      registrationNumberRules: [
-        v => !!v || 'Registration number is required'
-      ]
-    }),
-    computed: mapState(["user"]),
-    methods: {
-      ...mapMutations(["addVehicle"]),
-      checkDuplicate(value){
-        var duplicate = this.user.vehicles.find((car, index) => {
-          return car.registrationNumber === value;
-        });
-        if(duplicate)
-          this.formError = "You already have this car"
-        else
-          this.formError = null;
-      },
-      async saveVehicle(){
-        const result = await this.$apollo.mutate({
-          mutation: AddVehicle,
-          variables: {
-            registrationNumber: this.registrationNumber
-          }
-        });
+export default {
+  data: () => ({
+    submitError: false,
+    formError: "",
+    validForm: false,
+    registrationNumber: '',
+    registrationNumberRules: [
+      v => !!v || 'Registration number is required'
+    ]
+  }),
+  computed: mapState(["user"]),
+  methods: {
+    ...mapMutations(["addVehicle"]),
+    checkDuplicate(value){
+      var duplicate = this.user.vehicles.find((car, index) => {
+        return car.registrationNumber === value;
+      });
+      if(duplicate)
+        this.formError = "You already have this car"
+      else
+        this.formError = null;
+    },
+    async saveVehicle(){
+      const result = await this.$apollo.mutate({
+        mutation: AddVehicle,
+        variables: {
+          registrationNumber: this.registrationNumber
+        }
+      });
       const data = result.data.addVehicle;
       this.submitError = false;
       if (data) {
@@ -77,7 +77,7 @@ import { mapState, mapMutations } from "vuex";
       } else {
         //Dude.. where's my car
         //Pls correct error message
-        this.submitError = "Car wasnt added, you probably already have this car";
+        this.submitError = "Car wasnt added, someone probably already have this car";
       }
     }
   }
