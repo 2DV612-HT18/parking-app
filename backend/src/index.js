@@ -60,24 +60,21 @@ import Admin from "./lib/createAdministratorAccount";
       await connection.manager.save([role1, role2, role3, role4]);
     }
     
-    // Find users with the name 'Admin'
+    // Find admin user
     const findAdmin = await connection
       .getRepository(User)
-      .find({ where: {name: 'Admin' }});
+      .find({ where: { email: process.env.NODEMAILER_USER }});
 
-    // If Admin user is not found, create and save to DB.
+    // If Admin user is not found, create, add Administrator role and save to DB.
     if(findAdmin.length < 1) {
-      // Create admin user
       let admin = await Admin()
 
-      // Get Admin role and save it to Admin user.
       const role = await connection
         .getRepository(Role)
-        .findOne({ where: { name: 'Administrator' } });
-      
+        .findOne({ where: { name: "Administrator" }});
+
       admin.roles = [role];
 
-      // Save the admin.
       await connection.manager.save(admin);
     }
 
