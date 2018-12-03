@@ -4,7 +4,6 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
-            <flash-message class="flashMessage"></flash-message>
             <v-card class="elevation-12">              
               <v-toolbar dark color="primary">
                 <v-toolbar-title>{{ form_title }}</v-toolbar-title>
@@ -104,20 +103,21 @@ export default {
         const data = result.data.registerUser;
         // Token exists
         if (data) {
-          // Redirect to homepage          
+          // Redirect to homepage 
+          // Flash message that user was created!         
           this.$router.push("/");          
         } else {
           // register unsuccessful
-          this.flash('Email is already taken!', 'error', {timeout: 5000});
+          // Flash message that email was taken
           console.log("unsuccessfull: " + this.email);
         }
       } else if (this.mutationName = "AddUser") {
         const data = result.data.addUser;
         if (data) {
-         // this.$router.push("/");
-          this.flash('You successfully created an user!', 'success', {timeout: 5000});
+          this.$router.push("/");
+          // Flash message that user was created!
         } else {
-          this.flash('Email is already taken!', 'error', {timeout: 5000});
+          // Flash message that email was taken
         }
       }
     },
