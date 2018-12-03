@@ -48,13 +48,12 @@ import permissions from "./permissions";
     // Save standard roles if role table is empty
     const role1 = new Role(21, "User", true, false);
     const role2 = new Role(22, "ParkingOwner", true, false);
-    const role2 = new Role(23, "Administrator", true, false);
-    const role2 = new Role(24, "ParkingGuard", true, false);
+    const role3 = new Role(23, "Administrator", false, true);
+    const role4 = new Role(24, "ParkingGuard", false, false);
     const data = await connection
       .getRepository(Role)
       .find({ where: { name: role1.name } });
-    console.log(data.length)
-    console.log(role3, role4)
+   
     if (data.length < 1) {
       await connection.manager.save([role1, role2, role3, role4]);
     }
