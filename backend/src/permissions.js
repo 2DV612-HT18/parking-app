@@ -1,5 +1,7 @@
 import { shield, not } from "graphql-shield";
 import isAuthenticated from "./lib/middlewares/isAuthenticated";
+import isParkingOwner from "./lib/middlewares/isParkingOwner";
+import isAdministrator from "./lib/middlewares/isAdministrator";
 
 export default shield({
   Query: {
@@ -9,6 +11,8 @@ export default shield({
     registerUser: not(isAuthenticated),
     loginUser: not(isAuthenticated),
     logoutUser: isAuthenticated,
-    removeVehicle: isAuthenticated
+    removeVehicle: isAuthenticated,
+    addParkingArea: isParkingOwner,
+    addUser: isAdministrator
   }
 });
