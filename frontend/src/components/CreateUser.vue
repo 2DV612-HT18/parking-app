@@ -4,7 +4,8 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
-            <v-card class="elevation-12">
+            <flash-message class="flashMessage"></flash-message>
+            <v-card class="elevation-12">              
               <v-toolbar dark color="primary">
                 <v-toolbar-title>{{ form_title }}</v-toolbar-title>
               </v-toolbar>
@@ -84,7 +85,7 @@ export default {
     password: "",
     passwordRules: [v => !!v || "Password is required"],
     role: "",
-    roleRules: [v => !!v || "Must select a role"]
+    roleRules: [v => !!v || "Must select a role"],
   }),    
   methods: {
     async register() {
@@ -103,11 +104,20 @@ export default {
         const data = result.data.registerUser;
         // Token exists
         if (data) {
-          // Redirect to homepage
-          this.$router.push("/");
+          // Redirect to homepage          
+          this.$router.push("/");          
         } else {
           // register unsuccessful
+          this.flash('Email is already taken!', 'error', {timeout: 5000});
           console.log("unsuccessfull: " + this.email);
+        }
+      } else if (this.mutationName = "AddUser") {
+        const data = result.data.addUser;
+        if (data) {
+         // this.$router.push("/");
+          this.flash('You successfully created an user!', 'success', {timeout: 5000});
+        } else {
+          this.flash('Email is already taken!', 'error', {timeout: 5000});
         }
       }
     },
