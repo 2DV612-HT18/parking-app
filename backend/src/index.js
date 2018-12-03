@@ -2,9 +2,11 @@ import { GraphQLServer } from "graphql-yoga";
 import Redis from "ioredis";
 import jwt from "express-jwt";
 import Role from "./models/Role";
+import User from "./models/User";
 import createTypeormConnection from "./lib/createTypeormConnection";
 import generateSchema from "./lib/generateSchema";
 import permissions from "./permissions";
+import Admin from "./lib/createAdministratorAccount";
 
 (async () => {
   try {
@@ -56,6 +58,24 @@ import permissions from "./permissions";
    
     if (data.length < 1) {
       await connection.manager.save([role1, role2, role3, role4]);
+    }
+    
+    // Find admin user
+    const findAdmin = await connection
+      .getRepository(User)
+      .find({ where: { email: process.env.NODEMAILER_USER }});
+
+    // If Admin user is not found, create, add Administrator role and save to DB.
+    if(findAdmin.length < 1) {
+      let admin = await Admin()
+
+      const role = await connection
+        .getRepository(Role)
+        .findOne({ where: { name: "Administrator" }});
+
+      admin.roles = [role];
+
+      await connection.manager.save(admin);
     }
 
     server.start(() =>
