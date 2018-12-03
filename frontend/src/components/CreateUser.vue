@@ -4,9 +4,9 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
-            <v-card class="elevation-12">
+            <v-card class="elevation-12">              
               <v-toolbar dark color="primary">
-                <v-toolbar-title>Register</v-toolbar-title>
+                <v-toolbar-title>{{ form_title }}</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
                 <v-form v-model="validForm">
@@ -58,9 +58,14 @@
 
 <script>
 import { mapMutations } from "vuex";
-import RegisterUser from "@/graphql/RegisterUser.gql";
 import GetRoles from "@/graphql/GetRoles.gql";
+
+// Must be require instead of import!
+const RegisterUser = require("@/graphql/RegisterUser.gql");
+const AddUser = require("@/graphql/AddUser.gql");
+
 export default {
+  props: ['form_title', "mutationName"],
   data: () => ({
     
     roles: [],
@@ -79,14 +84,12 @@ export default {
     password: "",
     passwordRules: [v => !!v || "Password is required"],
     role: "",
-    roleRules: [v => !!v || "Must select a role"]
+    roleRules: [v => !!v || "Must select a role"],
   }),    
   methods: {
     async register() {
-      console.log("Lets register this user: " + this.email);
-      console.log(this.role)
       const result = await this.$apollo.mutate({
-        mutation: RegisterUser,
+        mutation: eval(this.mutationName),
         variables: {
           firstName: this.firstName,
           lastName: this.lastName,
@@ -96,29 +99,36 @@ export default {
           role: this.role
         }
       });
-      const data = result.data.registerUser;
-      // Token exists
-      if (data) {
-        // Redirect to homepage
-        this.$router.push("/");
-        console.log("successfull: " + this.email);
-      } else {
-        // register unsuccessful
-        console.log("unsuccessfull: " + this.email);
+      if (this.mutationName == "RegisterUser") {
+        const data = result.data.registerUser;
+        // Token exists
+        if (data) {
+          // Redirect to homepage 
+          // Flash message that user was created!         
+          this.$router.push("/");          
+        } else {
+          // register unsuccessful
+          // Flash message that email was taken
+          console.log("unsuccessfull: " + this.email);
+        }
+      } else if (this.mutationName = "AddUser") {
+        const data = result.data.addUser;
+        if (data) {
+          this.$router.push("/");
+          // Flash message that user was created!
+        } else {
+          // Flash message that email was taken
+        }
       }
     },
   },    
     apollo: {
       getAllRoles: {
         query: GetRoles,
-        variables: {
-          showHidden: false
-        },
-        result(data) {          
+        result(data) {         
           this.roles = data.data.getAllRoles;      
         }
       }
-  }
-  
+  },  
 };
 </script>

@@ -1,0 +1,22 @@
+mutation addUser(
+  $role: String!
+  $firstName: String!
+  $lastName: String!
+  $email: String!
+  $personalNumber: String!
+  $password: String!
+) {
+  addUser(
+    role: $role
+    firstName: $firstName
+    lastName: $lastName
+    email: $email
+    personalNumber: $personalNumber
+    password: $password
+  ) {
+    firstName
+    lastName
+    email
+    personalNumber
+  }
+}
