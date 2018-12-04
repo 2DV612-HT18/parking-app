@@ -55,6 +55,14 @@ const router = new Router({
         middleware: authenticated
       },
       component: () => import("./views/Administration.vue")
+    },
+    {
+      path: "/closeaccount",
+      name: "CloseAccount",
+      meta: {
+        middleware: authenticated
+      },
+      component: () => import("./views/CloseAccount.vue")
     }
   ]
 });
