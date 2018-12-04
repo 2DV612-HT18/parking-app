@@ -47,6 +47,14 @@ const router = new Router({
       path: "/verify",
       name: "verifyEmail",
       component: () => import("./views/VerifyEmail.vue")
+    },
+    {
+      path: "/admin",
+      name: "Administration",
+      meta: {
+        middleware: authenticated
+      },
+      component: () => import("./views/Administration.vue")
     }
   ]
 });
