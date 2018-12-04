@@ -24,22 +24,6 @@ export default {
   components: {
 
   },
-  apollo: {
-    myInfo: {
-      // TODO: Use router middleware instead
-      query: MyInfo,
-      result(data) {
-        const user = data.data.myInfo;
-        // Update store
-        this.setUser(user);
-        // Log out user if we can't get user
-        if (!user) {
-          const apolloClient = this.$apollo.provider.defaultClient;
-          onLogout(apolloClient);
-          this.$router.push("/login");
-        }
-      }
-    }
-  }
+  
 };
 </script>
