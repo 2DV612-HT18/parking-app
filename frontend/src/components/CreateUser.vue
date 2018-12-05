@@ -43,6 +43,14 @@
                     label="Password"
                     required
                   ></v-text-field>
+                  <v-text-field
+                    v-model="passwordConfirm"
+                    :error-messages="passwordMatchError()"
+                    :rules="passwordConfirmRules"
+                    :type="'password'"
+                    label="Retype Password"
+                    required
+                  ></v-text-field>
                   <v-select
                     v-model="role"                   
                     :rules="roleRules"
@@ -95,12 +103,18 @@ export default {
     pnrRules: [v => !!v || "Personal number is required"],
     password: "",
     passwordRules: [v => !!v || "Password is required"],
+    passwordConfirm: "",
+    passwordConfirmRules: [v => !!v || "Password is required"],
     role: "",
     roleRules: [v => !!v || "Must select a role"],
     success: false,
     failed: false,
   }),    
   methods: {
+    
+    passwordMatchError() {
+      return (this.password === this.passwordConfirm) ? '' : 'Passwords must match'
+    },
     async register() {
       const result = await this.$apollo.mutate({
         mutation: eval(this.mutationName),
