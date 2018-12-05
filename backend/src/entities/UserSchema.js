@@ -41,6 +41,11 @@ export default new EntitySchema({
       type: "one-to-many",
       joinTable: true,
       inverseSide: "user"
+    },
+    parkingAreas: {
+      target: "ParkingArea",
+      type: "one-to-many",
+      inverseSide: "owner"
     }
   }
 });

@@ -15,6 +15,11 @@ export default new EntitySchema({
     }
   },
   relations: {
+    owner: {
+      target: "User",
+      type: "many-to-one",
+      inverseSide: "parkingAreas"
+    },
     topLeftCoordinate: {
       target: "Coordinate",
       type: "one-to-one"
