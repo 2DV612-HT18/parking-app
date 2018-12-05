@@ -1,0 +1,8 @@
+type ParkingArea {
+  id: ID
+  name: String
+  topLeftCoordinate: Coordinate
+  topRightCoordinate: Coordinate
+  bottomLeftCoordinate: Coordinate
+  bottomRightCoordinate: Coordinate
+}

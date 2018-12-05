@@ -12,7 +12,7 @@ export default shield({
     loginUser: not(isAuthenticated),
     logoutUser: isAuthenticated,
     removeVehicle: isAuthenticated,
-   // addParkingArea: isParkingOwner,
+    addParkingArea: isParkingOwner,
     addUser: isAdministrator
   }
 });
