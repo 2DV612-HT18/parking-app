@@ -31,15 +31,25 @@
                     placeholder="Password"
                   />
                 </v-form>
+                 <v-alert
+                    :value="LoginError"
+                    dismissible
+                    type="error"
+                    transition="scale-transition"
+                  >
+                    Login failed. Check e-mail and password.
+                  </v-alert>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
+                <v-form @submit="login();">
                 <v-btn 
                   color="primary"
                   :disabled="!validForm" 
                   v-on:click="login();">
                   Login
                 </v-btn>
+                </v-form>
               <v-btn to="/register" color="primary">Not a member?</v-btn>
               </v-card-actions>
             </v-card>
@@ -56,10 +66,11 @@ import { onLogin } from "@/vue-apollo";
 import LoginUser from "@/graphql/LoginUser.gql";
 
 export default {
-  name: "Login",  
+  name: "Login", 
   data() {    
     return {
       validForm: false,
+      LoginError: false,
       emailRules: [
         v => !!v || 'E-mail is required to login',
         v => /.+@.+/.test(v) || 'E-mail must be valid'
@@ -97,6 +108,7 @@ export default {
         this.$router.push("/");
       } else {
         // Login unsuccessful
+        this.LoginError = true;
       }
     },
     loginMock() {
