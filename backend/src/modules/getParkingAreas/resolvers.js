@@ -11,7 +11,6 @@ export const resolvers = {
       const parkingAreas = await parkingAreaRepository.find({
         where: { ownerId: user.id }
       });
-      console.log(parkingAreas)
       return parkingAreas
     },
   },
