@@ -1,10 +1,5 @@
 query{
-    getParkingAreas{
-        id
-        name
-        coordinates{
-            latitude
-            longitude
-        }
+    getParkingAreas{        
+        name        
     }
 }

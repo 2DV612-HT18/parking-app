@@ -16,9 +16,21 @@
               <span style="margin-left: 5px">Create new area</span>
             </v-btn>
           </v-toolbar>
-          <v-card-text>Area list here</v-card-text>
+          <ParkingAreaList>
+          </ParkingAreaList>
         </v-card>
       </v-container>
     </v-content>
   </div>
 </template>
+
+<script>
+import ParkingAreaList from "@/components/ParkingAreaList.vue";
+
+export default {
+  components: {
+    ParkingAreaList
+  }, 
+};
+</script>
+
