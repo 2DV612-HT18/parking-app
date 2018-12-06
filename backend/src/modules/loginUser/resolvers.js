@@ -12,7 +12,10 @@ export const resolvers = {
       const userRepository = connection.getRepository(User);
 
       // Query the database to check if user exists.
-      const data = await userRepository.find({ where: { email: args.email } });
+      const data = await userRepository.find({
+        where: { email: args.email },
+        relations: ["roles", "vehicles"]
+      });
 
       // If user exists
       if (data.length === 1) {
