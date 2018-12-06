@@ -66,6 +66,7 @@
                             v-model="topLeftCoordinate.longitude"
                             label="Longitude"
                             required
+                            :mask="coordinateMask"
                           ></v-text-field>
                         </v-flex>
                       </v-layout>
@@ -93,6 +94,7 @@
                             v-model="topRightCoordinate.longitude"
                             label="Longitude"
                             required
+                            :mask="coordinateMask"
                           ></v-text-field>
                         </v-flex>
                       </v-layout>
@@ -120,6 +122,7 @@
                             v-model="bottomLeftCoordinate.longitude"
                             label="Longitude"
                             required
+                            :mask="coordinateMask"
                           ></v-text-field>
                         </v-flex>
                       </v-layout>
@@ -147,6 +150,7 @@
                             v-model="bottomRightCoordinate.longitude"
                             label="Longitude"
                             required
+                            :mask="coordinateMask"
                           ></v-text-field>
                         </v-flex>
                       </v-layout>
