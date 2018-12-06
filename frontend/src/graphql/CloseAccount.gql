@@ -1,7 +1,3 @@
-mutation closeAccount(
-  $password: String!
-) {
-  closeAccount(
-    password: $password
-  ) 
+mutation closeAccount($password: String!) {
+  closeAccount(password: $password) 
 }

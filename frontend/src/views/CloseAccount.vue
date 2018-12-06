@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ConfirmDialog ref="confirmDialog" title="Delete Account?" confirmText="Yes" cancelText="No"/>
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
@@ -39,8 +40,9 @@
 
 
 <script>
-import { mapMutations } from "vuex";
 import CloseAccount from "@/graphql/CloseAccount.gql";
+import ConfirmDialog from "@/components/ConfirmDialog.vue";
+import { mapMutations } from "vuex";
 
 export default {
   name: "CloseAccount",  
@@ -56,8 +58,20 @@ export default {
       }
     };
   },
+    components: {
+    ConfirmDialog
+  },
   methods: {
     async closeAccount() {
+      let confirmPromise = this.$refs.confirmDialog.open(
+        `Are you sure you want to delete the account?`
+      );
+      const confirm = await confirmPromise.then(value => {
+        return value;
+      });
+      if (!confirm) {
+        return;
+      }
       const result = await this.$apollo.mutate({
         mutation: CloseAccount,
         variables: {

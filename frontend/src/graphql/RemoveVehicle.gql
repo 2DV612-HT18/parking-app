@@ -1,5 +1,3 @@
 mutation removeVehicle($id: Int!) {
-  removeVehicle(
-    id: $id
-  )
+  removeVehicle(id: $id)
 }
