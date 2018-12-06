@@ -3,6 +3,11 @@ mutation loginUser($email: String!, $password: String!) {
     token
     user {
       email
+      roles {
+        name
+        admin
+        addParkingAreaPermission
+      }
     }
   }
 }
