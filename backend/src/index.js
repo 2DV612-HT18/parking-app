@@ -10,10 +10,7 @@ import Admin from "./lib/createAdministratorAccount";
 
 (async () => {
   try {
-    const redis = new Redis(
-      process.env.REDIS_PORT,
-      process.env.REDIS_HOST
-    );
+    const redis = new Redis(process.env.REDIS_PORT, process.env.REDIS_HOST);
 
     const server = new GraphQLServer({
       schema: generateSchema(),
@@ -48,30 +45,30 @@ import Admin from "./lib/createAdministratorAccount";
     const connection = await createTypeormConnection("development");
 
     // Save standard roles if role table is empty
-    const role1 = new Role(21, "User", true, false);
-    const role2 = new Role(22, "ParkingOwner", true, false);
-    const role3 = new Role(23, "Administrator", false, true);
-    const role4 = new Role(24, "ParkingGuard", false, false);
+    const role1 = new Role(21, "User", true, false, false);
+    const role2 = new Role(22, "ParkingOwner", true, false, true);
+    const role3 = new Role(23, "Administrator", false, true, false);
+    const role4 = new Role(24, "ParkingGuard", false, false, false);
     const data = await connection
       .getRepository(Role)
       .find({ where: { name: role1.name } });
-   
+
     if (data.length < 1) {
       await connection.manager.save([role1, role2, role3, role4]);
     }
-    
+
     // Find admin user
     const findAdmin = await connection
       .getRepository(User)
-      .find({ where: { email: process.env.NODEMAILER_USER }});
+      .find({ where: { email: process.env.NODEMAILER_USER } });
 
     // If Admin user is not found, create, add Administrator role and save to DB.
-    if(findAdmin.length < 1) {
-      let admin = await Admin()
+    if (findAdmin.length < 1) {
+      const admin = await Admin();
 
       const role = await connection
         .getRepository(Role)
-        .findOne({ where: { name: "Administrator" }});
+        .findOne({ where: { name: "Administrator" } });
 
       admin.roles = [role];
 

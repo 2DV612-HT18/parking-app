@@ -3,4 +3,5 @@ type Role {
   name: String
   registration: Boolean
   admin: Boolean
+  addParkingAreaPermission: Boolean
 }
