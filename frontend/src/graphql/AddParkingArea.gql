@@ -1,0 +1,33 @@
+mutation addParkingArea(
+  $name: String!
+  $topLeftCoordinate: CoordinateInput!
+  $topRightCoordinate: CoordinateInput!
+  $bottomLeftCoordinate: CoordinateInput!
+  $bottomRightCoordinate: CoordinateInput!
+) {
+  addParkingArea(
+    name: $name
+    topLeftCoordinate: $topLeftCoordinate
+    topRightCoordinate: $topRightCoordinate
+    bottomLeftCoordinate: $bottomLeftCoordinate
+    bottomRightCoordinate: $bottomRightCoordinate
+  ) {
+    name,
+    topLeftCoordinate {
+      latitude,
+      longitude
+    },
+    topRightCoordinate {
+      latitude,
+      longitude
+    },
+    bottomLeftCoordinate {
+      latitude,
+      longitude
+    },
+    bottomRightCoordinate {
+      latitude,
+      longitude
+    }
+  }
+}
