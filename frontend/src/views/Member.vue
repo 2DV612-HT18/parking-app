@@ -9,6 +9,9 @@
             <v-card-text>
               <div v-if="user">Email: {{ user.email }} - Role: {{ user.roles[0].name }}</div>
             </v-card-text>
+            <v-btn round @click="toPA" outline color="green">
+          Parking Area
+        </v-btn>
         </v-card>
         <MyVehicles v-if="user" :vehicles="user.vehicles"/>
         <AddVehicle/>
@@ -50,6 +53,10 @@ export default {
         }
       }
     }
+  },
+  async toPA(){
+    // Redirect to ParkingAreas
+    this.$router.push("/area");
   }
 };
 </script>
