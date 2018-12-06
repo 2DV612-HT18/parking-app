@@ -5,18 +5,24 @@ export default new EntitySchema({
   name: "Coordinate",
   target: Coordinate,
   columns: {
-      id: {
-        primary: true,
-        type: "int",
-        generated: true
-      },
-      longitude: {
+    id: {
+      primary: true,
+      type: "int",
+      generated: true
+    },
+    longitude: {
       type: "float"
-        },
-        latitude: {
-        type: "float"
-        }
+    },
+    latitude: {
+      type: "float"
+    }
+  },
+  relations: {
+    parkingArea: {
+      target: "ParkingArea",
+      type: "many-to-one",
+      inverseSide: "coordinates",
+      joinTable: true
+    }
   }
-
-  // TODO: add relation to parking area (doesn't exist yet)
 });

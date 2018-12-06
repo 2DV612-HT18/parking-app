@@ -1,0 +1,5 @@
+type ParkingArea {
+  id: ID
+  name: String
+  coordinates: [Coordinate]
+}
