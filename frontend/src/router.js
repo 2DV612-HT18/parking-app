@@ -63,6 +63,25 @@ const router = new Router({
         middleware: authenticated
       },
       component: () => import("./views/CloseAccount.vue")
+    },
+    {
+      path: "/area",
+      meta: {
+        middleware: authenticated
+      },
+      component: () => import("./views/area/Parent.vue"),
+      children: [
+        {
+          path: "",
+          name: "ParkingAreas",
+          component: () => import("./views/area/Home.vue")
+        },
+        {
+          path: "create",
+          name: "CreateParkingArea",
+          component: () => import("./views/area/Create.vue")
+        }
+      ]
     }
   ]
 });
