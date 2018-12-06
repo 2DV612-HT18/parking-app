@@ -20,21 +20,10 @@ export default new EntitySchema({
       type: "many-to-one",
       inverseSide: "parkingAreas"
     },
-    topLeftCoordinate: {
+    // TODO: Make coordinates into an array instead?
+    coordinates: {
       target: "Coordinate",
-      type: "one-to-one"
-    },
-    topRightCoordinate: {
-      target: "Coordinate",
-      type: "one-to-one"
-    },
-    bottomLeftCoordinate: {
-      target: "Coordinate",
-      type: "one-to-one"
-    },
-    bottomRightCoordinate: {
-      target: "Coordinate",
-      type: "one-to-one"
+      type: "one-to-many"
     }
   }
 });

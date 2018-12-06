@@ -1,31 +1,13 @@
 mutation addParkingArea(
   $name: String!
-  $topLeftCoordinate: CoordinateInput!
-  $topRightCoordinate: CoordinateInput!
-  $bottomLeftCoordinate: CoordinateInput!
-  $bottomRightCoordinate: CoordinateInput!
+  $coordinates: [CoordinateInput]!
 ) {
   addParkingArea(
     name: $name
-    topLeftCoordinate: $topLeftCoordinate
-    topRightCoordinate: $topRightCoordinate
-    bottomLeftCoordinate: $bottomLeftCoordinate
-    bottomRightCoordinate: $bottomRightCoordinate
+    coordinates: $coordinates
   ) {
     name,
-    topLeftCoordinate {
-      latitude,
-      longitude
-    },
-    topRightCoordinate {
-      latitude,
-      longitude
-    },
-    bottomLeftCoordinate {
-      latitude,
-      longitude
-    },
-    bottomRightCoordinate {
+    coordinates {
       latitude,
       longitude
     }

@@ -205,26 +205,30 @@ export default {
   }),
   methods: {
     async addParkingArea() {
+      const coordinates = [
+        {
+          latitude: parseFloat(this.topLeftCoordinate.latitude),
+          longitude: parseFloat(this.topLeftCoordinate.longitude)
+        },
+        {
+          latitude: parseFloat(this.topRightCoordinate.latitude),
+          longitude: parseFloat(this.topRightCoordinate.longitude)
+        },
+        {
+          latitude: parseFloat(this.bottomLeftCoordinate.latitude),
+          longitude: parseFloat(this.bottomLeftCoordinate.longitude)
+        },
+        {
+          latitude: parseFloat(this.bottomRightCoordinate.latitude),
+          longitude: parseFloat(this.bottomRightCoordinate.longitude)
+        }
+      ];
+
       const result = await this.$apollo.mutate({
         mutation: addParkingArea,
         variables: {
           name: this.name,
-          topLeftCoordinate: {
-            latitude: parseFloat(this.topLeftCoordinate.latitude),
-            longitude: parseFloat(this.topLeftCoordinate.longitude)
-          },
-          topRightCoordinate: {
-            latitude: parseFloat(this.topRightCoordinate.latitude),
-            longitude: parseFloat(this.topRightCoordinate.longitude)
-          },
-          bottomLeftCoordinate: {
-            latitude: parseFloat(this.bottomLeftCoordinate.latitude),
-            longitude: parseFloat(this.bottomLeftCoordinate.longitude)
-          },
-          bottomRightCoordinate: {
-            latitude: parseFloat(this.bottomRightCoordinate.latitude),
-            longitude: parseFloat(this.bottomRightCoordinate.longitude)
-          }
+          coordinates
         }
       });
 
