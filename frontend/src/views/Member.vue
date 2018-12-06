@@ -10,8 +10,11 @@
               <div v-if="user">Email: {{ user.email }} - Role: {{ user.roles[0].name }}</div>
             </v-card-text>
             
-            <v-btn round to="/area" outline color="green">
+        <v-btn round to="/area" outline color="green">
           Parking Area
+        </v-btn>
+        <v-btn round to="/closeaccount" outline color="green">
+          Delete your account
         </v-btn>
         </v-card>
         <MyVehicles v-if="user" :vehicles="user.vehicles"/>
