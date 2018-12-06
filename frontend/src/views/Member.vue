@@ -9,7 +9,8 @@
             <v-card-text>
               <div v-if="user">Email: {{ user.email }} - Role: {{ user.roles[0].name }}</div>
             </v-card-text>
-            <v-btn round @click="toPA" outline color="green">
+            
+            <v-btn round to="/area" outline color="green">
           Parking Area
         </v-btn>
         </v-card>
@@ -36,7 +37,7 @@ export default {
   components: {
     AddVehicle,
     MyVehicles
-  },
+  },  
   apollo: {
     myInfo: {
       // TODO: Use router middleware instead
@@ -54,9 +55,5 @@ export default {
       }
     }
   },
-  async toPA(){
-    // Redirect to ParkingAreas
-    this.$router.push("/area");
-  }
 };
 </script>
