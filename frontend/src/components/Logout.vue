@@ -1,16 +1,17 @@
 <template>
-  <v-btn flat @click="logout">
+  <v-btn flat @click="logout" v-if="user">
     <span class="mr-2">Log out</span>
   </v-btn>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import { onLogout } from "@/vue-apollo";
 import LogoutUser from "@/graphql/LogoutUser.gql";
 
 export default {
   name: "Logout",
+  computed: mapState(["user"]),
   methods: {
     ...mapMutations(["setUser"]),
     async logout() {
@@ -37,5 +38,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
