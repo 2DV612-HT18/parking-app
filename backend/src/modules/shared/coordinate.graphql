@@ -2,3 +2,8 @@ type Coordinate {
   latitude: Float
   longitude: Float
 }
+
+input CoordinateInput {
+  latitude: Float
+  longitude: Float
+}

@@ -1,5 +1,6 @@
 export default class Coordinate {
-  constructor(latitude, longitude) {
+  constructor(parkingArea, latitude, longitude) {
+    this.parkingArea = parkingArea;
     this.latitude = latitude;
     this.longitude = longitude;
   }

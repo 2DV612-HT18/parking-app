@@ -1,0 +1,15 @@
+mutation addParkingArea(
+  $name: String!
+  $coordinates: [CoordinateInput]!
+) {
+  addParkingArea(
+    name: $name
+    coordinates: $coordinates
+  ) {
+    name,
+    coordinates {
+      latitude,
+      longitude
+    }
+  }
+}
