@@ -13,7 +13,9 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-
+      <v-card-title v-if="!areas.length">
+        <span class="mb-2">You have no parking areas at the moment!</span>
+      </v-card-title>
     </v-card>
 </div>
 </template>
