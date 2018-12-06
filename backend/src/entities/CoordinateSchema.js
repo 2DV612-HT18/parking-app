@@ -11,10 +11,10 @@ export default new EntitySchema({
       generated: true
     },
     longitude: {
-      type: "float"
+      type: "decimal"
     },
     latitude: {
-      type: "float"
+      type: "decimal"
     }
   },
   relations: {
