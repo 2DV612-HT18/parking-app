@@ -20,6 +20,11 @@ const router = new Router({
       }
     },
     {
+      path: "/404",
+      name: "404",
+      component: () => import("./views/404.vue")
+    },
+    {
       path: "/about",
       name: "about",
       // route level code-splitting
