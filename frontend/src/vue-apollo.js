@@ -57,7 +57,7 @@ const defaultOptions = {
 };
 
 // Call this in the Vue app file
-export function createProvider(options = {}) {
+const createProvider = (options = {}) => {
   // Create apollo client
   const { apolloClient, wsClient } = createApolloClient({
     ...defaultOptions,
@@ -84,7 +84,9 @@ export function createProvider(options = {}) {
   });
 
   return apolloProvider;
-}
+};
+
+export const apolloProvider = createProvider();
 
 // Manually call this when user log in
 export async function onLogin(apolloClient, token) {
@@ -112,22 +114,4 @@ export async function onLogout(apolloClient) {
     // eslint-disable-next-line no-console
     console.log("%cError on cache reset (logout)", "color: orange;", e.message);
   }
-}
-
-// Authentication middleware
-export function authenticated({ next, router }) {
-  if (!localStorage.getItem(AUTH_TOKEN)) {
-    return router.push({ name: "login" });
-  }
-
-  return next();
-}
-
-// Guest middleware
-export function notAuthenticated({ next, router }) {
-  if (localStorage.getItem(AUTH_TOKEN)) {
-    return router.push({ name: "home" });
-  }
-
-  return next();
 }

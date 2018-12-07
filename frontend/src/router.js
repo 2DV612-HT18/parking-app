@@ -2,9 +2,11 @@ import Vue from "vue";
 import Router from "vue-router";
 import Member from "./views/Member.vue";
 
+import checkInfo from "./middlewares/checkInfo";
+import authenticated from "./middlewares/authenticated";
+import notAuthenticated from "./middlewares/notAuthenticated";
 import admin from "./middlewares/admin";
 import addParkingArea from "./middlewares/addParkingArea";
-import { authenticated, notAuthenticated } from "./vue-apollo";
 
 Vue.use(Router);
 
@@ -96,23 +98,34 @@ const router = new Router({
   ]
 });
 
+// Get authentication on each route change
+router.beforeEach(async (to, from, next) => {
+  const context = {
+    from,
+    next,
+    router,
+    to
+  };
+  return checkInfo(context);
+});
+
 // Middleware
-function nextFactory(context, middleware, index) {
+async function nextFactory(context, middleware, index) {
   const subsequentMiddleware = middleware[index];
   // If no subsequent Middleware exists,
   // the default `next()` callback is returned.
   if (!subsequentMiddleware) return context.next;
 
-  return (...parameters) => {
+  return async (...parameters) => {
     // Run the default Vue Router `next()` callback first.
-    context.next(...parameters);
+    await context.next(...parameters);
     // Then run the subsequent Middleware with a new
     // `nextMiddleware()` callback.
-    const nextMiddleware = nextFactory(context, middleware, index + 1);
-    subsequentMiddleware({ ...context, next: nextMiddleware });
+    const nextMiddleware = await nextFactory(context, middleware, index + 1);
+    await subsequentMiddleware({ ...context, next: nextMiddleware });
   };
 }
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.meta.middleware) {
     const middleware = Array.isArray(to.meta.middleware)
       ? to.meta.middleware
@@ -124,7 +137,7 @@ router.beforeEach((to, from, next) => {
       router,
       to
     };
-    const nextMiddleware = nextFactory(context, middleware, 1);
+    const nextMiddleware = await nextFactory(context, middleware, 1);
 
     return middleware[0]({ ...context, next: nextMiddleware });
   }

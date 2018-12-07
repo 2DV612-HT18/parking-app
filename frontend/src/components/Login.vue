@@ -9,10 +9,11 @@
               color="success"
               :top="true"
               :multi-line="true"
-              >You successfully registered your account, you've received a
-              verification email, so please verify your account and then you can
-              login!</v-snackbar
             >
+              You successfully registered your account, you've received a
+              verification email, so please verify your account and then you can
+              login!
+            </v-snackbar>
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
                 <v-toolbar-title>Login</v-toolbar-title>
@@ -63,7 +64,6 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
 import { onLogin } from "@/vue-apollo";
 import LoginUser from "@/graphql/LoginUser.gql";
 
@@ -86,7 +86,6 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["setUser"]),
     async login() {
       const result = await this.$apollo.mutate({
         mutation: LoginUser,
@@ -102,7 +101,6 @@ export default {
         const apolloClient = this.$apollo.provider.defaultClient;
         // Sets token in localhost
         await onLogin(apolloClient, data.token);
-        await this.setUser(data.user);
 
         // Redirect to homepage
         this.$router.push("/");
