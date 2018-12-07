@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Member from "./views/Member.vue";
 
+import admin from "./middlewares/admin";
 import isParkingOwner from "./middlewares/isParkingOwner";
 import { authenticated, notAuthenticated } from "./vue-apollo";
 
@@ -58,7 +59,7 @@ const router = new Router({
       path: "/admin",
       name: "Administration",
       meta: {
-        middleware: authenticated
+        middleware: [authenticated, admin]
       },
       component: () => import("./views/Administration.vue")
     },
