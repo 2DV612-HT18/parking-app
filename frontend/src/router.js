@@ -3,7 +3,7 @@ import Router from "vue-router";
 import Member from "./views/Member.vue";
 
 import admin from "./middlewares/admin";
-import isParkingOwner from "./middlewares/isParkingOwner";
+import addParkingArea from "./middlewares/addParkingArea";
 import { authenticated, notAuthenticated } from "./vue-apollo";
 
 Vue.use(Router);
@@ -82,7 +82,7 @@ const router = new Router({
           path: "create",
           name: "CreateParkingArea",
           meta: {
-            middleware: [authenticated, isParkingOwner]
+            middleware: [authenticated, addParkingArea]
           },
           component: () => import("./views/area/Create.vue")
         }
