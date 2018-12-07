@@ -198,7 +198,20 @@
                           <v-btn flat @click="stepBack">Back</v-btn>
                         </v-stepper-content>
                         <v-stepper-content step="5">
-                          <h1>Done!</h1>
+                          <div style="min-height: 100px; padding: 30px;">
+                            <h3 class="display-2">
+                              <v-icon
+                                x-large
+                                color="green accent-3"
+                                style="display: inline-flex; vertical-align: middle; margin-right: 10px;"
+                                >done</v-icon
+                              >Done!
+                            </h3>
+                            <v-subheader>
+                              Please verify that the coordinates are correct
+                              before submitting.
+                            </v-subheader>
+                          </div>
                           <v-btn flat @click="stepBack">Back</v-btn>
                         </v-stepper-content>
                       </v-stepper-items>
