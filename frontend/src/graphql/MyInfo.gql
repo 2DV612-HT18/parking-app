@@ -3,6 +3,8 @@ query {
     email
     roles {
       name
+      admin
+      addParkingAreaPermission
     }
     vehicles {
       registrationNumber
