@@ -61,14 +61,14 @@ const router = new Router({
     },
     {
       path: "/area",
-      meta: {
-        middleware: authenticated
-      },
       component: () => import("./views/area/Parent.vue"),
       children: [
         {
           path: "",
           name: "ParkingAreas",
+          meta: {
+            middleware: authenticated
+          },
           component: () => import("./views/area/Home.vue")
         },
         {
