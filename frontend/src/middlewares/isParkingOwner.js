@@ -1,14 +1,9 @@
 import store from "../store";
 
-export default ({ next, router }) => {
-  if (!store.state.user) {
-    return router.push({ name: "404" });
-  }
+export default async ({ next, router }) => {
+  const addParkingAreaPermission = store.getters.addParkingAreaPermission;
 
-  const roles = store.state.user.roles;
-  const hasParkingOwnerRole = roles.find(role => role.addParkingAreaPermission);
-
-  if (!hasParkingOwnerRole) {
+  if (!addParkingAreaPermission) {
     return router.push({ name: "404" });
   }
 
