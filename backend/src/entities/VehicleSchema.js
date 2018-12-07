@@ -18,7 +18,8 @@ export default new EntitySchema({
     user: {
       target: "User",
       type: "many-to-one",
-      inverseSide: "vehicles"
+      inverseSide: "vehicles",
+      onDelete: "CASCADE"
     }
   }
 });

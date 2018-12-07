@@ -18,7 +18,8 @@ export default new EntitySchema({
     owner: {
       target: "User",
       type: "many-to-one",
-      inverseSide: "parkingAreas"
+      inverseSide: "parkingAreas",
+      onDelete: "CASCADE"
     },
     // TODO: Make coordinates into an array instead?
     coordinates: {

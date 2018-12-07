@@ -22,7 +22,8 @@ export default new EntitySchema({
       target: "ParkingArea",
       type: "many-to-one",
       inverseSide: "coordinates",
-      joinTable: true
+      joinTable: true,
+      onDelete: "CASCADE"
     }
   }
 });
