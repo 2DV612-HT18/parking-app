@@ -8,8 +8,12 @@
               v-model="registered"
               color="success"
               :top="true"
-              :multi-line="true"                   
-            >You successfully registered your account, you've received a verification email, so please verify your account and then you can login!</v-snackbar>
+              :multi-line="true"
+            >
+              You successfully registered your account, you've received a
+              verification email, so please verify your account and then you can
+              login!
+            </v-snackbar>
             <v-card class="elevation-12">
               <v-toolbar dark color="primary">
                 <v-toolbar-title>Login</v-toolbar-title>
@@ -31,26 +35,25 @@
                     placeholder="Password"
                   />
                 </v-form>
-                 <v-alert
-                    :value="LoginError"
-                    dismissible
-                    type="error"
-                    transition="scale-transition"
-                  >
-                    Login failed. Check e-mail and password.
-                  </v-alert>
+                <v-alert
+                  :value="LoginError"
+                  dismissible
+                  type="error"
+                  transition="scale-transition"
+                  >Login failed. Check e-mail and password.</v-alert
+                >
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-form @submit="login();">
-                <v-btn 
-                  color="primary"
-                  :disabled="!validForm" 
-                  v-on:click="login();">
-                  Login
-                </v-btn>
+                  <v-btn
+                    color="primary"
+                    :disabled="!validForm"
+                    v-on:click="login();"
+                    >Login</v-btn
+                  >
                 </v-form>
-              <v-btn to="/register" color="primary">Not a member?</v-btn>
+                <v-btn to="/register" color="primary">Not a member?</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -61,23 +64,20 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
 import { onLogin } from "@/vue-apollo";
 import LoginUser from "@/graphql/LoginUser.gql";
 
 export default {
-  name: "Login", 
-  data() {    
+  name: "Login",
+  data() {
     return {
       validForm: false,
       LoginError: false,
       emailRules: [
-        v => !!v || 'E-mail is required to login',
-        v => /.+@.+/.test(v) || 'E-mail must be valid'
+        v => !!v || "E-mail is required to login",
+        v => /.+@.+/.test(v) || "E-mail must be valid"
       ],
-      passwordRules: [
-        v => !!v || 'Password is required'
-      ],
+      passwordRules: [v => !!v || "Password is required"],
       input: {
         username: "",
         password: ""
@@ -86,7 +86,6 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["setUser"]),
     async login() {
       const result = await this.$apollo.mutate({
         mutation: LoginUser,
@@ -102,7 +101,6 @@ export default {
         const apolloClient = this.$apollo.provider.defaultClient;
         // Sets token in localhost
         await onLogin(apolloClient, data.token);
-        await this.setUser(data.user);
 
         // Redirect to homepage
         this.$router.push("/");
@@ -125,8 +123,7 @@ export default {
       } else {
         alert("A username and password must be present");
       }
-    },
+    }
   }
 };
 </script>
-

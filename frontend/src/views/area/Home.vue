@@ -11,13 +11,13 @@
               absolute
               light
               right
+              v-if="addParkingAreaPermission"
             >
               <v-icon>add</v-icon>
               <span style="margin-left: 5px">Create new area</span>
             </v-btn>
           </v-toolbar>
-          <ParkingAreaList>
-          </ParkingAreaList>
+          <ParkingAreaList></ParkingAreaList>
         </v-card>
       </v-container>
     </v-content>
@@ -30,7 +30,11 @@ import ParkingAreaList from "@/components/ParkingAreaList.vue";
 export default {
   components: {
     ParkingAreaList
-  }, 
+  },
+  computed: {
+    addParkingAreaPermission() {
+      return this.$store.getters.addParkingAreaPermission;
+    }
+  }
 };
 </script>
-

@@ -4,13 +4,13 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
-import { createProvider } from "./vue-apollo";
+import { apolloProvider } from "./vue-apollo";
 
 Vue.config.productionTip = false;
 
 new Vue({
   router,
   store,
-  apolloProvider: createProvider(),
+  apolloProvider,
   render: h => h(App)
 }).$mount("#app");

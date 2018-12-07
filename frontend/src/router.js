@@ -2,7 +2,11 @@ import Vue from "vue";
 import Router from "vue-router";
 import Member from "./views/Member.vue";
 
-import { authenticated, notAuthenticated } from "./vue-apollo";
+import checkInfo from "./middlewares/checkInfo";
+import authenticated from "./middlewares/authenticated";
+import notAuthenticated from "./middlewares/notAuthenticated";
+import admin from "./middlewares/admin";
+import addParkingArea from "./middlewares/addParkingArea";
 
 Vue.use(Router);
 
@@ -17,15 +21,6 @@ const router = new Router({
       meta: {
         middleware: authenticated
       }
-    },
-    {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
     {
       path: "/login",
@@ -52,7 +47,7 @@ const router = new Router({
       path: "/admin",
       name: "Administration",
       meta: {
-        middleware: authenticated
+        middleware: [authenticated, admin]
       },
       component: () => import("./views/Administration.vue")
     },
@@ -66,43 +61,66 @@ const router = new Router({
     },
     {
       path: "/area",
-      meta: {
-        middleware: authenticated
-      },
       component: () => import("./views/area/Parent.vue"),
       children: [
         {
           path: "",
           name: "ParkingAreas",
+          meta: {
+            middleware: authenticated
+          },
           component: () => import("./views/area/Home.vue")
         },
         {
           path: "create",
           name: "CreateParkingArea",
+          meta: {
+            middleware: [authenticated, addParkingArea]
+          },
           component: () => import("./views/area/Create.vue")
         }
       ]
+    },
+    {
+      path: "/404",
+      name: "404",
+      component: () => import("./views/404.vue")
+    },
+    {
+      path: "*",
+      redirect: "/404"
     }
   ]
 });
 
+// Get authentication on each route change
+router.beforeEach(async (to, from, next) => {
+  const context = {
+    from,
+    next,
+    router,
+    to
+  };
+  return checkInfo(context);
+});
+
 // Middleware
-function nextFactory(context, middleware, index) {
+async function nextFactory(context, middleware, index) {
   const subsequentMiddleware = middleware[index];
   // If no subsequent Middleware exists,
   // the default `next()` callback is returned.
   if (!subsequentMiddleware) return context.next;
 
-  return (...parameters) => {
+  return async (...parameters) => {
     // Run the default Vue Router `next()` callback first.
-    context.next(...parameters);
+    await context.next(...parameters);
     // Then run the subsequent Middleware with a new
     // `nextMiddleware()` callback.
-    const nextMiddleware = nextFactory(context, middleware, index + 1);
-    subsequentMiddleware({ ...context, next: nextMiddleware });
+    const nextMiddleware = await nextFactory(context, middleware, index + 1);
+    await subsequentMiddleware({ ...context, next: nextMiddleware });
   };
 }
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.meta.middleware) {
     const middleware = Array.isArray(to.meta.middleware)
       ? to.meta.middleware
@@ -114,7 +132,7 @@ router.beforeEach((to, from, next) => {
       router,
       to
     };
-    const nextMiddleware = nextFactory(context, middleware, 1);
+    const nextMiddleware = await nextFactory(context, middleware, 1);
 
     return middleware[0]({ ...context, next: nextMiddleware });
   }

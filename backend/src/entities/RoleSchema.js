@@ -20,6 +20,10 @@ export default new EntitySchema({
     admin: {
       type: "boolean",
       default: false
+    },
+    addParkingAreaPermission: {
+      type: "boolean",
+      default: false
     }
   },
   relations: {
