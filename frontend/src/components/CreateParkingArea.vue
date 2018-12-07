@@ -55,18 +55,20 @@
                       <v-layout row wrap>
                         <v-flex xs6 sm6 md6>
                           <v-text-field
+                            type="number"
+                            step=".000000"
                             v-model="topLeftCoordinate.latitude"
                             label="Latitude"
                             required
-                            :mask="coordinateMask"
                           ></v-text-field>
                         </v-flex>
                         <v-flex xs6 sm6 md6>
                           <v-text-field
+                            type="number"
+                            step=".000000"
                             v-model="topLeftCoordinate.longitude"
                             label="Longitude"
                             required
-                            :mask="coordinateMask"
                           ></v-text-field>
                         </v-flex>
                       </v-layout>
@@ -83,18 +85,20 @@
                       <v-layout row wrap>
                         <v-flex xs6 sm6 md6>
                           <v-text-field
+                            type="number"
+                            step=".000000"
                             v-model="topRightCoordinate.latitude"
                             label="Latitude"
                             required
-                            :mask="coordinateMask"
                           ></v-text-field>
                         </v-flex>
                         <v-flex xs6 sm6 md6>
                           <v-text-field
+                            type="number"
+                            step=".000000"
                             v-model="topRightCoordinate.longitude"
                             label="Longitude"
                             required
-                            :mask="coordinateMask"
                           ></v-text-field>
                         </v-flex>
                       </v-layout>
@@ -111,18 +115,20 @@
                       <v-layout row wrap>
                         <v-flex xs6 sm6 md6>
                           <v-text-field
+                            type="number"
+                            step=".000000"
                             v-model="bottomLeftCoordinate.latitude"
                             label="Latitude"
                             required
-                            :mask="coordinateMask"
                           ></v-text-field>
                         </v-flex>
                         <v-flex xs6 sm6 md6>
                           <v-text-field
+                            type="number"
+                            step=".000000"
                             v-model="bottomLeftCoordinate.longitude"
                             label="Longitude"
                             required
-                            :mask="coordinateMask"
                           ></v-text-field>
                         </v-flex>
                       </v-layout>
@@ -139,18 +145,20 @@
                       <v-layout row wrap>
                         <v-flex xs6 sm6 md6>
                           <v-text-field
+                            type="number"
+                            step=".000000"
                             v-model="bottomRightCoordinate.latitude"
                             label="Latitude"
                             required
-                            :mask="coordinateMask"
                           ></v-text-field>
                         </v-flex>
                         <v-flex xs6 sm6 md6>
                           <v-text-field
+                            type="number"
+                            step=".000000"
                             v-model="bottomRightCoordinate.longitude"
                             label="Longitude"
                             required
-                            :mask="coordinateMask"
                           ></v-text-field>
                         </v-flex>
                       </v-layout>
@@ -185,7 +193,6 @@ export default {
   data: () => ({
     e1: 0,
     validForm: false,
-    coordinateMask: "#.######",
     name: "",
     nameRules: [v => !!v || "Name is required"],
     topLeftCoordinate: {
@@ -227,6 +234,8 @@ export default {
           longitude: parseFloat(this.bottomRightCoordinate.longitude)
         }
       ];
+
+      console.log(coordinates);
 
       const result = await this.$apollo.mutate({
         mutation: addParkingArea,
