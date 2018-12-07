@@ -21,7 +21,11 @@ export const resolvers = {
       const coordinateList = [];
 
       coordinates.forEach(async c => {
-        const cordinate = new Coordinate(parkingArea, c.latitude, c.longitude);
+        const cordinate = new Coordinate(
+          parkingArea,
+          parseFloat(c.latitude),
+          parseFloat(c.longitude)
+        );
         await connection.manager.save(cordinate);
 
         coordinateList.push(cordinate);
