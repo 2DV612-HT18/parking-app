@@ -1,6 +1,11 @@
 <template>
   <div>
-    <ConfirmDialog ref="confirmDialog" title="Delete Account?" confirmText="Yes" cancelText="No"/>
+    <ConfirmDialog
+      ref="confirmDialog"
+      title="Delete Account?"
+      confirmText="Yes"
+      cancelText="No"
+    />
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
@@ -9,28 +14,29 @@
               v-model="wrong"
               color="error"
               :top="true"
-              :multi-line="true"                   
-            >Wrong password!</v-snackbar>
-              <v-card-text>
-                <v-form v-model="validForm">
-                  <v-text-field
-                    type="password"
-                    name="password"
-                    v-model="input.password"
-                    :rules="passwordRules"
-                    placeholder="Password"
-                  />
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn 
-                  color="primary"
-                  :disabled="!validForm" 
-                  v-on:click="closeAccount();">
-                  Close Account
-                </v-btn>
-              </v-card-actions>
+              :multi-line="true"
+              >Wrong password!</v-snackbar
+            >
+            <v-card-text>
+              <v-form v-model="validForm">
+                <v-text-field
+                  type="password"
+                  name="password"
+                  v-model="input.password"
+                  :rules="passwordRules"
+                  placeholder="Password"
+                />
+              </v-form>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="primary"
+                :disabled="!validForm"
+                v-on:click="closeAccount();"
+                >Close Account</v-btn
+              >
+            </v-card-actions>
           </v-flex>
         </v-layout>
       </v-container>
@@ -38,27 +44,24 @@
   </div>
 </template>
 
-
 <script>
 import CloseAccount from "@/graphql/CloseAccount.gql";
 import ConfirmDialog from "@/components/ConfirmDialog.vue";
 import { mapMutations } from "vuex";
 
 export default {
-  name: "CloseAccount",  
-  data() {    
+  name: "CloseAccount",
+  data() {
     return {
       wrong: false,
       validForm: false,
-      passwordRules: [
-        v => !!v || 'Password is required'
-      ],
+      passwordRules: [v => !!v || "Password is required"],
       input: {
         password: ""
       }
     };
   },
-    components: {
+  components: {
     ConfirmDialog
   },
   methods: {
@@ -83,7 +86,7 @@ export default {
       // Token exists
       if (status) {
         // Redirect to homepage
-        this.$router.push("/");
+        this.$router.go(0);
       } else {
         // password wrong
         this.wrong = true;
@@ -92,4 +95,3 @@ export default {
   }
 };
 </script>
-
