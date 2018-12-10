@@ -6,6 +6,12 @@
     name: HTTP
     description: Allows HTTP traffic to server
 
+- name: Create SG HTTPS
+  os_security_group:
+    state: present
+    name: HTTPS
+    description: Allows HTTPS traffic to server
+
 - name: Create SG SSH External
   os_security_group:
     state: present
@@ -30,6 +36,14 @@
     protocol: tcp
     port_range_min: 80
     port_range_max: 81
+    remote_ip_prefix: 0.0.0.0/0
+
+- name: Creating rules for SG HTTPS
+  os_security_group_rule:
+    security_group: HTTP
+    protocol: tcp
+    port_range_min: 443
+    port_range_max: 444
     remote_ip_prefix: 0.0.0.0/0
 
 - name: Create rule for SG SSHExt

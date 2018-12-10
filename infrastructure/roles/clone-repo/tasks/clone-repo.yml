@@ -1,4 +1,14 @@
 ---
+
+- name: Remove existing app dir
+  file:
+    path: /opt/app
+    state: absent
+    owner: "{{ remote_user }}"
+    group: "{{ remote_user }}"
+  tags:
+    - deploy
+
 - name: Create app dir
   file:
     path: /opt/app
@@ -27,13 +37,19 @@
     path: /opt/app/nginx/run_nginx.sh
     state: file
     mode: "a+x"
+  tags:
+    - deploy
 
 - name: Create env.prod.local file from vault
   template:
     src: .env.prod.local.j2
     dest: /opt/app/.env.prod.local
+  tags:
+    - deploy
 
 - name: Remove .git folder
   file:
     path: /opt/app/.git
     state: absent
+  tags:
+    - deploy
