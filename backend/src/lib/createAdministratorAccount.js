@@ -1,4 +1,5 @@
 import User from '../models/User';
+
 const bcrypt = require("bcrypt");
 
 export default async () => {

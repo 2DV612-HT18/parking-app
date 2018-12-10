@@ -15,9 +15,9 @@ export const resolvers = {
       if (vehicle) {
         await connection.manager.remove(vehicle);
         return true;
-      }else{
-        return false;
       }
+        return false;
+      
     }
   }
 };

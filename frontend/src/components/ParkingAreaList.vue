@@ -2,7 +2,7 @@
   <div>
     <v-card class="elevation-12">
       <v-list v-if="areas">
-        <v-list-tile v-for="area in areas" :key="area.name" avatar>
+        <v-list-tile v-for="area in areas" :key="area.name" avatar :to="{path: `/area/${area.id}`}">
           <v-list-tile-avatar>
             <v-icon large light>local_parking</v-icon>
           </v-list-tile-avatar>

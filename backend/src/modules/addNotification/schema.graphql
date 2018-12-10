@@ -1,0 +1,3 @@
+type Mutation {
+  addNotification(message: String): Notification
+}

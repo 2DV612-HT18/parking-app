@@ -16,9 +16,9 @@ export default rule()(async (_, __, { user }) => {
   });
 
   // If user is a parking owner, pass the check.
-  if (currentUser.roles[0].name == "ParkingOwner" || currentUser.roles[0].admin) {
+  if (currentUser.roles[0].name === "ParkingOwner" || currentUser.roles[0].admin) {
     return true;
-  } else {
+  } 
     return false;
-  }
+  
 });
