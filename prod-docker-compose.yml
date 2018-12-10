@@ -64,12 +64,10 @@ services:
       - 81:81
       - 444:444
     volumes:
-      nginx-certs:/etc/letsencrypt/
+      - nginx-certs:/etc/letsencrypt/
     environment:
-      http_proxy: $http_proxy
-      domains:
-        - cscloud486.lnu.se
-        - www.cscloud486.lnu.se
+      http_proxy: "$http_proxy"
+      domains: cscloud486.lnu.se #,www.cscloud486.lnu.se
       email: tobiasbernting@gmail.com
 
   db:
@@ -103,4 +101,3 @@ volumes:
   redis:
   frontend:
   nginx-certs:
-    external: true
