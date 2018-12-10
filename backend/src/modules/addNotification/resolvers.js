@@ -19,7 +19,7 @@ export const resolvers = {
       notification.author = loggedInUser
 
       // Save notification
-      return await connection.manager.save(notification);
+      return connection.manager.save(notification);
     }
   }
 };
