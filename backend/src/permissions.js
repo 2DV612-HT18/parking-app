@@ -6,7 +6,8 @@ import isAdministrator from "./lib/middlewares/isAdministrator";
 export default shield({
   Query: {
     myInfo: isAuthenticated,
-    getNotifications: isAuthenticated
+    getNotifications: isAuthenticated,
+    getParkingArea: isAuthenticated
   },
   Mutation: {
     registerUser: not(isAuthenticated),

@@ -11,7 +11,7 @@ services:
       ORM_ENTITIES_PROD: dist/entities/**/*.js
       ORM_MIGRATIONS_PROD: dist/migrations/**/*.js
       ORM_SUBSCRIBERS_PROD: dist/subscribers/**/*.js
-      SITE_BASE_URL: http://cscloud486.lnu.se
+      SITE_BASE_URL: https://cscloud486.lnu.se
     links:
       - db
     networks:
@@ -31,13 +31,17 @@ services:
     depends_on:
       - backend
       - frontend
+      - letsencrypt-certbot
     networks:
       - parkingapp
     ports:
       - 80:80
+      - 443:443
       - 81:81
+      - 444:444
     volumes:
      - frontend:/var/www/app/
+     - nginx-certs:/etc/nginx/certs:ro
      - ./nginx/nginx.conf:/etc/nginx/nginx.template
      - ./nginx/backend.conf:/etc/nginx/sites-enabled/backend.template
      - ./nginx/frontend.conf:/etc/nginx/sites-enabled/frontend.template
@@ -51,6 +55,20 @@ services:
     volumes:
       - frontend:/opt/app/dist
       - /opt/app/node_modules
+
+  letsencrypt-certbot:
+    image: pierreprinetti/certbot
+    ports:
+      - 80:80
+      - 443:443
+      - 81:81
+      - 444:444
+    volumes:
+      - nginx-certs:/etc/letsencrypt/
+    environment:
+      http_proxy: "$http_proxy"
+      domains: cscloud486.lnu.se #,www.cscloud486.lnu.se
+      email: tobiasbernting@gmail.com
 
   db:
     image: postgres:latest
@@ -82,3 +100,4 @@ volumes:
   postgres-db:
   redis:
   frontend:
+  nginx-certs:
