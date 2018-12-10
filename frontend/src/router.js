@@ -78,6 +78,14 @@ const router = new Router({
             middleware: [authenticated, addParkingArea]
           },
           component: () => import("./views/area/Create.vue")
+        },
+        { //Must be last
+          path: ":id",
+          name: "ViewParkingArea",
+          meta: {
+            middleware: [authenticated]
+          },
+          component: () => import("./views/area/View.vue")
         }
       ]
     },

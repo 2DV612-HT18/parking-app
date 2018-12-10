@@ -1,0 +1,4 @@
+ type Query {
+    getParkingArea(id: Int!): ParkingArea
+  }
+  

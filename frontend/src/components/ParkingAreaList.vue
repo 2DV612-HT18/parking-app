@@ -9,6 +9,16 @@
           <v-list-tile-content>
             <v-list-tile-title>{{ area.name }}</v-list-tile-title>
           </v-list-tile-content>
+          <v-list-tile-action>
+            <v-btn 
+              icon 
+              ripple 
+              :to="{path: `/area/${area.id}`}"
+              v-if="addParkingAreaPermission"
+              >
+              <v-icon color="black">edit</v-icon>
+            </v-btn>
+          </v-list-tile-action>
         </v-list-tile>
       </v-list>
       <v-card-title v-if="!areas.length">
@@ -34,6 +44,11 @@ export default {
       result(data) {
         this.areas = data.data.getParkingAreas;
       }
+    }
+  },
+  computed: {
+    addParkingAreaPermission() {
+      return this.$store.getters.addParkingAreaPermission;
     }
   }
 };

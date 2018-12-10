@@ -1,0 +1,43 @@
+<template>
+  <div>
+    <v-content>
+      <v-container>
+        <v-card class="elevation-12">
+          <v-toolbar dark color="primary">
+            <v-toolbar-title>{{ this.parkingArea.name }}</v-toolbar-title>
+          </v-toolbar>
+          <v-card-text>
+            
+          </v-card-text>
+        </v-card>
+      </v-container>
+    </v-content>
+  </div>
+</template>
+
+<script>
+import GetParkingArea from "@/graphql/GetParkingArea.gql";
+import { mapState, mapMutations } from "vuex";
+
+export default {
+  data: () => {
+    return {
+      parkingArea: {}
+    };
+  },
+  apollo: {
+    getParkingArea: {
+      query: GetParkingArea,
+      fetchPolicy: "no-cache",
+      variables(){
+        return {
+          id: parseInt(this.$route.params.id)
+        }
+      },
+      result(data) {
+        this.parkingArea = data.data.getParkingArea;
+      }
+    }
+  }
+};
+</script>
