@@ -50,7 +50,12 @@ export default new EntitySchema({
     dismissedNotifications: {
       target: "Notification",
       type: "many-to-many",
+      inverseSide: "dismissedUsers"
+    },
+    notifications: {
+      target: "Notification",
+      type: "one-to-many",
       inverseSide: "author"
-    }
+    },
   }
 });
