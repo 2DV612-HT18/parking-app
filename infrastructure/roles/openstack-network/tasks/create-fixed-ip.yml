@@ -35,12 +35,12 @@
 
 - name: "Set app1 fixed ip to public ip: {{ app1_public }}"
   ignore_errors: yes
-  hosts: localhost
+  # hosts: localhost
   command: "openstack floating ip set --port app1 {{ app1_public }}"
 
 - name: "Set jumpserver fixed ip to Jumpserver Public IP: {{ js_public }}"
   ignore_errors: yes
-  hosts: localhost
+  # hosts: localhost
   command: "openstack floating ip set --port jumpserver {{ js_public }}"
 
 # - name: "Update lb1 port with allowed address VIP"
