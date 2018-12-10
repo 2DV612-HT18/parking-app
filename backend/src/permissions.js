@@ -16,6 +16,7 @@ export default shield({
     removeVehicle: isAuthenticated,
     addParkingArea: and(isAuthenticated, isParkingOwner),
     addUser: and(isAuthenticated, isAdministrator),
-    addNotification: and(isAuthenticated, isAdministrator)    
+    addNotification: and(isAuthenticated, isAdministrator),
+    dismissNotification: isAuthenticated 
   }
 });
