@@ -11,7 +11,7 @@ services:
       ORM_ENTITIES_PROD: dist/entities/**/*.js
       ORM_MIGRATIONS_PROD: dist/migrations/**/*.js
       ORM_SUBSCRIBERS_PROD: dist/subscribers/**/*.js
-      SITE_BASE_URL: http://cscloud486.lnu.se
+      SITE_BASE_URL: https://cscloud486.lnu.se
     links:
       - db
     networks:
