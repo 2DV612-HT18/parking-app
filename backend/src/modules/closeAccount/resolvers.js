@@ -4,6 +4,7 @@ import removeUserSessions from "../../lib/redis/removeUserSessions";
 import User from "../../models/User";
 
 const bcrypt = require("bcrypt");
+
 export const resolvers = {
   Mutation: {
     closeAccount: async (_, args, { user, redis }) => {
@@ -31,10 +32,10 @@ export const resolvers = {
             connection.manager.remove(vehicle);
           });
 
-          //log out user
+          // log out user
           removeUserSessions(user.id, redis)
 
-          //delete user
+          // delete user
           connection.manager.remove(data);
          
           return true;

@@ -39,7 +39,7 @@ export const resolvers = {
 
       // If user with specified email doesn't exist, save the user to the database.
       if (data.length < 1) {               
-        return await connection.manager.save(user);
+        return connection.manager.save(user);
       }
       // Throw Error?
       return null;
