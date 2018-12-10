@@ -18,7 +18,7 @@ export default rule()(async (_, __, { user }) => {
   // If user is an admin, pass the check.
   if (currentUser.roles[0].admin) {
     return true;
-  } else {
+  } 
     return false;
-  }
+  
 });

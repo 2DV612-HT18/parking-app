@@ -1,4 +1,3 @@
-import User from "../../models/User";
 import {getConnection} from "typeorm";
 import ParkingArea from "../../models/ParkingArea";
 
