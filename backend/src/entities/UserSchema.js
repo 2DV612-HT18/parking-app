@@ -46,6 +46,11 @@ export default new EntitySchema({
       target: "ParkingArea",
       type: "one-to-many",
       inverseSide: "owner"
+    },
+    dismissedNotifications: {
+      target: "Notification",
+      type: "many-to-many",
+      inverseSide: "user"
     }
   }
 });
