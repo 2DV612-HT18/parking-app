@@ -1,8 +1,6 @@
 export default class Notification {
-  constructor(id, message, author, dismissed) {
+  constructor(id, message) {
     this.id = id;
     this.message = message;
-    this.author = author;
-    this.dismissed = dismissed;
   }
 }
