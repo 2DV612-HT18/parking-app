@@ -1,0 +1,3 @@
+type Mutation {
+  editParkingArea(id: Int!, name: String!, coordinates: [CoordinateInput]!): Boolean
+}
