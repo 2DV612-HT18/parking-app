@@ -36,7 +36,7 @@
 
 <script>
 import AddUser from "@/components/CreateUser";
-import Notification from "@/components/Notification";
+import Notification from "@/components/CreateNotification";
 
 export default {
 components: {
