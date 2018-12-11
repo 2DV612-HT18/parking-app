@@ -7,6 +7,7 @@ import authenticated from "./middlewares/authenticated";
 import notAuthenticated from "./middlewares/notAuthenticated";
 import admin from "./middlewares/admin";
 import addParkingArea from "./middlewares/addParkingArea";
+import editParkingArea from "./middlewares/editParkingArea";
 
 Vue.use(Router);
 
@@ -78,6 +79,14 @@ const router = new Router({
             middleware: [authenticated, addParkingArea]
           },
           component: () => import("./views/area/Create.vue")
+        },
+        {
+          path: "edit",
+          name: "EditParkingArea",
+          meta: {
+            middleware: [authenticated, editParkingArea]
+          },
+          component: () => import("./views/area/Edit.vue")
         },
         { //Must be last
           path: ":id",

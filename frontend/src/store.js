@@ -24,6 +24,14 @@ export default new Vuex.Store({
 
       const roles = state.user.roles;
       return roles.find(role => role.addParkingAreaPermission);
+    },
+    editParkingAreaPermission: state => {
+      if (!state.user) {
+        return false;
+      }
+
+      const roles = state.user.roles;
+      return roles.find(role => role.editParkingAreaPermission);
     }
   },
   mutations: {
