@@ -1,6 +1,7 @@
 import { shield, not, and } from "graphql-shield";
 import isAuthenticated from "./lib/middlewares/isAuthenticated";
 import isParkingOwner from "./lib/middlewares/isParkingOwner";
+import createParkingArea from "./lib/middlewares/createParkingArea";
 import isAdministrator from "./lib/middlewares/isAdministrator";
 
 export default shield({
@@ -16,6 +17,7 @@ export default shield({
     removeVehicle: isAuthenticated,
     addParkingArea: and(isAuthenticated, isParkingOwner),
     removeParkingArea: and(isAuthenticated, isParkingOwner),
+    editParkingArea: and(isAuthenticated, isParkingOwner, createParkingArea),
     addUser: and(isAuthenticated, isAdministrator),
     addNotification: and(isAuthenticated, isAdministrator),
     dismissNotification: isAuthenticated 

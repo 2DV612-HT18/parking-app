@@ -45,10 +45,10 @@ import Admin from "./lib/createAdministratorAccount";
     const connection = await createTypeormConnection("development");
 
     // Save standard roles if role table is empty
-    const role1 = new Role(21, "User", true, false, false);
-    const role2 = new Role(22, "ParkingOwner", true, false, true);
-    const role3 = new Role(23, "Administrator", false, true, false);
-    const role4 = new Role(24, "ParkingGuard", false, false, false);
+    const role1 = new Role(21, "User", true, false, false, false);
+    const role2 = new Role(22, "ParkingOwner", true, false, true, true);
+    const role3 = new Role(23, "Administrator", false, true, false, false);
+    const role4 = new Role(24, "ParkingGuard", false, false, false, false);
     const data = await connection
       .getRepository(Role)
       .find({ where: { name: role1.name } });

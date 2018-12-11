@@ -24,6 +24,10 @@ export default new EntitySchema({
     addParkingAreaPermission: {
       type: "boolean",
       default: false
+    },
+    editParkingAreaPermission: {
+      type: "boolean",
+      default: false
     }
   },
   relations: {
