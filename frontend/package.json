@@ -9,7 +9,6 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "dayspan-vuetify": "^0.4.0",
     "material-design-icons-iconfont": "^4.0.2",
     "register-service-worker": "^1.0.0",
     "underscore": "^1.9.1",

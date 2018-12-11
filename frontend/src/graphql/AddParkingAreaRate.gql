@@ -1,0 +1,21 @@
+mutation addParkingAreaRate(
+  $parkingAreaID: Int!
+  $startTime: String!
+  $endTime: String!
+  $startDate: String!
+  $endDate: String!
+  $charge: Int!
+  $repeat: String!
+) {
+  addParkingAreaRate(
+    parkingAreaID: $parkingAreaID
+    startTime: $startTime
+    endTime: $endTime
+    startDate: $startDate
+    endDate: $endDate
+    charge: $charge
+    repeat: $repeat
+  ) {
+    id
+  }
+}
