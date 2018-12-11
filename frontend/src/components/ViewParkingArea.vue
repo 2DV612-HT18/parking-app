@@ -7,16 +7,13 @@
             <v-toolbar-title>{{ this.parkingArea.name }}</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
-            <!-- Show rates here with dayspan-veutify -->
+            <!-- Show rates here with something smart -->
           </v-card-text>
         </v-card>
       </v-container>
     </v-content>
   </div>
 </template>
-<style>
- [v-cloak] { display:none; }
-</style>
 <script>
 import GetParkingArea from "@/graphql/GetParkingArea.gql";
 
