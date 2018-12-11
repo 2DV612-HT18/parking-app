@@ -7,22 +7,6 @@
             <v-toolbar-title>Add rate</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
-            <!-- Create form for adding rate -->
-            <!-- parking area id
-              start time
-              end time
-              start date (optional)
-              end date (optional)
-              charge
-              repeat (should choose in a list between values: NEVER, DAILY, WEEKLY, MONTHLY, YEARLY
-              
-              start/end time is to choose a time, verify that start time is before end time
-              start/end date is only required if repeat is set to "NEVER" 
-                + verify that start date is before end date
-              charge is the amount paid per hour
-              add component to parking area view
-              make sure component is only seen by parking owners (a getter should be created in another task in store.js to check for this)
-            -->
             <v-form v-model="validForm" ref="form">
             <!-- Start Time pickers -->
               <v-layout row wrap>
@@ -254,7 +238,7 @@ export default {
         const result = await this.$apollo.mutate({
           mutation: AddParkingAreaRate,
           variables: {
-            parkingAreaID: this.parkingAreaID,
+            parkingAreaID: parseInt(this.$route.params.id),
             startTime: this.startTime,
             endTime: this.endTime,
             startDate: this.startDate,
