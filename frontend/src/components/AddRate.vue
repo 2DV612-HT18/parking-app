@@ -35,7 +35,7 @@
                     v-model="startTime"
                     format="24hr"
                     full-width
-                    @change="$refs.startTimePicker.save(startTime); startEndDateValidation()"
+                    @change="$refs.startTimePicker.save(startTime); startEndTimeValidation()"
                   ></v-time-picker>
                 </v-menu>
                 <v-menu
@@ -62,7 +62,7 @@
                     v-model="endTime"
                     format="24hr"
                     full-width
-                    @change="$refs.endTimePicker.save(endTime); startEndDateValidation();"
+                    @change="$refs.endTimePicker.save(endTime); startEndTimeValidation();"
                   ></v-time-picker>
                 </v-menu>
               </v-layout>
@@ -231,10 +231,7 @@ export default {
       }
     },
     async addRate() {
-      console.log("form validation: ", this.$refs.form.validate());
-      console.log("start + end date validation: ", this.startEndDateValidation());
-      if(this.$refs.form.validate() && this.startEndDateValidation()){
-        //TODO: Fix so it doesnt submit if not all required fields are valid, required doesnt work on read only fields, so need to do it manually
+      if(this.$refs.form.validate()){
         const result = await this.$apollo.mutate({
           mutation: AddParkingAreaRate,
           variables: {
