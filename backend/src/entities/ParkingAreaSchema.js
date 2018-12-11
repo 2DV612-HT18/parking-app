@@ -21,10 +21,14 @@ export default new EntitySchema({
       inverseSide: "parkingAreas",
       onDelete: "CASCADE"
     },
-    // TODO: Make coordinates into an array instead?
     coordinates: {
       target: "Coordinate",
       type: "one-to-many"
+    },
+    rates: {
+      target: "Rate",
+      type: "one-to-many",
+      inverseSide: "parkingArea"
     }
   }
 });
