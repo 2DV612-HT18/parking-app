@@ -2,8 +2,6 @@ import Vue from "vue";
 import "vue-googlemaps/dist/vue-googlemaps.css";
 import VueGoogleMaps from "vue-googlemaps";
 
-console.log(process.env.VUE_APP_GOOGLE_MAPS_API)
-
 Vue.use(VueGoogleMaps, {
   load: {
     // Google API key
