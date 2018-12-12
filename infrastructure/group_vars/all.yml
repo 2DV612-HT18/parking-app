@@ -5,7 +5,7 @@ zone: "Education"
 keyname: "2dv612"
 key_location: "~/.ssh/2dv612.pem"
 deploy_key: "~/.ssh/deploy_key_gh"
-git_branch: master
+git_branch: 4386-env-variables #master
 git_repo: "git@github.com:2DV612-HT18/parking-app.git"
 ansible_python_interpreter: /usr/bin/python3
 remote_user: ubuntu
