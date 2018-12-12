@@ -8,10 +8,8 @@ services:
     env_file:
       - .env.prod.local
     environment:
-      ORM_ENTITIES_PROD: dist/entities/**/*.js
-      ORM_MIGRATIONS_PROD: dist/migrations/**/*.js
-      ORM_SUBSCRIBERS_PROD: dist/subscribers/**/*.js
-      SITE_BASE_URL: https://cscloud486.lnu.se
+      NODE_ENV: production
+      SITE_BASE_URL: https://cscloud455.lnu.se
     links:
       - db
     networks:
@@ -27,11 +25,11 @@ services:
   nginx:
     image: nginx
     environment:
-      SERVER_NAME: cscloud486.lnu.se
+      SERVER_NAME: cscloud455.lnu.se
     depends_on:
       - backend
       - frontend
-      - letsencrypt-certbot
+      # - letsencrypt-certbot
     networks:
       - parkingapp
     ports:
@@ -41,7 +39,8 @@ services:
       - 444:444
     volumes:
      - frontend:/var/www/app/
-     - nginx-certs:/etc/nginx/certs:ro
+    #  - nginx-certs:/etc/nginx/certs:ro
+     - ./nginx/backup.tar:/etc/nginx/backup.tar
      - ./nginx/nginx.conf:/etc/nginx/nginx.template
      - ./nginx/backend.conf:/etc/nginx/sites-enabled/backend.template
      - ./nginx/frontend.conf:/etc/nginx/sites-enabled/frontend.template
@@ -56,19 +55,20 @@ services:
       - frontend:/opt/app/dist
       - /opt/app/node_modules
 
-  letsencrypt-certbot:
-    image: pierreprinetti/certbot
-    ports:
-      - 80:80
-      - 443:443
-      - 81:81
-      - 444:444
-    volumes:
-      - nginx-certs:/etc/letsencrypt/
-    environment:
-      http_proxy: "$http_proxy"
-      domains: cscloud486.lnu.se #,www.cscloud486.lnu.se
-      email: tobiasbernting@gmail.com
+  # letsencrypt-certbot:
+  #   image: pierreprinetti/certbot
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #     - 81:81
+  #     - 444:444
+  #   volumes:
+  #     - nginx-certs:/etc/letsencrypt/
+  #   environment:
+  #     http_proxy: "$http_proxy"
+  #     # domains: cscloud486.lnu.se #,www.cscloud486.lnu.se
+  #     domains: cscloud455.lnu.se
+  #     email: tobiasbernting@gmail.com
 
   db:
     image: postgres:latest
@@ -100,4 +100,4 @@ volumes:
   postgres-db:
   redis:
   frontend:
-  nginx-certs:
+  # nginx-certs:

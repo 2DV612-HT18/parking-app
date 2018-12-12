@@ -1,20 +1,18 @@
 mutation addParkingAreaRate(
   $parkingAreaID: Int!
-  $startTime: String!
-  $endTime: String!
-  $startDate: String!
-  $endDate: String!
-  $charge: Int!
-  $repeat: String!
+  $startTime: Time!
+  $endTime: Time!
+  $startDate: Date!
+  $endDate: Date!
+  $charge: Float!
 ) {
-  addParkingAreaRate(
+  addRate(
     parkingAreaID: $parkingAreaID
     startTime: $startTime
     endTime: $endTime
     startDate: $startDate
     endDate: $endDate
     charge: $charge
-    repeat: $repeat
   ) {
     id
   }

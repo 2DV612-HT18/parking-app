@@ -42,7 +42,7 @@ import Admin from "./lib/createAdministratorAccount";
       })
     );
 
-    const connection = await createTypeormConnection("development");
+    const connection = await createTypeormConnection(process.env.NODE_ENV || "development");
 
     // Save standard roles if role table is empty
     const role1 = new Role(21, "User", true, false, false, false);

@@ -21,9 +21,7 @@
               <v-icon color="white">delete</v-icon>
             </v-btn>
           </v-toolbar>
-          <v-card-text>
-            <!-- Show rates here with something smart -->
-          </v-card-text>
+          <ViewRates :rates="parkingArea.rates"/>
         </v-card>
       </v-container>
     </v-content>
@@ -34,9 +32,14 @@ import GetParkingArea from "@/graphql/GetParkingArea.gql";
 import RemoveParkingArea from "@/graphql/removeParkingArea.gql";
 import ConfirmDialog from "@/components/ConfirmDialog.vue";
 import { mapMutations } from "vuex";
+import ViewRates from "@/components/ViewRates.vue";
+
 
 export default {
   name: "ViewParkingArea",
+  components: {
+    ViewRates
+  },
   data: () => {
     return {
       parkingArea: {}

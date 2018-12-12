@@ -5,7 +5,7 @@ import Coordinate from "../../models/Coordinate";
 
 export const resolvers = {
   Mutation: {
-    addParkingArea: async (_, { area_id, name, coordinates }, { user }) => {
+    editParkingArea: async (_, { area_id, name, coordinates }, { user }) => {
       console.log(coordinates);
       const connection = getConnection();
       const userRepository = connection.getRepository(User);
@@ -20,8 +20,8 @@ export const resolvers = {
         relations: ["coordinates"]
       });
 
-      if (parkingArea.length===0) {
-          return false;
+      if (!parkingArea) {
+        return false;
       }
 
       await connection.manager.remove(parkingArea);

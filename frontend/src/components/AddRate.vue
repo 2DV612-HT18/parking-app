@@ -2,6 +2,18 @@
   <div>
     <v-content>
       <v-container>
+        <v-snackbar
+          v-model="success"
+          color="success"
+          :top="true"
+          :multi-line="true"                   
+        >{{ successRate }}</v-snackbar>
+        <v-snackbar
+          v-model="failed"
+          color="error"
+          :top="true"
+          :multi-line="true"                   
+        >{{ failedRate }}</v-snackbar>
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
             <v-toolbar-title>Add rate</v-toolbar-title>
@@ -67,14 +79,6 @@
                 </v-menu>
               </v-layout>
               <!-- End Time pickers -->
-              <v-radio-group v-model="repeat" column label="Repeat">
-                <v-radio 
-                  v-for="interval in intervals" 
-                  v-bind:key="interval.text" 
-                  :label="interval.text" 
-                  :value="interval.value" 
-                ></v-radio>
-              </v-radio-group>
               <!-- Date pickers -->
               <v-layout row wrap>
                 <v-menu
@@ -93,6 +97,7 @@
                     prepend-icon="event"
                     :error-messages="startDateError"
                     readonly
+                    :rules="requiredRule"
                     @blur="startEndDateValidation()"
                   ></v-text-field>
                   <v-date-picker v-model="startDate" no-title scrollable></v-date-picker>
@@ -111,14 +116,12 @@
                     label="End date"
                     prepend-icon="event"
                     readonly
+                    :rules="requiredRule"
                     :error-messages="endDateError"
                     @blur="startEndDateValidation()"
                   ></v-text-field>
                   <v-date-picker v-model="endDate" no-title scrollable></v-date-picker>
                 </v-menu>
-                <v-btn flat class="ma-auto ml-3" v-on:click="clearDates();"  color="primary">
-                  Clear dates
-                </v-btn>
               </v-layout>
               <!-- END Date pickers -->
               <v-text-field v-model="charge" type="number" :rules="chargeRule" label="Charge per hour" required></v-text-field>
@@ -150,16 +153,12 @@ export default {
       endDateError: "",
       startDateError: "",
       charge: null,
-      repeat: "DAILY",
-      intervals: [
-        {text: "Never", value: "NEVER"}, 
-        {text: "Daily", value: "DAILY"}, 
-        {text: "Weekly", value: "WEEKLY"}, 
-        {text: "Monthly", value: "MONTHLY"}, 
-        {text: "Yearly", value: "YEARLY"}
-      ],
       chargeRule: [v => !!v || "Charge is required"],
       requiredRule: [v => !!v || "This is required"],
+      failedRate: "Couldnt add rate, make sure its not overlapping with any previous rates",
+      successRate: "Added rate!",
+      failed: "",
+      success: ""
     }
   },
   watch: {
@@ -168,25 +167,16 @@ export default {
     },
     endDate: function(){
       this.startEndDateValidation();
-    },
-    repeat: function(){
-      this.startEndDateValidation();
     }
   },
   methods: {
-    clearDates(){
-      this.startDate = "";
-      this.endDate = "";
-    },
     startEndDateValidation: function() {
-      if((!this.endDate && this.repeat === "NEVER") || //if we dont have endDate and we must have endDate
-      (!this.endDate && this.startDate)){//if we have startDate we also must have endDate
+      if(!this.endDate){//if we have startDate we also must have endDate
         this.endDateError = "End date is required";
       }else{
         this.endDateError = "";
       }
-      if((!this.startDate && this.repeat === "NEVER") || //if we dont have startDate and we must have startDate
-      (!this.startDate && this.endDate)){//if we have endDate we also must have startDate
+      if(!this.startDate){//if we have endDate we also must have startDate
         this.startDateError = "Start date is required";
       }else{
         this.startDateError = "";
@@ -240,8 +230,7 @@ export default {
             endTime: this.endTime,
             startDate: this.startDate,
             endDate: this.endDate,
-            charge: this.charge,
-            repeat: this.repeat
+            charge: parseFloat(this.charge)
           }
         });
         const data = result.data.addRate;
@@ -249,12 +238,10 @@ export default {
           // successful
           // Display snackbar! 
           this.success = true;
-          console.log("successfull: ", data);
         } else {
           // unsuccessful
-          // Display snackbar!
-          this.failed = true
-          console.log("unsuccessfull: ", data);
+          // ErrorMessage pls
+          this.failed = true;
         }
       }
     }
