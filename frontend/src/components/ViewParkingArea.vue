@@ -6,9 +6,7 @@
           <v-toolbar dark color="primary">
             <v-toolbar-title>{{ this.parkingArea.name }}</v-toolbar-title>
           </v-toolbar>
-          <v-card-text>
-            <!-- Show rates here with something smart -->
-          </v-card-text>
+          <ViewRates :rates="parkingArea.rates"/>
         </v-card>
                     <router-link :to="{path: `/area/edit/${this.parkingArea.id}`}">
               <button id="editButton" class="foo bar">Edit</button>
@@ -19,9 +17,13 @@
 </template>
 <script>
 import GetParkingArea from "@/graphql/GetParkingArea.gql";
+import ViewRates from "@/components/ViewRates.vue";
 
 export default {
   name: "ViewParkingArea",
+  components: {
+    ViewRates
+  },
   data: () => {
     return {
       parkingArea: {}
