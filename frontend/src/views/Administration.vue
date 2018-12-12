@@ -18,6 +18,11 @@
               </v-card-text>        
             </div>          
         </v-card>
+        <Notification
+          :form_title=noti_title
+          :success_message=noti_success
+          :mutationName=noti_mutation
+        />           
         <AddUser
           :form_title=form_title
           :success_message=success_message
@@ -31,14 +36,19 @@
 
 <script>
 import AddUser from "@/components/CreateUser";
+import Notification from "@/components/CreateNotification";
 
 export default {
 components: {
+    Notification,
     AddUser
   }, 
   data() {
     created: this.$router.currentRoute.query.created
     return {
+      noti_title: "Send a notification",
+      noti_success: "You successfully sent a notification!",
+      mutationName: "Notification",
       form_title: "Create a user",
       success_message: "You successfully created a user account!",
       failed_message: "Email is already taken!",
