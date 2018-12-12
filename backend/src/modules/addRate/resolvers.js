@@ -1,9 +1,9 @@
 import { getConnection } from "typeorm";
 import moment from "moment";
-import REPEAT from "../../../lib/rates/REPEAT";
-import ParkingArea from "../../../models/ParkingArea";
-import Rate from "../../../models/Rate";
-import isDatesOverlapping from "../../../lib/rates/isDatesOverlapping";
+import REPEAT from "../../lib/rates/REPEAT";
+import ParkingArea from "../../models/ParkingArea";
+import Rate from "../../models/Rate";
+import isDatesOverlapping from "../../lib/rates/isDatesOverlapping";
 
 export const resolvers = {
   Mutation: {
