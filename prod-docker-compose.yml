@@ -11,7 +11,8 @@ services:
       ORM_ENTITIES_PROD: dist/entities/**/*.js
       ORM_MIGRATIONS_PROD: dist/migrations/**/*.js
       ORM_SUBSCRIBERS_PROD: dist/subscribers/**/*.js
-      SITE_BASE_URL: https://cscloud486.lnu.se
+      # SITE_BASE_URL: https://cscloud486.lnu.se
+      SITE_BASE_URL: https://cscloud455.lnu.se
     links:
       - db
     networks:
@@ -27,7 +28,8 @@ services:
   nginx:
     image: nginx
     environment:
-      SERVER_NAME: cscloud486.lnu.se
+      SERVER_NAME: cscloud455.lnu.se
+      # SERVER_NAME: cscloud486.lnu.se
     depends_on:
       - backend
       - frontend
@@ -69,7 +71,8 @@ services:
       - nginx-certs:/etc/letsencrypt/
     environment:
       http_proxy: "$http_proxy"
-      domains: cscloud486.lnu.se #,www.cscloud486.lnu.se
+      # domains: cscloud486.lnu.se #,www.cscloud486.lnu.se
+      domains: cscloud455.lnu.se
       email: tobiasbernting@gmail.com
 
   db:
