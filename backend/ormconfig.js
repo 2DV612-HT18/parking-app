@@ -31,11 +31,9 @@ module.exports = [
     synchronize: true,
     logging: false,
     cache: true,
-    entities: [process.env.ORM_ENTITIES_PROD || "src/entities/**/*.js"],
-    migrations: [process.env.ORM_MIGRATIONS_PROD || "src/migrations/**/*.js"],
-    subscribers: [
-      process.env.ORM_SUBSCRIBERS_PROD || "src/subscribers/**/*.js"
-    ],
+    entities: ["dist/entities/**/*.js"],
+    migrations: ["dist/migrations/**/*.js"],
+    subscribers: ["dist/subscribers/**/*.js"],
     cli: {
       entitiesDir: "src/entities",
       migrationsDir: "src/migrations",

@@ -8,9 +8,9 @@ services:
     env_file:
       - .env.prod.local
     environment:
-      ORM_ENTITIES_PROD: dist/entities/**/*.js
-      ORM_MIGRATIONS_PROD: dist/migrations/**/*.js
-      ORM_SUBSCRIBERS_PROD: dist/subscribers/**/*.js
+      # ORM_ENTITIES_PROD: dist/entities/**/*.js
+      # ORM_MIGRATIONS_PROD: dist/migrations/**/*.js
+      # ORM_SUBSCRIBERS_PROD: dist/subscribers/**/*.js
       # SITE_BASE_URL: https://cscloud486.lnu.se
       SITE_BASE_URL: https://cscloud455.lnu.se
     links:
