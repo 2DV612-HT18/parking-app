@@ -8,11 +8,6 @@
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>{{ area.name }}</v-list-tile-title>
-
-            <router-link :to="{path: `/area/edit/${area.id}`}">
-              <button id="myButton" class="foo bar">Go!</button>
-            </router-link>
-
           </v-list-tile-content>
         </v-list-tile>
       </v-list>

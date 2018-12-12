@@ -10,6 +10,9 @@
             <!-- Show rates here with something smart -->
           </v-card-text>
         </v-card>
+                    <router-link :to="{path: `/area/edit/${this.parkingArea.id}`}">
+              <button id="editButton" class="foo bar">Edit</button>
+            </router-link>
       </v-container>
     </v-content>
   </div>
