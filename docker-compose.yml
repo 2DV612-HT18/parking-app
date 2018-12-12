@@ -21,6 +21,8 @@ services:
 
   frontend:
     build: frontend
+    env_file: 
+      - .env.dev.local
     ports:
       - "8080:8080"
     volumes:

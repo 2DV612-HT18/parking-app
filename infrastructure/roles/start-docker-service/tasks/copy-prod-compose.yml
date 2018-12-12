@@ -1,3 +1,0 @@
----
-- name: Copy compose file to /opt/app
-  template: src=docker-compose.j2 dest=/opt/app/docker-compose.yml

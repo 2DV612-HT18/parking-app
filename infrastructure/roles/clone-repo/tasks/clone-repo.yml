@@ -40,10 +40,17 @@
   tags:
     - deploy
 
-- name: Create env.prod.local file from vault
+- name: Create env.prod.local file for BACKEND from vault
   template:
     src: .env.prod.local.j2
     dest: /opt/app/.env.prod.local
+  tags:
+    - deploy
+
+- name: Create env.producton.local file for FRONTEND from vault
+  template:
+    src: .env.production.local.j2
+    dest: /opt/app/frontend/.env.production.local
   tags:
     - deploy
 
