@@ -23,7 +23,8 @@ export default new EntitySchema({
     },
     coordinates: {
       target: "Coordinate",
-      type: "one-to-many"
+      type: "one-to-many",
+      inverseSide: "parkingArea"
     },
     rates: {
       target: "Rate",
