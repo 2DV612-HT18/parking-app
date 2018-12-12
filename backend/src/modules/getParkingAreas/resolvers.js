@@ -1,4 +1,4 @@
-import {getConnection} from "typeorm";
+import { getConnection } from "typeorm";
 import ParkingArea from "../../models/ParkingArea";
 
 export const resolvers = {
@@ -8,9 +8,10 @@ export const resolvers = {
       const parkingAreaRepository = connection.getRepository(ParkingArea);
 
       const parkingAreas = await parkingAreaRepository.find({
-        where: { ownerId: user.id }
+        where: { ownerId: user.id },
+        relations: ["rates", "owner", "coordinates"]
       });
-      return parkingAreas
-    },
-  },
+      return parkingAreas;
+    }
+  }
 };
