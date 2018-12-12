@@ -38,7 +38,7 @@ docker-compose up -d
 ```
 to run the services in the background.
 
-To see if anything is running, enter:g
+To see if anything is running, enter:
 ```docker
 docker-compose ps
 ```
