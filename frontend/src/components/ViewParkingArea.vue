@@ -38,15 +38,13 @@ import ViewRates from "@/components/ViewRates.vue";
 export default {
   name: "ViewParkingArea",
   components: {
-    ViewRates
+    ViewRates,
+    ConfirmDialog
   },
   data: () => {
     return {
       parkingArea: {}
     };
-  },
-    components: {
-    ConfirmDialog
   },
   apollo: {
     getParkingArea: {
