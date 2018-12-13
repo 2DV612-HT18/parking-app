@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Notifications />
     <v-content>
       <v-container>
         <v-card class="elevation-12">
@@ -30,7 +29,6 @@ import { mapState } from "vuex";
 
 import AddVehicle from "@/components/AddVehicle.vue";
 import MyVehicles from "@/components/MyVehicles.vue";
-import Notifications from "@/components/Notifications.vue";
 
 export default {
   data() {
@@ -41,8 +39,7 @@ export default {
   computed: mapState(["user"]),
   components: {
     AddVehicle,
-    MyVehicles,
-    Notifications
+    MyVehicles
   }
 };
 </script>

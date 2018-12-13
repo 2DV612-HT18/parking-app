@@ -1,26 +1,24 @@
 <template>
-  <div>
-    <v-card class="elevation-12" v-if="notifications.length">
-      <v-alert
-        :value="true"
-        type="info"
-        v-for="notification in notifications"
-        :key="notification.id"
+  <v-card class="elevation-12">
+    <v-alert
+      :value="true"
+      type="info"
+      v-for="notification in notifications"
+      :key="notification.id"
+    >
+      {{ notification.message }}
+      <v-btn
+        icon
+        v-on:click="dismissNotification(notification.id);"
+        absolute
+        right
+        middle
+        style="top: 8px;"
       >
-        {{ notification.message }}
-        <v-btn
-          icon
-          v-on:click="dismissNotification(notification.id);"
-          absolute
-          right
-          middle
-          style="top: 8px;"
-        >
-          <v-icon color="white">clear</v-icon>
-        </v-btn>
-      </v-alert>
-    </v-card>
-  </div>
+        <v-icon color="white">clear</v-icon>
+      </v-btn>
+    </v-alert>
+  </v-card>
 </template>
 
 <script>
