@@ -232,7 +232,7 @@
                 <v-btn
                   color="primary"
                   v-on:click="editParkingArea();"
-                  :disabled="!validForm || e1 < 4"
+                  :disabled="!validForm || e1 < 5"
                   >Submit</v-btn
                 >
               </v-card-actions>
@@ -291,6 +291,8 @@ export default {
         this.parkingArea = data.data.getParkingArea;
         this.nameArea = this.parkingArea.name;
         this.coordinates = this.parkingArea.coordinates;
+
+        console.log(this.parkingArea);
 
         // Sort coordinates by id
         this.coordinates.sort((a, b) => {

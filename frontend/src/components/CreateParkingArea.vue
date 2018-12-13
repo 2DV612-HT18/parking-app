@@ -225,7 +225,7 @@
                 <v-btn
                   color="primary"
                   v-on:click="addParkingArea();"
-                  :disabled="!validForm || e1 < 4"
+                  :disabled="!validForm || e1 < 5"
                   >Submit</v-btn
                 >
               </v-card-actions>
