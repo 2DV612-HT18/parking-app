@@ -10,7 +10,7 @@
             v-model="registrationNumber"
             :rules="registrationNumberRules"
             label="Registration number"
-            v-on:input="checkDuplicate($event, 'registrationNumber')"
+            v-on:input="checkDuplicate($event, 'registrationNumber');"
             :error-messages="formError"
             required
           ></v-text-field>
@@ -18,24 +18,20 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn 
-          color="primary" 
+        <v-btn
+          color="primary"
           v-on:click="saveVehicle();"
-          :disabled="!validForm">
-          Add car
-        </v-btn>
+          :disabled="!validForm"
+          >Add car</v-btn
+        >
       </v-card-actions>
-      <v-alert
-        :value="submitError"
-        color="error"
-        icon="warning"
-      >
-        {{ submitError }}
-      </v-alert>
+      <v-alert :value="submitError" color="error" icon="warning">{{
+        submitError
+      }}</v-alert>
     </v-card>
   </div>
 </template>
- 
+
 <script>
 import AddVehicle from "@/graphql/AddVehicle.gql";
 import { mapState, mapMutations } from "vuex";
@@ -45,24 +41,20 @@ export default {
     submitError: false,
     formError: "",
     validForm: false,
-    registrationNumber: '',
-    registrationNumberRules: [
-      v => !!v || 'Registration number is required'
-    ]
+    registrationNumber: "",
+    registrationNumberRules: [v => !!v || "Registration number is required"]
   }),
   computed: mapState(["user"]),
   methods: {
     ...mapMutations(["addVehicle"]),
-    checkDuplicate(value){
-      var duplicate = this.user.vehicles.find((car, index) => {
+    checkDuplicate(value) {
+      var duplicate = this.user.vehicles.find(car => {
         return car.registrationNumber === value;
       });
-      if(duplicate)
-        this.formError = "You already have this car"
-      else
-        this.formError = null;
+      if (duplicate) this.formError = "You already have this car";
+      else this.formError = null;
     },
-    async saveVehicle(){
+    async saveVehicle() {
       const result = await this.$apollo.mutate({
         mutation: AddVehicle,
         variables: {
@@ -77,10 +69,10 @@ export default {
       } else {
         //Dude.. where's my car
         //Pls correct error message
-        this.submitError = "Car wasnt added, someone probably already have this car";
+        this.submitError =
+          "Car wasnt added, someone probably already have this car";
       }
     }
   }
-}
+};
 </script>
-

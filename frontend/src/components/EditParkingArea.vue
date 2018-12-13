@@ -276,18 +276,18 @@ export default {
     getParkingArea: {
       query: GetParkingArea,
       fetchPolicy: "no-cache",
-      variables(){
+      variables() {
         return {
           id: parseInt(this.$route.params.id),
           parkingArea: {}
-        }
+        };
       },
       result(data) {
         this.parkingArea = data.data.getParkingArea;
         this.nameArea = this.parkingArea.name;
         this.coordinates = data.data.getParkingArea.coordinates;
-        console.log("Name: " + this.nameArea)
-        console.log(this.parkingArea)
+        console.log("Name: " + this.nameArea);
+        console.log(this.parkingArea);
       }
     }
   },
@@ -379,9 +379,7 @@ export default {
         });
       });
     },
-    getName() {
-
-    }
+    getName() {}
   },
   mounted() {
     this.geolocate();

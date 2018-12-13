@@ -8,12 +8,10 @@
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <logout/>
+      <logout />
     </v-toolbar>
 
-    <v-content>
-      <router-view/>
-    </v-content>
+    <v-content> <router-view /> </v-content>
   </v-app>
 </template>
 

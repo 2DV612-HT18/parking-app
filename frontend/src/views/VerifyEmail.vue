@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <VerifyEmail />
-  </div>
+  <div><VerifyEmail /></div>
 </template>
 
 <script>

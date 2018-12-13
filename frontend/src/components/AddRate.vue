@@ -6,21 +6,23 @@
           v-model="success"
           color="success"
           :top="true"
-          :multi-line="true"                   
-        >{{ successRate }}</v-snackbar>
+          :multi-line="true"
+          >{{ successRate }}</v-snackbar
+        >
         <v-snackbar
           v-model="failed"
           color="error"
           :top="true"
-          :multi-line="true"                   
-        >{{ failedRate }}</v-snackbar>
+          :multi-line="true"
+          >{{ failedRate }}</v-snackbar
+        >
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
             <v-toolbar-title>Add rate</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
             <v-form v-model="validForm" ref="form">
-            <!-- Start Time pickers -->
+              <!-- Start Time pickers -->
               <v-layout row wrap>
                 <v-menu
                   class="mr-3"
@@ -47,7 +49,10 @@
                     v-model="startTime"
                     format="24hr"
                     full-width
-                    @change="$refs.startTimePicker.save(startTime); startEndTimeValidation()"
+                    @change="
+                      $refs.startTimePicker.save(startTime);
+                      startEndTimeValidation();
+                    "
                   ></v-time-picker>
                 </v-menu>
                 <v-menu
@@ -74,7 +79,10 @@
                     v-model="endTime"
                     format="24hr"
                     full-width
-                    @change="$refs.endTimePicker.save(endTime); startEndTimeValidation();"
+                    @change="
+                      $refs.endTimePicker.save(endTime);
+                      startEndTimeValidation();
+                    "
                   ></v-time-picker>
                 </v-menu>
               </v-layout>
@@ -98,9 +106,13 @@
                     :error-messages="startDateError"
                     readonly
                     :rules="requiredRule"
-                    @blur="startEndDateValidation()"
+                    @blur="startEndDateValidation();"
                   ></v-text-field>
-                  <v-date-picker v-model="startDate" no-title scrollable></v-date-picker>
+                  <v-date-picker
+                    v-model="startDate"
+                    no-title
+                    scrollable
+                  ></v-date-picker>
                 </v-menu>
                 <v-menu
                   ref="endDatePicker"
@@ -118,18 +130,33 @@
                     readonly
                     :rules="requiredRule"
                     :error-messages="endDateError"
-                    @blur="startEndDateValidation()"
+                    @blur="startEndDateValidation();"
                   ></v-text-field>
-                  <v-date-picker v-model="endDate" no-title scrollable></v-date-picker>
+                  <v-date-picker
+                    v-model="endDate"
+                    no-title
+                    scrollable
+                  ></v-date-picker>
                 </v-menu>
               </v-layout>
               <!-- END Date pickers -->
-              <v-text-field v-model="charge" type="number" :rules="chargeRule" label="Charge per hour" required></v-text-field>
+              <v-text-field
+                v-model="charge"
+                type="number"
+                :rules="chargeRule"
+                label="Charge per hour"
+                required
+              ></v-text-field>
             </v-form>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" v-on:click="addRate();" :disabled="!validForm">Submit</v-btn>
+            <v-btn
+              color="primary"
+              v-on:click="addRate();"
+              :disabled="!validForm"
+              >Submit</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-container>
@@ -155,59 +182,59 @@ export default {
       charge: null,
       chargeRule: [v => !!v || "Charge is required"],
       requiredRule: [v => !!v || "This is required"],
-      failedRate: "Couldnt add rate, make sure its not overlapping with any previous rates",
+      failedRate:
+        "Couldnt add rate, make sure its not overlapping with any previous rates",
       successRate: "Added rate!",
       failed: "",
       success: ""
-    }
+    };
   },
   watch: {
-    startDate: function(){
+    startDate: function() {
       this.startEndDateValidation();
     },
-    endDate: function(){
+    endDate: function() {
       this.startEndDateValidation();
     }
   },
   methods: {
     startEndDateValidation: function() {
-      if(!this.endDate){//if we have startDate we also must have endDate
+      if (!this.endDate) {
+        //if we have startDate we also must have endDate
         this.endDateError = "End date is required";
-      }else{
+      } else {
         this.endDateError = "";
       }
-      if(!this.startDate){//if we have endDate we also must have startDate
+      if (!this.startDate) {
+        //if we have endDate we also must have startDate
         this.startDateError = "Start date is required";
-      }else{
+      } else {
         this.startDateError = "";
       }
-      if(this.endDateError || this.startDateError)
-        return false;
-
+      if (this.endDateError || this.startDateError) return false;
 
       let startDate = Date.parse(this.startDate);
       let endDate = Date.parse(this.endDate);
       if (endDate < startDate) {
         this.endDateError = "End date is before start date";
         return false;
-      }else{
+      } else {
         this.endDateError = "";
         return true;
       }
     },
     startEndTimeValidation: function() {
-      if(!this.endTime){
+      if (!this.endTime) {
         this.endTimeError = "End time is required";
-      }else{
+      } else {
         this.endTimeError = "";
       }
-      if(!this.startTime){
+      if (!this.startTime) {
         this.startTimeError = "Start time is required";
-      }else{
+      } else {
         this.startTimeError = "";
       }
-      if(this.endTimeError || this.startTimeError)
-        return;
+      if (this.endTimeError || this.startTimeError) return;
       let startTime = new Date();
       startTime.setHours(this.startTime.split(":")[0]);
       startTime.setMinutes(this.startTime.split(":")[1]);
@@ -216,12 +243,12 @@ export default {
       endTime.setMinutes(this.endTime.split(":")[1]);
       if (endTime < startTime) {
         this.endTimeError = "End time is before start time";
-      }else{
+      } else {
         this.endTimeError = "";
       }
     },
     async addRate() {
-      if(this.$refs.form.validate()){
+      if (this.$refs.form.validate()) {
         const result = await this.$apollo.mutate({
           mutation: AddParkingAreaRate,
           variables: {
@@ -236,7 +263,7 @@ export default {
         const data = result.data.addRate;
         if (data) {
           // successful
-          // Display snackbar! 
+          // Display snackbar!
           this.success = true;
         } else {
           // unsuccessful

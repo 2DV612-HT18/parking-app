@@ -2,10 +2,17 @@
   <div>
     <v-card class="elevation-12">
       <v-list v-if="notifications">
-        <v-list-tile v-for="notification in notifications" :key="notification.id">
+        <v-list-tile
+          v-for="notification in notifications"
+          :key="notification.id"
+        >
           <v-list-tile-title>{{ notification.message }}</v-list-tile-title>
-            <v-list-tile-action>
-              <v-btn icon ripple v-on:click="dismissNotification(notification.id, notification.message);">
+          <v-list-tile-action>
+            <v-btn
+              icon
+              ripple
+              v-on:click="dismissNotification(notification.id);"
+            >
               <v-icon color="red">delete</v-icon>
             </v-btn>
           </v-list-tile-action>
@@ -38,7 +45,7 @@ export default {
   },
   methods: {
     ...mapMutations(["dismissNotification"]),
-    async dismissNotification(id, message) {
+    async dismissNotification(id) {
       const result = await this.$apollo.mutate({
         mutation: DismissNotification,
         variables: {
@@ -48,13 +55,12 @@ export default {
       const status = result.data.dismissNotification;
       if (status) {
         this.dismissNotification(id);
-      } 
+      }
     }
-  },
-}
-
+  }
+};
 </script>
 
-
-
-<!-- <v-alert v-model="alert" dismissable type="info">{{notification.message}}</v-alert> -->
+<!--
+  <v-alert v-model="alert" dismissable type="info">{{notification.message}}</v-alert>
+-->

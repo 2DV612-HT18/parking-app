@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Notifications/>
+    <Notifications />
     <v-content>
       <v-container>
         <v-card class="elevation-12">
@@ -33,11 +33,11 @@ import MyVehicles from "@/components/MyVehicles.vue";
 import Notifications from "@/components/Notifications.vue";
 
 export default {
-    data () {
-      return {
-        items: [{ title: 'Photos'}]
-      }
-    },
+  data() {
+    return {
+      items: [{ title: "Photos" }]
+    };
+  },
   computed: mapState(["user"]),
   components: {
     AddVehicle,
