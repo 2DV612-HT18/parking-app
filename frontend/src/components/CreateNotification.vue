@@ -41,7 +41,9 @@ export default {
         }
       });
 
-      console.log(result);
+      if (result) {
+        this.notification = "";
+      }
     }
   }
 };
