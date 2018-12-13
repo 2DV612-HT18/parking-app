@@ -7,5 +7,12 @@ mutation editParkingArea(
     id: $id
     name: $name
     coordinates: $coordinates
-  )
+  ) {
+    name,
+    coordinates {
+      latitude,
+      longitude
+    }
+  }
 }
+

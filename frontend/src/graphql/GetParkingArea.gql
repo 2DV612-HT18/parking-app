@@ -1,5 +1,10 @@
 query ($id: Int!){
     getParkingArea(id: $id){        
-        name        
+     id
+     name
+     coordinates {
+      latitude
+      longitude
+     }       
     }
 }
