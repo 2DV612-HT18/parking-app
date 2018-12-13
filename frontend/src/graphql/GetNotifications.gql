@@ -1,6 +1,5 @@
 query{
-    getMessage{        
+    getNotifications {
         message
-        id        
     }
 }
