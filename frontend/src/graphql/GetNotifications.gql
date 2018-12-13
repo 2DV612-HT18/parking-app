@@ -1,0 +1,5 @@
+query ($id: Int!){
+    getMessage(id: $id){        
+        message        
+    }
+}
