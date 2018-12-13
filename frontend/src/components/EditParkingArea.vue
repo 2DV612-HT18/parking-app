@@ -222,7 +222,13 @@
               </v-layout>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn :to="{ name: 'ParkingAreas' }">Cancel</v-btn>
+                <v-btn
+                  :to="{
+                    name: 'ViewParkingArea',
+                    params: { id: this.parkingArea.id }
+                  }"
+                  >Cancel</v-btn
+                >
                 <v-btn
                   color="primary"
                   v-on:click="editParkingArea();"
