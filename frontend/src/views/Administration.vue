@@ -20,7 +20,6 @@
         </v-card>
         <Notification
           :form_title=noti_title
-          :success_message=noti_success
           :mutationName=noti_mutation
         />           
         <AddUser
@@ -47,7 +46,6 @@ components: {
     created: this.$router.currentRoute.query.created
     return {
       noti_title: "Send a notification",
-      noti_success: "You successfully sent a notification!",
       mutationName: "Notification",
       form_title: "Create a user",
       success_message: "You successfully created a user account!",

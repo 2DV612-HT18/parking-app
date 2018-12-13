@@ -1,5 +1,6 @@
-mutation Notification( $notification: String!) {
-  Notification( notification: $notification ) {
+mutation Notification($notification: String!) {
+  Notification(notification: $notification) {
     message
+    id
   }
 }

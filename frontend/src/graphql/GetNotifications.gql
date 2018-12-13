@@ -1,5 +1,6 @@
-query ($id: Int!){
-    getMessage(id: $id){        
-        message        
+query{
+    getMessage{        
+        message
+        id        
     }
 }

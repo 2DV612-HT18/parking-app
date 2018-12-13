@@ -25,7 +25,7 @@
 <script>
 import { mapMutations } from "vuex";
 export default {
-  props: ['form_title', 'mutationName', 'success_message'],
+  props: ['form_title', 'mutationName'],
   data: () => ({
     notification: "",
     success: false,
