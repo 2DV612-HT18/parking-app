@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-card class="elevation-12">
-      <v-list v-if="notifications">
+    <v-card class="elevation-12" v-if="notifications.length">
+      <v-list>
         <v-list-tile
           v-for="notification in notifications"
           :key="notification.id"
@@ -25,7 +25,6 @@
 <script>
 import GetNotifications from "@/graphql/GetNotifications.gql";
 import DismissNotification from "@/graphql/DismissNotification.gql";
-import { mapState, mapMutations } from "vuex";
 
 export default {
   data: () => {
@@ -33,7 +32,6 @@ export default {
       notifications: []
     };
   },
-  computed: mapState(["user"]),
   apollo: {
     getNotifications: {
       query: GetNotifications,
@@ -44,7 +42,6 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["dismissNotification"]),
     async dismissNotification(id) {
       const result = await this.$apollo.mutate({
         mutation: DismissNotification,
@@ -54,7 +51,8 @@ export default {
       });
       const status = result.data.dismissNotification;
       if (status) {
-        this.dismissNotification(id);
+        // Remove dismissed notification from list
+        this.notifications = this.notifications.filter(n => n.id !== id);
       }
     }
   }
