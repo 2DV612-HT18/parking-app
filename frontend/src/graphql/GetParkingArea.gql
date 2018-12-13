@@ -5,6 +5,13 @@ query ($id: Int!){
      coordinates {
       latitude
       longitude
-     }       
+     }   
+     rates {
+      startDate
+      startTime
+      endDate
+      endTime
+      charge
+     }
     }
 }
