@@ -9,11 +9,9 @@ export const resolvers = {
       console.log(coordinates);
       const connection = getConnection();
       const userRepository = connection.getRepository(User);
+      const coordinatesRepository = connection.getRepository(Coordinate);
       const parkingAreaRepository = connection.getRepository(ParkingArea);
 
-      const loggedInUser = await userRepository.findOne({
-        where: { id: user.id }
-      });
       const parkingArea = await parkingAreaRepository.findOne({
         where: { id: id, ownerId: user.id },
         relations: ["coordinates"]
@@ -23,22 +21,20 @@ export const resolvers = {
         return false;
       }
 
-      await connection.manager.remove(parkingArea);
-
       parkingArea.name = name;
-
       await connection.manager.save(parkingArea);
 
-      coordinates.forEach(async c => {
-        const cordinate = new Coordinate(
-          parkingArea,
-          parseFloat(c.latitude),
-          parseFloat(c.longitude)
-        );
-        await connection.manager.save(cordinate);
+      const coords = await coordinatesRepository.find({
+        where: { parkingAreaId: id }
+      });
+      coordinates.forEach(async (c,i) => {
+        console.log(coords[i])
+        coords[i].latitude = parseFloat(c.latitude)
+        coords[i].longitude = parseFloat(c.longitude)     
+        await connection.manager.save(coords[i]);
       });
 
-      return true;
+      return parkingArea;
     }
   }
 };
