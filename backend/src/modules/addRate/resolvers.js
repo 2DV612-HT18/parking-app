@@ -1,5 +1,6 @@
 import { getConnection } from "typeorm";
 import moment from "moment";
+import { dateReg, timeReg } from "../../lib/rates/format";
 import REPEAT from "../../lib/rates/REPEAT";
 import ParkingArea from "../../models/ParkingArea";
 import Rate from "../../models/Rate";
@@ -12,6 +13,16 @@ export const resolvers = {
       { parkingAreaID, startDate, endDate, startTime, endTime, charge },
       { user }
     ) => {
+      // Cancel if our dates and times are not in the correct format
+      if (
+        !startDate.match(dateReg) ||
+        !endDate.match(dateReg) ||
+        !startTime.match(timeReg) ||
+        !endTime.match(timeReg)
+      ) {
+        return null;
+      }
+
       const connection = getConnection();
       const parkingAreaRepository = connection.getRepository(ParkingArea);
 
