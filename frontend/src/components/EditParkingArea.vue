@@ -285,6 +285,11 @@ export default {
         this.parkingArea = data.data.getParkingArea;
         this.nameArea = this.parkingArea.name;
         this.coordinates = this.parkingArea.coordinates;
+
+        // Sort coordinates by id
+        this.coordinates.sort((a, b) => {
+          return a.id - b.id;
+        });
       }
     }
   },
