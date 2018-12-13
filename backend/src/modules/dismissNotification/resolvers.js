@@ -22,9 +22,9 @@ export const resolvers = {
         notification.dismissed.push(loggedInUser);
         await connection.manager.save(notification);
         return true;
-      } else {
+      } 
         return false;
-      }      
+            
     }
   }
 };
