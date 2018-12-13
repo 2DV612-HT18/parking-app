@@ -12,6 +12,9 @@
             </div>
           </v-card-text>
 
+          <v-btn round to="/admin" outline color="green" v-if="admin"
+            >Admin</v-btn
+          >
           <v-btn round to="/area" outline color="green">Parking Area</v-btn>
           <v-btn round to="/closeaccount" outline color="green"
             >Delete your account</v-btn
@@ -36,7 +39,12 @@ export default {
       items: [{ title: "Photos" }]
     };
   },
-  computed: mapState(["user"]),
+  computed: {
+    ...mapState(["user"]),
+    admin() {
+      return this.$store.getters.adminPermission;
+    }
+  },
   components: {
     AddVehicle,
     MyVehicles
