@@ -23,7 +23,9 @@
 </template>
 
 <script>
+import AddNotification from "@/graphql/AddNotification.gql";
 import { mapMutations } from "vuex";
+
 export default {
   props: ['form_title', 'mutationName'],
   data: () => ({

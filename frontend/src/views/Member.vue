@@ -1,11 +1,9 @@
 <template>
   <div>
-    <v-alert
-    v-model="alert"
-    dissmissable
-    type="success">
-    {{message}}
-    </v-alert>
+ 
+
+
+
     <v-content>
       <v-container>
         <v-card class="elevation-12">
@@ -37,6 +35,11 @@ import AddVehicle from "@/components/AddVehicle.vue";
 import MyVehicles from "@/components/MyVehicles.vue";
 
 export default {
+    data () {
+      return {
+        items: [{ title: 'Photos'}]
+      }
+    },
   computed: mapState(["user"]),
   components: {
     AddVehicle,
