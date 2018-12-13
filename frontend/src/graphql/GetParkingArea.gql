@@ -3,6 +3,7 @@ query ($id: Int!){
      id
      name
      coordinates {
+      id
       latitude
       longitude
      }

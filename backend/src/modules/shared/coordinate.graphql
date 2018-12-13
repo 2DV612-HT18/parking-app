@@ -1,9 +1,11 @@
 type Coordinate {
+  id: Int
   latitude: Float
   longitude: Float
 }
 
 input CoordinateInput {
+  id: Int
   latitude: Float
   longitude: Float
 }

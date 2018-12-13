@@ -39,7 +39,7 @@
                         v-model="nameArea"
                         :rules="nameRules"
                         label="Name"
-                        value=""
+                        value
                         required
                       ></v-text-field>
                     </v-card-text>
@@ -278,16 +278,13 @@ export default {
       fetchPolicy: "no-cache",
       variables() {
         return {
-          id: parseInt(this.$route.params.id),
-          parkingArea: {}
+          id: parseInt(this.$route.params.id)
         };
       },
       result(data) {
         this.parkingArea = data.data.getParkingArea;
         this.nameArea = this.parkingArea.name;
-        this.coordinates = data.data.getParkingArea.coordinates;
-        console.log("Name: " + this.nameArea);
-        console.log(this.parkingArea);
+        this.coordinates = this.parkingArea.coordinates;
       }
     }
   },
@@ -295,6 +292,7 @@ export default {
     async editParkingArea() {
       const coordinates = this.coordinates.map(coordinate => {
         return {
+          id: coordinate.id,
           latitude: parseFloat(coordinate.latitude),
           longitude: parseFloat(coordinate.longitude)
         };
@@ -329,7 +327,6 @@ export default {
       this.center = marker;
     },
     stepBack() {
-      console.log("test");
       this.e1 = this.e1 - 1;
 
       // Remove last marker
@@ -364,27 +361,7 @@ export default {
         this.coordinates[3].longitude
       );
       this.e1 = 5;
-    },
-    geolocate() {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-
-        // Update all coordinates
-        this.coordinates.forEach(coordinate => {
-          coordinate.latitude = position.coords.latitude;
-          coordinate.longitude = position.coords.longitude;
-        });
-      });
-    },
-    getName() {}
-  },
-  mounted() {
-    this.geolocate();
-
-    this.getName();
+    }
   }
 };
 </script>
