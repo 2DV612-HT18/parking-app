@@ -84,7 +84,8 @@ const router = new Router({
           path: "edit/:id",
           name: "EditParkingArea",
           meta: {
-            middleware: [authenticated, editParkingArea]
+            middleware: [authenticated]
+           // middleware: [authenticated, editParkingArea]
           },
           component: () => import("./views/area/Edit.vue")
         },

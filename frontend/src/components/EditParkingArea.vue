@@ -285,6 +285,9 @@ export default {
       result(data) {
         this.parkingArea = data.data.getParkingArea;
         this.nameArea = this.parkingArea.name;
+        this.coordinates = data.data.getParkingArea.coordinates;
+        console.log("Name: " + this.nameArea)
+        console.log(this.parkingArea)
       }
     }
   },
@@ -297,8 +300,6 @@ export default {
         };
       });
 
-      console.log(coordinates);
-
       const result = await this.$apollo.mutate({
         mutation: editParkingArea,
         variables: {
@@ -309,7 +310,6 @@ export default {
       });
 
       const data = result.data.editParkingArea;
-      console.log(data);
 
       if (data) {
         // Redirect to Parking Area list
