@@ -1,10 +1,12 @@
 query {
   myInfo {
+    id
     email
     roles {
       name
       admin
       addParkingAreaPermission
+      editParkingAreaPermission
     }
     vehicles {
       registrationNumber

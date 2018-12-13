@@ -20,6 +20,7 @@ export default shield({
     editParkingArea: and(isAuthenticated, isParkingOwner, createParkingArea),
     addUser: and(isAuthenticated, isAdministrator),
     addNotification: and(isAuthenticated, isAdministrator),
-    dismissNotification: isAuthenticated 
+    dismissNotification: isAuthenticated,
+    addRate: and(isAuthenticated, isParkingOwner)
   }
 });

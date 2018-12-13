@@ -1,6 +1,11 @@
 <template>
   <div>
-    <ConfirmDialog ref="confirmDialog" title="Remove vehicle" confirmText="Yes" cancelText="No"/>
+    <ConfirmDialog
+      ref="confirmDialog"
+      title="Remove vehicle"
+      confirmText="Yes"
+      cancelText="No"
+    />
     <v-card class="elevation-12">
       <v-toolbar dark color="primary">
         <v-toolbar-title>My cars</v-toolbar-title>
@@ -12,15 +17,18 @@
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>
-              {{car.registrationNumber}}
-              <span
-                class="red--text"
-                v-if="removeError[car.id]"
-              >Vehicle wasnt removed, please reload page and try again</span>
+              {{ car.registrationNumber }}
+              <span class="red--text" v-if="removeError[car.id]"
+                >Vehicle wasnt removed, please reload page and try again</span
+              >
             </v-list-tile-title>
           </v-list-tile-content>
           <v-list-tile-action>
-            <v-btn icon ripple v-on:click="deleteVehicle(car.id, car.registrationNumber);">
+            <v-btn
+              icon
+              ripple
+              v-on:click="deleteVehicle(car.id, car.registrationNumber);"
+            >
               <v-icon color="red">delete</v-icon>
             </v-btn>
           </v-list-tile-action>
@@ -37,7 +45,6 @@
 import RemoveVehicle from "@/graphql/RemoveVehicle.gql";
 import ConfirmDialog from "@/components/ConfirmDialog.vue";
 import { mapState, mapMutations } from "vuex";
-import _ from "underscore";
 
 export default {
   data: () => ({

@@ -84,12 +84,12 @@ const router = new Router({
           path: "edit/:id",
           name: "EditParkingArea",
           meta: {
-            middleware: [authenticated]
-           // middleware: [authenticated, editParkingArea]
+            middleware: [authenticated, editParkingArea]
           },
           component: () => import("./views/area/Edit.vue")
         },
-        { //Must be last
+        {
+          //Must be last
           path: ":id",
           name: "ViewParkingArea",
           meta: {

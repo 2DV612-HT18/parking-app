@@ -3,4 +3,5 @@ type ParkingArea {
   name: String
   coordinates: [Coordinate]
   rates: [Rate]
+  owner: User
 }

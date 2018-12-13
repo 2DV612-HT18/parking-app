@@ -24,6 +24,7 @@
 
 <script>
 // Must be require instead of import!
+// eslint-disable-next-line no-unused-vars
 const AddNotification = require("@/graphql/AddNotification.gql");
 
 export default {
@@ -40,7 +41,9 @@ export default {
         }
       });
 
-      console.log(result);
+      if (result) {
+        this.notification = "";
+      }
     }
   }
 };

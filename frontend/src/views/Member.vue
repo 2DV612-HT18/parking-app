@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Notifications/>
     <v-content>
       <v-container>
         <v-card class="elevation-12">
@@ -13,6 +12,9 @@
             </div>
           </v-card-text>
 
+          <v-btn round to="/admin" outline color="green" v-if="admin"
+            >Admin</v-btn
+          >
           <v-btn round to="/area" outline color="green">Parking Area</v-btn>
           <v-btn round to="/closeaccount" outline color="green"
             >Delete your account</v-btn
@@ -30,19 +32,22 @@ import { mapState } from "vuex";
 
 import AddVehicle from "@/components/AddVehicle.vue";
 import MyVehicles from "@/components/MyVehicles.vue";
-import Notifications from "@/components/Notifications.vue";
 
 export default {
-    data () {
-      return {
-        items: [{ title: 'Photos'}]
-      }
-    },
-  computed: mapState(["user"]),
+  data() {
+    return {
+      items: [{ title: "Photos" }]
+    };
+  },
+  computed: {
+    ...mapState(["user"]),
+    admin() {
+      return this.$store.getters.adminPermission;
+    }
+  },
   components: {
     AddVehicle,
-    MyVehicles,
-    Notifications
+    MyVehicles
   }
 };
 </script>

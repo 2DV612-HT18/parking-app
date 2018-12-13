@@ -1,7 +1,7 @@
 <template>
   <div>
-    <View-parking-area/>
-    <AddRate v-if="addParkingAreaPermission"/>
+    <View-parking-area />
+    <AddRate v-if="addParkingAreaPermission" />
   </div>
 </template>
 
@@ -19,5 +19,5 @@ export default {
       return this.$store.getters.addParkingAreaPermission;
     }
   }
-}
+};
 </script>

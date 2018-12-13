@@ -12,16 +12,26 @@
           <v-toolbar dark color="primary">
             <v-toolbar-title>{{ this.parkingArea.name }}</v-toolbar-title>
             <v-spacer></v-spacer>
-            <router-link :to="{path: `/area/edit/${parseInt(this.$route.params.id)}`}">
+            <router-link
+              :to="{ path: `/area/edit/${parseInt(this.$route.params.id)}` }"
+              v-if="canEdit"
+            >
               <v-btn fab dark small color="green">
                 <v-icon color="white">edit</v-icon>
               </v-btn>
             </router-link>
-            <v-btn fab dark small color="red" v-on:click="deleteParkingArea();">
+            <v-btn
+              fab
+              dark
+              small
+              color="red"
+              v-on:click="deleteParkingArea();"
+              v-if="canEdit"
+            >
               <v-icon color="white">delete</v-icon>
             </v-btn>
           </v-toolbar>
-          <ViewRates :rates="parkingArea.rates"/>
+          <ViewRates :rates="parkingArea.rates" />
         </v-card>
       </v-container>
     </v-content>
@@ -31,9 +41,7 @@
 import GetParkingArea from "@/graphql/GetParkingArea.gql";
 import RemoveParkingArea from "@/graphql/removeParkingArea.gql";
 import ConfirmDialog from "@/components/ConfirmDialog.vue";
-import { mapMutations } from "vuex";
 import ViewRates from "@/components/ViewRates.vue";
-
 
 export default {
   name: "ViewParkingArea",
@@ -46,14 +54,19 @@ export default {
       parkingArea: {}
     };
   },
+  computed: {
+    canEdit() {
+      return this.parkingArea.owner.id === this.$store.state.user.id;
+    }
+  },
   apollo: {
     getParkingArea: {
       query: GetParkingArea,
       fetchPolicy: "no-cache",
-      variables(){
+      variables() {
         return {
           id: parseInt(this.$route.params.id)
-        }
+        };
       },
       result(data) {
         this.parkingArea = data.data.getParkingArea;
@@ -61,7 +74,7 @@ export default {
     }
   },
   methods: {
-  async deleteParkingArea() {
+    async deleteParkingArea() {
       let confirmPromise = this.$refs.confirmDialog.open(
         `Are you sure you want to delete?`
       );
@@ -71,13 +84,13 @@ export default {
       if (!confirm) {
         return;
       }
-      const result = await this.$apollo.mutate({
+      await this.$apollo.mutate({
         mutation: RemoveParkingArea,
         variables: {
           id: parseInt(this.$route.params.id)
         }
       });
-      this.$router.go(-1);
+      this.$router.push({ name: "ParkingAreas" });
     }
   }
 };

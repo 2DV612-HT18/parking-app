@@ -4,13 +4,13 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
-            <Register 
-            :form_title=form_title
-            :success_message=success_message
-            :failed_message=failed_message
-            :mutationName=mutationName
+            <Register
+              :form_title="form_title"
+              :success_message="success_message"
+              :failed_message="failed_message"
+              :mutationName="mutationName"
             />
-          </v-flex> 
+          </v-flex>
         </v-layout>
       </v-container>
     </v-content>
@@ -23,7 +23,7 @@ import Register from "@/components/CreateUser";
 export default {
   components: {
     Register
-  }, 
+  },
   data() {
     return {
       form_title: "Register",
@@ -33,5 +33,4 @@ export default {
     };
   }
 };
-
 </script>

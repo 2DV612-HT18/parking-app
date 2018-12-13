@@ -47,7 +47,6 @@
 <script>
 import CloseAccount from "@/graphql/CloseAccount.gql";
 import ConfirmDialog from "@/components/ConfirmDialog.vue";
-import { mapMutations } from "vuex";
 
 export default {
   name: "CloseAccount",
