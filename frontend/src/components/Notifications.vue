@@ -1,23 +1,24 @@
 <template>
   <div>
     <v-card class="elevation-12" v-if="notifications.length">
-      <v-list>
-        <v-list-tile
-          v-for="notification in notifications"
-          :key="notification.id"
+      <v-alert
+        :value="true"
+        type="info"
+        v-for="notification in notifications"
+        :key="notification.id"
+      >
+        {{ notification.message }}
+        <v-btn
+          icon
+          v-on:click="dismissNotification(notification.id);"
+          absolute
+          right
+          middle
+          style="top: 8px;"
         >
-          <v-list-tile-title>{{ notification.message }}</v-list-tile-title>
-          <v-list-tile-action>
-            <v-btn
-              icon
-              ripple
-              v-on:click="dismissNotification(notification.id);"
-            >
-              <v-icon color="red">delete</v-icon>
-            </v-btn>
-          </v-list-tile-action>
-        </v-list-tile>
-      </v-list>
+          <v-icon color="white">clear</v-icon>
+        </v-btn>
+      </v-alert>
     </v-card>
   </div>
 </template>
