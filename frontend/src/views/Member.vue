@@ -1,5 +1,11 @@
 <template>
   <div>
+    <v-alert
+    v-model="alert"
+    dissmissable
+    type="success">
+    {{message}}
+    </v-alert>
     <v-content>
       <v-container>
         <v-card class="elevation-12">
