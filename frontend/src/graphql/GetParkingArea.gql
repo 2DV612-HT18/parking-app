@@ -5,7 +5,7 @@ query ($id: Int!){
      coordinates {
       latitude
       longitude
-     }   
+     }
      rates {
       startDate
       startTime
@@ -13,5 +13,8 @@ query ($id: Int!){
       endTime
       charge
      }
+     owner {
+      id
+     }  
     }
 }

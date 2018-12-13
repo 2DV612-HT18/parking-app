@@ -14,12 +14,20 @@
             <v-spacer></v-spacer>
             <router-link
               :to="{ path: `/area/edit/${parseInt(this.$route.params.id)}` }"
+              v-if="canEdit"
             >
               <v-btn fab dark small color="green">
                 <v-icon color="white">edit</v-icon>
               </v-btn>
             </router-link>
-            <v-btn fab dark small color="red" v-on:click="deleteParkingArea();">
+            <v-btn
+              fab
+              dark
+              small
+              color="red"
+              v-on:click="deleteParkingArea();"
+              v-if="canEdit"
+            >
               <v-icon color="white">delete</v-icon>
             </v-btn>
           </v-toolbar>
@@ -45,6 +53,11 @@ export default {
     return {
       parkingArea: {}
     };
+  },
+  computed: {
+    canEdit() {
+      return this.parkingArea.owner.id === this.$store.state.user.id;
+    }
   },
   apollo: {
     getParkingArea: {
