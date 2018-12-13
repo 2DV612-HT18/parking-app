@@ -5,7 +5,7 @@ import Coordinate from "../../models/Coordinate";
 
 export const resolvers = {
   Mutation: {
-    editParkingArea: async (_, { area_id, name, coordinates }, { user }) => {
+    editParkingArea: async (_, { id, name, coordinates }, { user }) => {
       console.log(coordinates);
       const connection = getConnection();
       const userRepository = connection.getRepository(User);
@@ -14,12 +14,11 @@ export const resolvers = {
       const loggedInUser = await userRepository.findOne({
         where: { id: user.id }
       });
-
       const parkingArea = await parkingAreaRepository.findOne({
-        where: { id: area_id, ownerId: user.id },
+        where: { id: id, ownerId: user.id },
         relations: ["coordinates"]
       });
-
+      
       if (!parkingArea) {
         return false;
       }

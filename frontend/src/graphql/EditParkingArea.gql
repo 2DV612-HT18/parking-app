@@ -1,0 +1,11 @@
+mutation editParkingArea(
+  $id: Int!
+  $name: String!
+  $coordinates: [CoordinateInput]!
+) {
+  editParkingArea(
+    id: $id
+    name: $name
+    coordinates: $coordinates
+  )
+}

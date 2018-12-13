@@ -12,7 +12,7 @@
           <v-toolbar dark color="primary">
             <v-toolbar-title>{{ this.parkingArea.name }}</v-toolbar-title>
             <v-spacer></v-spacer>
-            <router-link :to="{path: `/area/edit/${this.parkingArea.id}`}">
+            <router-link :to="{path: `/area/edit/${parseInt(this.$route.params.id)}`}">
               <v-btn fab dark small color="green">
                 <v-icon color="white">edit</v-icon>
               </v-btn>

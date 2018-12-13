@@ -32,13 +32,14 @@
                 <v-flex xs12 sm12 md8>
                   <v-card class="elevation-12">
                     <v-toolbar dark color="primary">
-                      <v-toolbar-title>Create new Parking Area</v-toolbar-title>
+                      <v-toolbar-title>Edit Parking Area</v-toolbar-title>
                     </v-toolbar>
                     <v-card-text>
                       <v-text-field
-                        v-model="name"
+                        v-model="nameArea"
                         :rules="nameRules"
                         label="Name"
+                        value=""
                         required
                       ></v-text-field>
                     </v-card-text>
@@ -224,7 +225,7 @@
                 <v-btn :to="{ name: 'ParkingAreas' }">Cancel</v-btn>
                 <v-btn
                   color="primary"
-                  v-on:click="addParkingArea();"
+                  v-on:click="editParkingArea();"
                   :disabled="!validForm || e1 < 4"
                   >Submit</v-btn
                 >
@@ -238,16 +239,17 @@
 </template>
 
 <script>
-import addParkingArea from "@/graphql/AddParkingArea.gql";
+import editParkingArea from "@/graphql/EditParkingArea.gql";
+import GetParkingArea from "@/graphql/GetParkingArea.gql";
 
 export default {
   data: () => ({
+    nameArea: "",
+    parkingArea: {},
     e1: 0,
     center: { lat: 59.334591, lng: 18.06324 },
     markers: [],
     validForm: false,
-    name: "",
-    id: 0,
     nameRules: [v => !!v || "Name is required"],
     coordinates: [
       {
@@ -270,8 +272,24 @@ export default {
     failed: false,
     failedMessage: ""
   }),
+  apollo: {
+    getParkingArea: {
+      query: GetParkingArea,
+      fetchPolicy: "no-cache",
+      variables(){
+        return {
+          id: parseInt(this.$route.params.id),
+          parkingArea: {}
+        }
+      },
+      result(data) {
+        this.parkingArea = data.data.getParkingArea;
+        this.nameArea = this.parkingArea.name;
+      }
+    }
+  },
   methods: {
-    async addParkingArea() {
+    async editParkingArea() {
       const coordinates = this.coordinates.map(coordinate => {
         return {
           latitude: parseFloat(coordinate.latitude),
@@ -284,14 +302,13 @@ export default {
       const result = await this.$apollo.mutate({
         mutation: editParkingArea,
         variables: {
-          id: this.id,
-          name: this.name,
+          id: parseInt(this.$route.params.id),
+          name: this.nameArea,
           coordinates
         }
       });
 
-      const data = result.data.addParkingArea;
-
+      const data = result.data.editParkingArea;
       console.log(data);
 
       if (data) {
@@ -361,10 +378,15 @@ export default {
           coordinate.longitude = position.coords.longitude;
         });
       });
+    },
+    getName() {
+
     }
   },
   mounted() {
     this.geolocate();
+
+    this.getName();
   }
 };
 </script>
