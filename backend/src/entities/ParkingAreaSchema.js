@@ -30,6 +30,11 @@ export default new EntitySchema({
       target: "Rate",
       type: "one-to-many",
       inverseSide: "parkingArea"
-    }
+    },
+    parkedUser: {
+      target: "User",
+      type: "many-to-many",
+      inverseSide: "currentParkingAreas"
+    },
   }
 });

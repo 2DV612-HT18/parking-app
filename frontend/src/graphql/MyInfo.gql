@@ -12,5 +12,14 @@ query {
       registrationNumber
       id
     }
+    currentParkingAreas {
+      id
+      name
+      coordinates {
+        id
+        latitude
+        longitude
+      }
+    }
   }
 }
