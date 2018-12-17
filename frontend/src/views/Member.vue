@@ -2,6 +2,7 @@
   <div>
     <v-content>
       <v-container>
+        <CurrentParkingAreas v-if="user"/>
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
             <v-toolbar-title>Profile</v-toolbar-title>
@@ -32,6 +33,7 @@ import { mapState } from "vuex";
 
 import AddVehicle from "@/components/AddVehicle.vue";
 import MyVehicles from "@/components/MyVehicles.vue";
+import CurrentParkingAreas from "@/components/CurrentParkingAreas.vue";
 
 export default {
   data() {
@@ -47,7 +49,8 @@ export default {
   },
   components: {
     AddVehicle,
-    MyVehicles
+    MyVehicles,
+    CurrentParkingAreas
   }
 };
 </script>
