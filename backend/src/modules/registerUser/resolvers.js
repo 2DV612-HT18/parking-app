@@ -19,7 +19,7 @@ export const resolvers = {
 
       // Can't add to role, registration unsuccessful
       if (!role) {
-        return null;
+        return [{path: "registerUser", message: "Registration failed."}];
       }
 
       const user = new User(
