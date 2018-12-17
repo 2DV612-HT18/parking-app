@@ -30,7 +30,8 @@ export const resolvers = {
         if (passwordMatches) {
           // Prevent login is user is not verified
           if (!user.verified) {
-            return null;
+            // return null;
+            return { token: null, error: [{ path: "loginUser", message: "Error: Email not verified." }]}
           }
 
           // Create token
@@ -44,11 +45,11 @@ export const resolvers = {
           await redis.lpush(`${USER_LOGIN_PREFIX}${user.id}`, token);
 
           // User is logged in
-          return { token, user };
+          return { token, error: null };
         }
       }
       // No user found or password didn't match
-      return null;
+      return { token: null, error: [{ path: "loginUser", message: "Error: Login failed"}]}
     }
   }
 };
