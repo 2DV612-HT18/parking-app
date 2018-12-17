@@ -1,0 +1,7 @@
+mutation chooseParkingArea(
+  $parkingAreaID: Int!
+) {
+  chooseParkingArea(
+    parkingAreaID: $parkingAreaID
+  ) 
+}
