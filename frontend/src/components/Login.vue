@@ -4,6 +4,9 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
+            <v-alert :value="error_message" color="error" icon="warning">
+              {{ error_message }}
+            </v-alert>
             <v-snackbar
               v-model="registered"
               color="success"
@@ -82,7 +85,8 @@ export default {
         username: "",
         password: ""
       },
-      registered: this.$router.currentRoute.query.registered
+      registered: this.$router.currentRoute.query.registered,
+      error_message: null
     };
   },
   methods: {
@@ -96,8 +100,8 @@ export default {
       });
 
       const data = result.data.loginUser;
-      // Token exists
-      if (data && data.token) {
+      // Token exists and no errors
+      if (!data.error && data.token) {
         const apolloClient = this.$apollo.provider.defaultClient;
         // Sets token in localhost
         await onLogin(apolloClient, data.token);
@@ -106,6 +110,7 @@ export default {
         this.$router.push("/");
       } else {
         // Login unsuccessful
+        this.error_message = data.error[0].message
         this.LoginError = true;
       }
     },
