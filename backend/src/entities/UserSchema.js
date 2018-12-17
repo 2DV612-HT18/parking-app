@@ -57,5 +57,11 @@ export default new EntitySchema({
       type: "one-to-many",
       inverseSide: "author"
     },
+    currentParkingAreas: {
+      target: "ParkingArea",
+      type: "many-to-many",
+      inverseSide: "parkedUser",
+      joinTable: true
+    },
   }
 });
