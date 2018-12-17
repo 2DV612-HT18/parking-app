@@ -1,5 +1,8 @@
 <template>
   <div>
+    <v-alert :value="error_message" color="error" icon="warning">{{
+        error_message
+      }}</v-alert>
     <v-snackbar
       v-model="success"
       color="success"
@@ -109,7 +112,8 @@ export default {
     role: "",
     roleRules: [v => !!v || "Must select a role"],
     success: false,
-    failed: false
+    failed: false,
+    error_message: null
   }),
   methods: {
     passwordMatchError() {
@@ -131,20 +135,20 @@ export default {
       });
 
       // Register user
-      if (this.mutationName == "RegisterUser") {
-        const data = result.data.registerUser;
-        // Token exists
-        if (data) {
-          // Redirect to homepage
-          // Display snackbar!
+      if (this.mutationName === 'RegisterUser') {
+          const data = result.data.registerUser;
+        // If data is not null, display error message.
+        if(data) {
+          // Display snackbar and error message
+          this.failed = true;
+          this.error_message = data[0].message
+        } else {
+          // Display snackbar and redirect to /login
           this.success = true;
           this.$router.push({ path: "/login", query: { registered: true } });
-        } else {
-          // register unsuccessful
-          // Display snackbar!
-          this.failed = true;
-          console.log("unsuccessfull: " + this.email);
-        } // Admin create a user
+        }
+
+      // Admin create a user
       } else if (this.mutationName === "AddUser") {
         const data = result.data.addUser;
         if (data) {

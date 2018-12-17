@@ -19,7 +19,7 @@ export const resolvers = {
 
       // Can't add to role, registration unsuccessful
       if (!role) {
-        return null;
+        return [{path: "registerUser", message: "Registration failed."}];
       }
 
       const user = new User(
@@ -52,10 +52,10 @@ export const resolvers = {
         // call send email function
         emailSender.sendEmail(args.email, link);
 
-        return user;
+        return null;
       }
       // Throw Error?
-      return null;
+      return [{path: "registerUser", message: "Registration failed."}];
     }
   }
 };

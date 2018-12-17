@@ -14,9 +14,7 @@ mutation registerUser(
     personalNumber: $personalNumber
     password: $password
   ) {
-    firstName
-    lastName
-    email
-    personalNumber
+    path
+    message
   }
 }

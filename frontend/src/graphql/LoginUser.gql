@@ -1,13 +1,9 @@
 mutation loginUser($email: String!, $password: String!) {
   loginUser(email: $email, password: $password) {
     token
-    user {
-      email
-      roles {
-        name
-        admin
-        addParkingAreaPermission
-      }
+    error {
+      path
+      message
     }
   }
 }
