@@ -1,6 +1,6 @@
   type AuthToken {
     token: String
-    user: User
+    error: [Error!]
   }
   
   type Mutation {
