@@ -7,4 +7,5 @@ type User {
   verified: Boolean
   vehicles: [Vehicle]
   roles: [Role]
+  currentParkingAreas: [ParkingArea]
 }
