@@ -1,6 +1,14 @@
 <template>
 
+    <v-card class="elevation-12">
+      <v-alert
+        v-model="show"
+        type="warning">
 
+        {{ notification }}
+
+      </v-alert>
+    </v-card>
 
 </template>
 
@@ -10,7 +18,8 @@
 
 export default {
     data: () => ({
-        notification: "",
+        show: false,
+        notification: "You are outside of your current parking area and might want to consider cancelling your ticket.",
         calculatedDistance: 0,
         center: 0
     }),
@@ -36,11 +45,13 @@ export default {
             this.calculatedDistance = this.distance(this.center.lat, this.center.lng, pos2.lat, pos2.lng, "K");
 
             if (this.calculatedDistance > 100) {
-                console.log(this.calculatedDistance + " km");
+                console.log("Distance from parking area: " + this.calculatedDistance + " km");
                 console.log("User is more than 100 km from current parking area – Show notification.")
+                this.show = true;
             } else {
                 console.log(this.calculatedDistance + " km");
                 console.log("User is within 100 km of current parking area - No notification")
+                this.show = false;
             }
 
             // Show notification if above is true
