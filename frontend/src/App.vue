@@ -11,6 +11,7 @@
     </v-toolbar>
     <v-content>
       <Notifications v-if="user" />
+      <ParkingNotification v-if="user" />
       <router-view />
     </v-content>
   </v-app>
@@ -19,13 +20,15 @@
 <script>
 import Logout from "@/components/Logout";
 import Notifications from "@/components/Notifications.vue";
+import ParkingNotification from "@/components/ParkingNotification.vue";
 import { mapState } from "vuex";
 
 export default {
   name: "App",
   components: {
     Logout,
-    Notifications
+    Notifications,
+    ParkingNotification
   },
   computed: mapState(["user"]),
   data() {
