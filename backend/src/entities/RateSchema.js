@@ -36,6 +36,7 @@ export default new EntitySchema({
       target: "ParkingArea",
       type: "many-to-one",
       inverseSide: "rates",
+      onDelete: "CASCADE"
     }
   }
 });

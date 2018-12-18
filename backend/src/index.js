@@ -7,6 +7,7 @@ import createTypeormConnection from "./lib/createTypeormConnection";
 import generateSchema from "./lib/generateSchema";
 import permissions from "./permissions";
 import Admin from "./lib/createAdministratorAccount";
+import isTokenRevoked from "./lib/redis/isTokenRevoked";
 
 (async () => {
   try {
@@ -42,7 +43,26 @@ import Admin from "./lib/createAdministratorAccount";
       })
     );
 
-    const connection = await createTypeormConnection(process.env.NODE_ENV || "development");
+    // Remove user if token is revoked middleware
+    server.express.use(async (req, _, next) => {
+      const user = req.user || null;
+
+      if (user) {
+        const token = req.headers.authorization.split(" ")[1];
+        const revoked = await isTokenRevoked(token, redis, user);
+
+        // Remove user from token if token is revoked
+        if (revoked) {
+          req.user = null;
+        }
+      }
+
+      return next();
+    });
+
+    const connection = await createTypeormConnection(
+      process.env.NODE_ENV || "development"
+    );
 
     // Save standard roles if role table is empty
     const role1 = new Role(21, "User", true, false, false, false);
