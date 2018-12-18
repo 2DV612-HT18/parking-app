@@ -1,5 +1,33 @@
 <template>
   <div>
+    <v-snackbar
+      v-model="failed"
+      color="error"
+      icon="warning"
+      :top="true"
+      :multi-line="true"
+      >{{ error_message }}<v-btn
+        dark
+        flat
+        @click="failed = false"
+      >
+        Close
+      </v-btn>
+      </v-snackbar>
+    <v-snackbar
+      v-model="success"
+      color="success"
+      :top="true"
+      :multi-line="true"
+      >{{ success_message }}
+      <v-btn
+        dark
+        flat
+        @click="success = false"
+      >
+        Close
+      </v-btn>
+      </v-snackbar>
     <v-card class="elevation-12">
       <v-toolbar dark color="primary">
         <v-toolbar-title>Add car</v-toolbar-title>
@@ -33,16 +61,21 @@
 </template>
 
 <script>
-import AddVehicle from "@/graphql/AddVehicle.gql";
+const AddVehicle = require("@/graphql/AddVehicle.gql");
 import { mapState, mapMutations } from "vuex";
 
 export default {
+  props: ["mutationName", "failed_message"],
   data: () => ({
     submitError: false,
     formError: "",
     validForm: false,
     registrationNumber: "",
-    registrationNumberRules: [v => !!v || "Registration number is required"]
+    registrationNumberRules: [v => !!v || "Registration number is required"],
+    success: false,
+    failed: false,
+    error_message: null,
+    success_message: null
   }),
   computed: mapState(["user"]),
   methods: {
@@ -64,13 +97,13 @@ export default {
       const data = result.data.addVehicle;
       this.submitError = false;
       if (data) {
-        //Wihoo, I have new car
-        this.addVehicle(data);
+        //something went wrong
+        this.failed = true;
+        this.error_message = data[0].message;
       } else {
-        //Dude.. where's my car
-        //Pls correct error message
-        this.submitError =
-          "Car wasnt added, someone probably already have this car";
+        //succses adding a car
+        this.success = true;
+        this.success_message = "Successful added " + this.registrationNumber;
       }
     }
   }

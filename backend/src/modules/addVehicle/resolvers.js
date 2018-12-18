@@ -30,11 +30,12 @@ export const resolvers = {
       // If no vehicle of the same name registration number, add it.
       if (!exists) {
         await connection.manager.save(vehicle);
-
-        return vehicle;
+        console.log("succses addVehicle");
+        return null;
       }
-      // Throw Error?
-      return null;
+      // Throw Error already exsist
+      console.log("addVehicle throws error");
+      return [{path: "addVehicle", message: "Add car "+ args.registrationNumber +" failed. The car already exsists."}];
     }
   }
 };
