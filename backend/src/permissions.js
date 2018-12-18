@@ -3,6 +3,7 @@ import isAuthenticated from "./lib/middlewares/isAuthenticated";
 import isParkingOwner from "./lib/middlewares/isParkingOwner";
 import createParkingArea from "./lib/middlewares/createParkingArea";
 import isAdministrator from "./lib/middlewares/isAdministrator";
+import isUser from "./lib/middlewares/isUser";
 
 export default shield({
   Query: {
@@ -21,6 +22,7 @@ export default shield({
     addUser: and(isAuthenticated, isAdministrator),
     addNotification: and(isAuthenticated, isAdministrator),
     dismissNotification: isAuthenticated,
-    addRate: and(isAuthenticated, isParkingOwner)
+    addRate: and(isAuthenticated, isParkingOwner),
+    chooseParkingArea: and(isAuthenticated, isUser)
   }
 });
