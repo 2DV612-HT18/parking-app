@@ -1,3 +1,3 @@
 type Mutation {
-  addNotification(message: String): Notification
+  addNotification(message: String): [Error!]
 }

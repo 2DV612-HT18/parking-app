@@ -12,14 +12,16 @@ export const resolvers = {
       });
 
       if (!loggedInUser) {
-        return null
+        // return null
+        [{ path: "addNotification", message: "Error! (Log in to see the notification!)" }]
       }
       // Create a new notification and select the logged in user as the author.
       const notification = new Notification(0, message)
       notification.author = loggedInUser
 
       // Save notification
-      return connection.manager.save(notification);
+      // return connection.manager.save(notification);
+       return connection.manager.save(null);
     }
   }
 };

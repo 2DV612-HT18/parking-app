@@ -1,6 +1,6 @@
 mutation AddNotification($message: String!) {
   addNotification(message: $message) {
+    path
     message
-    id
-  }
+    }
 }

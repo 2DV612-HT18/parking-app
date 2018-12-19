@@ -31,7 +31,7 @@ export const resolvers = {
         coordinateList.push(cordinate);
       });
 
-      return parkingArea;
+      return null;
     }
   }
 };

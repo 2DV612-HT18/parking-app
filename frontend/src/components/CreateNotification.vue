@@ -1,6 +1,20 @@
 <template>
   <div>
-    <v-card class="elevation-12">
+    <v-snackbar
+      v-model="failed"
+      color="error"
+      icon="warning"
+      :top="true"
+      :multi-line="true"
+      >{{ error_message }}<v-btn
+        dark
+        flat
+        @click="failed = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
+  <v-card class="elevation-12">
       <v-toolbar dark color="primary">
         <v-toolbar-title>{{ form_title }}</v-toolbar-title>
       </v-toolbar>
@@ -42,7 +56,8 @@ export default {
       });
 
       if (result) {
-        this.notification = "";
+        // this.notification = "";
+        this.error_message = "Not working";
       }
     }
   }
