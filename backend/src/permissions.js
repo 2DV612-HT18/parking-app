@@ -23,6 +23,7 @@ export default shield({
     addNotification: and(isAuthenticated, isAdministrator),
     dismissNotification: isAuthenticated,
     addRate: and(isAuthenticated, isParkingOwner),
-    chooseParkingArea: and(isAuthenticated, isUser)
+    chooseParkingArea: and(isAuthenticated, isUser),
+    closeAccount: and(isAuthenticated, isUser)
   }
 });
