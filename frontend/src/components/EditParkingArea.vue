@@ -335,8 +335,10 @@ export default {
         };
       });
 
+
+
       const result = await this.$apollo.mutate({
-        mutation: eval(this.mutationName),
+        mutation: EditParkingArea,
         variables: {
           id: parseInt(this.$route.params.id),
           name: this.nameArea,
@@ -344,7 +346,6 @@ export default {
         }
       });
 
-      if(this.mutationName === 'EditParkingArea'){
         const data = result.data.editParkingArea;
 
         if(data){
@@ -356,11 +357,6 @@ export default {
           this.success_message = "Edit successful.";
           this.$router.push({ name: "ParkingAreas" });
         }
-      }else{
-        // Display snackbar and error message
-          this.failed = true;
-          this.error_message = "Something unexpected happened.";
-      }
     },
     addMarker(latitude, longitude) {
       const marker = {
