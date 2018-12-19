@@ -15,7 +15,7 @@ export const resolvers = {
       });
 
       if (!parkingArea) {
-        return false;
+        return [{path: "editParkingArea", message: "Edit failed. " + name + " do not exist!"}];
       }
 
       parkingArea.name = name;
@@ -31,7 +31,7 @@ export const resolvers = {
         await connection.manager.save(coord);
       });
 
-      return parkingArea;
+      return null;
     }
   }
 };

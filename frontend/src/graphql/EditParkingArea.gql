@@ -8,11 +8,8 @@ mutation editParkingArea(
     name: $name
     coordinates: $coordinates
   ) {
-    name,
-    coordinates {
-      latitude,
-      longitude
-    }
+    path
+    message
   }
 }
 
