@@ -4,7 +4,7 @@ mutation closeAccount(
   closeAccount(
     password: $password
     ) {
-      Path
+      path
       message
     }
 }

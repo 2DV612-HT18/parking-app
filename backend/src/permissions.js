@@ -24,6 +24,6 @@ export default shield({
     dismissNotification: isAuthenticated,
     addRate: and(isAuthenticated, isParkingOwner),
     chooseParkingArea: and(isAuthenticated, isUser),
-    closeAccount: and(isAuthenticated, isUser)
+    closeAccount: isAuthenticated
   }
 });
