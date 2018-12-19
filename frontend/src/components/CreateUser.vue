@@ -1,18 +1,33 @@
 <template>
   <div>
-    <v-alert :value="error_message" color="error" icon="warning">{{
-        error_message
-      }}</v-alert>
+    <v-snackbar
+      v-model="failed"
+      color="error"
+      icon="warning"
+      :top="true"
+      :multi-line="true"
+      >{{ error_message }}<v-btn
+        dark
+        flat
+        @click="failed = false"
+      >
+        Close
+      </v-btn>
+      </v-snackbar>
     <v-snackbar
       v-model="success"
       color="success"
       :top="true"
       :multi-line="true"
-      >{{ success_message }}</v-snackbar
-    >
-    <v-snackbar v-model="failed" color="error" :top="true" :multi-line="true">{{
-      failed_message
-    }}</v-snackbar>
+      >{{ success_message }}
+      <v-btn
+        dark
+        flat
+        @click="success = false"
+      >
+        Close
+      </v-btn>
+      </v-snackbar>
     <v-card class="elevation-12">
       <v-toolbar dark color="primary">
         <v-toolbar-title>{{ form_title }}</v-toolbar-title>
@@ -158,6 +173,7 @@ export default {
         } else {
           // Display snackbar!
           this.failed = true;
+          this.error_message = data[0].message
         }
       }
     }

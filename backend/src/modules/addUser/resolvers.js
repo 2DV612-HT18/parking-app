@@ -17,7 +17,7 @@ export const resolvers = {
 
       // Can't add to role, registration unsuccessful
       if (!role) {
-        return null;
+        return [{path: "addUser", message: "Registration failed. " + args.role + " is not a existing role!"}];
       }
 
       const user = new User(
@@ -38,11 +38,12 @@ export const resolvers = {
       const data = await userRepository.find({ where: { email: args.email } });
 
       // If user with specified email doesn't exist, save the user to the database.
-      if (data.length < 1) {               
-        return connection.manager.save(user);
+      if (data.length < 1) {   
+        connection.manager.save(user);            
+        return null;
       }
       // Throw Error?
-      return null;
+      return [{path: "addUser", message: "Registration failed. user with email " + args.email + " already exists!"}];
     }
   }
 };
