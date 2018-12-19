@@ -16,7 +16,7 @@ export default rule()(async (_, __, { user }) => {
   });
 
   // If user is an user, pass the check.
-  if (currentUser.roles[0].user) {
+  if ((currentUser.roles[0].name === "User" || currentUser.roles[0].admin)) {
     return true;
   } 
     return false;
