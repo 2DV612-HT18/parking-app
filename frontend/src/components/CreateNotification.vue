@@ -55,9 +55,13 @@ export default {
         }
       });
 
-      if (result) {
-        // this.notification = "";
-        this.error_message = "Not working";
+        if (this.mutationName === "AddNotification") {
+        const data = result.data.AddNotification;
+        if (data) {
+          // Display snackbar!
+          this.failed = true;
+          this.error_message = "Adding the notification was unsuccessful"
+        } 
       }
     }
   }
