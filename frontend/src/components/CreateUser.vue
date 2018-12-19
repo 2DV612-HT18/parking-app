@@ -128,7 +128,8 @@ export default {
     roleRules: [v => !!v || "Must select a role"],
     success: false,
     failed: false,
-    error_message: null
+    error_message: null,
+    success_message: null
   }),
   methods: {
     passwordMatchError() {
@@ -160,6 +161,7 @@ export default {
         } else {
           // Display snackbar and redirect to /login
           this.success = true;
+          this.success_message = "Edit successful.";
           this.$router.push({ path: "/login", query: { registered: true } });
         }
 
@@ -168,12 +170,13 @@ export default {
         const data = result.data.addUser;
         if (data) {
           // Display snackbar!
-          this.success = true;
-          this.$router.push({ path: "/admin", query: { created: true } });
-        } else {
-          // Display snackbar!
           this.failed = true;
           this.error_message = data[0].message
+        } else {
+          // Display snackbar!
+          this.success = true;
+          this.success_message = "Edit successful.";
+          this.$router.push({ path: "/admin", query: { created: true } });
         }
       }
     }

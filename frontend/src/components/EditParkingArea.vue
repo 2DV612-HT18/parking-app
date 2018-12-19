@@ -1,16 +1,37 @@
 <template>
   <div>
+    <v-snackbar
+      v-model="failed"
+      color="error"
+      icon="warning"
+      :top="true"
+      :multi-line="true"
+      >{{ error_message }}<v-btn
+        dark
+        flat
+        @click="failed = false"
+      >
+        Close
+      </v-btn>
+      </v-snackbar>
+    <v-snackbar
+      v-model="success"
+      color="success"
+      :top="true"
+      :multi-line="true"
+      >{{ success_message }}
+      <v-btn
+        dark
+        flat
+        @click="success = false"
+      >
+        Close
+      </v-btn>
+      </v-snackbar>
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm12 md12 lg10 xl8>
-            <v-snackbar
-              v-model="failed"
-              color="error"
-              :top="true"
-              :multi-line="true"
-              >{{ failedMessage }}</v-snackbar
-            >
             <v-form v-model="validForm">
               <v-layout row wrap>
                 <v-flex xs12 sm12 md4>
@@ -245,10 +266,11 @@
 </template>
 
 <script>
-import editParkingArea from "@/graphql/EditParkingArea.gql";
+const EditParkingArea = require("@/graphql/EditParkingArea.gql");
 import GetParkingArea from "@/graphql/GetParkingArea.gql";
 
 export default {
+  props: ["form_title", "mutationName", "success_message", "failed_message"],
   data: () => ({
     nameArea: "",
     parkingArea: {},
@@ -275,8 +297,10 @@ export default {
         longitude: "0.000000"
       }
     ],
+    success: false,
     failed: false,
-    failedMessage: ""
+    error_message: null,
+    success_message: null
   }),
   apollo: {
     getParkingArea: {
@@ -311,8 +335,10 @@ export default {
         };
       });
 
+
+
       const result = await this.$apollo.mutate({
-        mutation: editParkingArea,
+        mutation: EditParkingArea,
         variables: {
           id: parseInt(this.$route.params.id),
           name: this.nameArea,
@@ -320,16 +346,17 @@ export default {
         }
       });
 
-      const data = result.data.editParkingArea;
+        const data = result.data.editParkingArea;
 
-      if (data) {
-        // Redirect to Parking Area list
-        this.$router.push({ name: "ParkingAreas" });
-      } else {
-        // Display snackbar!
-        this.failedMessage = "Edit parking area was unsuccessful";
-        this.failed = true;
-      }
+        if(data){
+          // Display snackbar and error message
+          this.failed = true;
+          this.error_message = data[0].message;
+        }else{
+          this.success = true;
+          this.success_message = "Edit successful.";
+          this.$router.push({ name: "ParkingAreas" });
+        }
     },
     addMarker(latitude, longitude) {
       const marker = {
