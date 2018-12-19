@@ -1,5 +1,19 @@
 <template>
   <div>
+    <v-snackbar
+      v-model="failed"
+      color="error"
+      icon="warning"
+      :top="true"
+      :multi-line="true"
+      >{{ error_message }}<v-btn
+        dark
+        flat
+        @click="failed = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
     <v-content>
       <v-container>
         <v-snackbar
@@ -270,6 +284,16 @@ export default {
           // ErrorMessage pls
           this.failed = true;
         }
+      
+        if (this.mutationName === "AddParkingAreaRate") {
+        const data = result.data.addParkingAreaRate;
+        if (data) {
+          // Display snackbar!
+          this.failed = true;
+          this.error_message = "Adding a new parking area rate was unsuccessful"
+        } 
+      }
+
       }
     }
   }

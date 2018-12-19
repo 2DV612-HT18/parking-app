@@ -6,17 +6,38 @@
       confirmText="Yes"
       cancelText="No"
     />
+    <v-snackbar
+      v-model="failed"
+      color="error"
+      icon="warning"
+      :top="true"
+      :multi-line="true"
+      >{{ error_message }}<v-btn
+        dark
+        flat
+        @click="failed = false"
+      >
+        Close
+      </v-btn>
+      </v-snackbar>
+    <v-snackbar
+      v-model="success"
+      color="success"
+      :top="true"
+      :multi-line="true"
+      >{{ success_message }}
+      <v-btn
+        dark
+        flat
+        @click="success = false"
+      >
+        Close
+      </v-btn>
+      </v-snackbar>
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
-            <v-snackbar
-              v-model="wrong"
-              color="error"
-              :top="true"
-              :multi-line="true"
-              >Wrong password!</v-snackbar
-            >
             <v-card-text>
               <v-form v-model="validForm">
                 <v-text-field
@@ -45,7 +66,7 @@
 </template>
 
 <script>
-import CloseAccount from "@/graphql/CloseAccount.gql";
+const CloseAccount = require("@/graphql/CloseAccount.gql");
 import ConfirmDialog from "@/components/ConfirmDialog.vue";
 
 export default {
@@ -57,7 +78,11 @@ export default {
       passwordRules: [v => !!v || "Password is required"],
       input: {
         password: ""
-      }
+      },
+      success: false,
+      failed: false,
+      error_message: null,
+      success_message: null
     };
   },
   components: {
@@ -80,15 +105,15 @@ export default {
           password: this.input.password
         }
       });
-
-      const status = result.data.closeAccount;
+      const data = result.data.closeAccount;
       // Token exists
-      if (status) {
-        // Redirect to homepage
-        this.$router.go(0);
+      if (data) {
+        this.failed = true;
+        this.error_message = data[0].message;
       } else {
-        // password wrong
-        this.wrong = true;
+        this.success = true;
+        this.success_message = "Remove successful.";
+        this.$router.go(0);
       }
     }
   }

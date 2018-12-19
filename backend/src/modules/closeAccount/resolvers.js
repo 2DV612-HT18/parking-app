@@ -38,11 +38,13 @@ export const resolvers = {
           // delete user
           connection.manager.remove(data);
          
-          return true;
+          return null;
+        }else{
+          return [{path: "closeAccount", message: "Remove account failed. Wrong password."}];
         }
       }
-      // No user found or password didn't match
-      return false;
+      // No user found
+      return [{path: "closeAccount", message: "Remove account failed. User not found."}];
 
     }
   }

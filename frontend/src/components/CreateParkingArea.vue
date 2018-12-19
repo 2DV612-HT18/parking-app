@@ -1,5 +1,19 @@
 <template>
   <div>
+    <v-snackbar
+      v-model="failed"
+      color="error"
+      icon="warning"
+      :top="true"
+      :multi-line="true"
+      >{{ error_message }}<v-btn
+        dark
+        flat
+        @click="failed = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
@@ -300,7 +314,16 @@ export default {
         this.failedMessage = "Creating new parking area was unsuccessful";
         this.failed = true;
       }
+        if (this.mutationName === "AddParkingArea") {
+        const data = result.data.addParkingArea;
+        if (data) {
+          // Display snackbar!
+          this.failed = true;
+          this.error_message = "Creating new parking area was unsuccessful"
+        } 
+      }
     },
+    
     addMarker(latitude, longitude) {
       const marker = {
         lat: parseFloat(latitude),

@@ -7,7 +7,7 @@ export const resolvers = {
       const connection = getConnection();
       const notificationRepository = connection.getRepository(Notification);
       const notifications = await notificationRepository.find({
-        relations: ["author", "dismissed"]
+        relations: ["author", "dismissedUsers"]
       });
 
       // If user is not logged in.
@@ -18,7 +18,7 @@ export const resolvers = {
       // Filter the notifications to only notifications that hasn't been dismissed by logged in user.
       const filteredNotifications = notifications.filter(
         notification =>
-          !notification.dismissed.some(nUser => nUser.id === user.id)
+          !notification.dismissedUsers.some(nUser => nUser.id === user.id)
       );
 
       // Save notification
