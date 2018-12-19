@@ -10,7 +10,7 @@ export const resolvers = {
 
       const myUser = await userRepository.findOne({
         where: { id: user.id },
-        relations: ["roles", "vehicles", "currentParkingAreas"]
+        relations: ["roles", "vehicles", "currentParkingAreas", "currentParkingAreas.coordinates"]
       });
 
       return myUser;

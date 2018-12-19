@@ -54,6 +54,7 @@ import GetParkingAreas from "@/graphql/GetParkingAreas.gql";
 import ChooseParkingArea from "@/graphql/ChooseParkingArea.gql";
 import { mapState } from "vuex";
 import _ from "underscore";
+import store from "../store";
 
 export default {
   data: () => {
@@ -91,7 +92,8 @@ export default {
           this.addedActiveErrorMessage = data[0].message;
         } else {
           //Wihoo, I have added the parking area as active
-          //Add to store, but for now it doesnt matter.
+          //Add to store
+
           console.log("SUCCESS adding active");
           this.activeParkingIds.push(areaId);
           //fix so the button becomes checkmarked... (just re render corresponding list item)

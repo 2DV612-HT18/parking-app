@@ -19,18 +19,22 @@
 export default {
     data: () => ({
         show: false,
-        notification: "You are outside of your current parking area and might want to consider cancelling your ticket.",
+        notification: "You are outside of your current parking area and might want to cancel your ticket.",
         calculatedDistance: 0,
         center: 0
     }),
     methods: {
         getParkingAreas() {
-            // loop through parking areas. Compare user's position with each one. If more than 100 km than true
+            // Check active parking area. Compare with user's position. If more than 100 km than true
+            let currentParkingAreas = []
 
-            // return this.$store.state.currentParkingAreas;
+            if (this.$store.state.user.currentParkingAreas.length > 0) {
+                currentParkingAreas = this.$store.state.user.currentParkingAreas
 
-            // Test position (Falun, Dalarna)
-            return { lat: 60.605386, lng: 15.635459 }
+                return currentParkingAreas
+            }
+            return false
+
         },
         geolocate() {
             // Get user's current position
@@ -40,23 +44,36 @@ export default {
               lng: position.coords.longitude
             };
 
-            let pos2 = this.getParkingAreas();
+            let parkingAreas = {};
 
-            this.calculatedDistance = this.distance(this.center.lat, this.center.lng, pos2.lat, pos2.lng, "K");
-
-            if (this.calculatedDistance > 100) {
-                console.log("Distance from parking area: " + this.calculatedDistance + " km");
-                console.log("User is more than 100 km from current parking area – Show notification.")
-                this.show = true;
-            } else {
-                console.log(this.calculatedDistance + " km");
-                console.log("User is within 100 km of current parking area - No notification")
-                this.show = false;
+            if (this.getParkingAreas() === false) {
+                return false;
             }
 
-            // Show notification if above is true
-            // How do we show notification?
+            parkingAreas = this.getParkingAreas();
 
+            // Loop through parking areas
+            for (let i = 0; i < parkingAreas.length; i++) {
+                // Check the first coordinate in each area against user's position
+                let areaLat = parkingAreas[i].coordinates[0].latitude;
+                let areaLng = parkingAreas[i].coordinates[0].longitude;
+
+                console.log(this.center.lat)
+                console.log(this.center.lng)
+                console.log(areaLat)
+                console.log(areaLng)
+                this.calculatedDistance = this.distance(this.center.lat, this.center.lng, areaLat, areaLng, "K");
+                if (this.calculatedDistance > 100) {
+                    console.log("Distance from parking area: " + this.calculatedDistance + " km");
+                    console.log("User is more than 100 km from current parking area – Show notification.")
+                    this.show = true;
+                    break;
+                } else {
+                    console.log(this.calculatedDistance + " km");
+                    console.log("User is within 100 km of current parking area - No notification");
+                    this.show = false;
+                    }
+                }
           });
       },
       distance(lat1, lon1, lat2, lon2, unit) {
@@ -76,6 +93,7 @@ export default {
     		dist = Math.acos(dist);
     		dist = dist * 180/Math.PI;
     		dist = dist * 60 * 1.1515;
+            // unit "K" = kilometers, otherwise returns miles
     		if (unit=="K") { dist = dist * 1.609344 }
     		return dist;
     	}
