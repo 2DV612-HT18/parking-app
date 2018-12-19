@@ -14,17 +14,24 @@
         Close
       </v-btn>
     </v-snackbar>
+    <v-snackbar
+      v-model="success"
+      color="success"
+      :top="true"
+      :multi-line="true"
+      >{{ success_message }}
+      <v-btn
+        dark
+        flat
+        @click="success = false"
+      >
+        Close
+      </v-btn>
+      </v-snackbar>
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm12 md12 lg10 xl8>
-            <v-snackbar
-              v-model="failed"
-              color="error"
-              :top="true"
-              :multi-line="true"
-              >{{ failedMessage }}</v-snackbar
-            >
             <v-form v-model="validForm">
               <v-layout row wrap>
                 <v-flex xs12 sm12 md4>
@@ -280,8 +287,10 @@ export default {
         longitude: "0.000000"
       }
     ],
+    success: false,
     failed: false,
-    failedMessage: ""
+    error_message: null,
+    success_message: null
   }),
   methods: {
     async addParkingArea() {
@@ -307,23 +316,26 @@ export default {
       console.log(data);
 
       if (data) {
+          this.failed = true;
+          this.failed_message = "Creating new parking area was unsuccessful";
         // Redirect to Parking Area list
         this.$router.push({ name: "ParkingAreas" });
       } else {
         // Display snackbar!
-        this.failedMessage = "Creating new parking area was unsuccessful";
-        this.failed = true;
+        this.success = true;
+        this.success_message = "Creating new parking area was successful";
+
       }
         if (this.mutationName === "AddParkingArea") {
         const data = result.data.addParkingArea;
         if (data) {
           // Display snackbar!
           this.failed = true;
-          this.error_message = "Creating new parking area was unsuccessful"
-        } 
+          this.failed_message = "Creating new parking area was successful"
+        }
       }
     },
-    
+
     addMarker(latitude, longitude) {
       const marker = {
         lat: parseFloat(latitude),
