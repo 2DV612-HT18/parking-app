@@ -75,25 +75,34 @@ export default {
   },
   methods: {
     async chooseArea(areaId, index) {
+
+      this.addedActiveError = false;
       const result = await this.$apollo.mutate({
         mutation: ChooseParkingArea,
         variables: {
-          parkingAreaID: areaId
+          parkingAreaID: parseInt(areaId)
         }
-      });
-      const data = result.data.chooseParkingArea;
-      this.addedActiveError = false;
-      if (data === null) {
-        //Wihoo, I have added the parking area as active
-        //Add to store, but for now it doesnt matter.
-        this.activeParkingIds.push(areaId);
-        //fix so the button becomes checkmarked... (just re render corresponding list item)
-        this.$set(this.areas, index, this.areas[index]);
-      } else {
-        //Something went wrong when adding parking area as active
+      }).then(result => {
+        const data = result.data.chooseParkingArea;
+        if (data) { //if data data != null then there has been an error
+          //Something went wrong when adding parking area as active
+          console.log("ERROR adding active");
+          this.addedActiveError = true;
+          this.addedActiveErrorMessage = data[0].message;
+        } else {
+          //Wihoo, I have added the parking area as active
+          //Add to store, but for now it doesnt matter.
+          console.log("SUCCESS adding active");
+          this.activeParkingIds.push(areaId);
+          //fix so the button becomes checkmarked... (just re render corresponding list item)
+          this.$set(this.areas, index, this.areas[index]);
+        }
+      }).catch(error => {
+        //catch general errors (like the permission check)
+        console.log(error);
         this.addedActiveError = true;
-        this.addedActiveErrorMessage = data;
-      }
+        this.addedActiveErrorMessage = `${error}`;
+      });
     }
   },
   apollo: {

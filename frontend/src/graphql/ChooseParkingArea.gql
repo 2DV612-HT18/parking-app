@@ -2,6 +2,9 @@ mutation chooseParkingArea(
   $parkingAreaID: Int!
 ) {
   chooseParkingArea(
-    parkingAreaID: $parkingAreaID
-  ) 
+    id: $parkingAreaID
+  ) {
+    path
+    message
+  }
 }
