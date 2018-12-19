@@ -15,7 +15,7 @@ export const resolvers = {
 
       const notification = await notificationRepository.findOne({
         where: { id: args.id },
-        relations: ["author", "dismissed"]
+        relations: ["author", "dismissedUsers"]
       });
 
       // If successfully found logged in user and notification, push the logged in user to the dismissed array.

@@ -12,7 +12,7 @@ export default new EntitySchema({
     },
     message: {
       type: "varchar"
-    },    
+    }
   },
   relations: {
     author: {
@@ -22,10 +22,10 @@ export default new EntitySchema({
       joinTable: true,
       onDelete: "CASCADE"
     },
-    dismissed: {
+    dismissedUsers: {
       target: "User",
       type: "many-to-many",
-      inverseSide: "notifications",
+      inverseSide: "dismissedNotifications",
       joinTable: true,
       onDelete: "CASCADE"
     }

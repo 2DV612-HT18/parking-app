@@ -62,6 +62,6 @@ export default new EntitySchema({
       type: "many-to-many",
       inverseSide: "parkedUser",
       joinTable: true
-    },
+    }
   }
 });
