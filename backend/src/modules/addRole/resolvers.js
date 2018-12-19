@@ -13,7 +13,7 @@ export const resolvers = {
 
       // If no role of the same name exists, add it. 
       if (data.length < 1) {        
-        return connection.manager.save(role)
+        return connection.manager.save(null)
       }
       return null;      
     },

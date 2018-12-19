@@ -58,7 +58,7 @@ export const resolvers = {
 
       // Cancel if we have overlapping dates
       if (filteredRates.length > 0) {
-        return null;
+        return [{ path: "addRate", message: "Error! (Could not add rate!)" }];
       }
 
       const rate = new Rate(
@@ -74,7 +74,7 @@ export const resolvers = {
 
       await connection.manager.save(rate);
 
-      return rate;
+      return null;
     }
   }
 };
