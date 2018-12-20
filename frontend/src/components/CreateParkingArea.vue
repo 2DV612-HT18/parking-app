@@ -6,12 +6,18 @@
       icon="warning"
       :top="true"
       :multi-line="true"
-      >{{ error_message
-      }}<v-btn dark flat @click="failed = false;"> Close </v-btn>
+    >
+      {{ error_message }}
+      <v-btn dark flat @click="failed = false;">Close</v-btn>
     </v-snackbar>
-    <v-snackbar v-model="success" color="success" :top="true" :multi-line="true"
-      >{{ success_message }}
-      <v-btn dark flat @click="success = false;"> Close </v-btn>
+    <v-snackbar
+      v-model="success"
+      color="success"
+      :top="true"
+      :multi-line="true"
+    >
+      {{ success_message }}
+      <v-btn dark flat @click="success = false;">Close</v-btn>
     </v-snackbar>
     <v-content>
       <v-container fluid fill-height>
@@ -309,6 +315,7 @@ export default {
         // Display snackbar!
         this.success = true;
         this.success_message = "Creating new parking area was successful";
+        this.$router.push({ path: "/area", query: { created: true } });
       }
       if (this.mutationName === "AddParkingArea") {
         const data = result.data.addParkingArea;
