@@ -2,7 +2,7 @@
   <div>
     <v-content>
       <v-container>
-        <CurrentParkingAreas v-if="user"/>
+        <CurrentParkingAreas v-if="userRole"/>
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
             <v-toolbar-title>Profile</v-toolbar-title>
@@ -45,7 +45,10 @@ export default {
     ...mapState(["user"]),
     admin() {
       return this.$store.getters.adminPermission;
-    }
+    },
+    userRole() {
+      return this.$store.getters.userPermission;
+    },
   },
   components: {
     AddVehicle,
