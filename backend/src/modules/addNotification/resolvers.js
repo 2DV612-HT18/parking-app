@@ -21,6 +21,15 @@ export const resolvers = {
         ];
       }
 
+      if (message.length < 1) {
+        return [
+          {
+            path: "addNotification",
+            message: "Notification message can't be blank"
+          }
+        ];
+      }
+
       // Create a new notification and select the logged in user as the author.
       const notification = new Notification(0, message);
       notification.author = loggedInUser;
