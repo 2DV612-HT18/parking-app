@@ -1,33 +1,24 @@
 <template>
   <div>
-        <v-snackbar
+    <v-snackbar
       v-model="failed"
       color="error"
       icon="warning"
       :top="true"
       :multi-line="true"
-      >{{ error_message }}<v-btn
-        dark
-        flat
-        @click="failed = false"
-      >
-        Close
-      </v-btn>
-      </v-snackbar>
+    >
+      {{ error_message }}
+      <v-btn dark flat @click="failed = false;">Close</v-btn>
+    </v-snackbar>
     <v-snackbar
       v-model="success"
       color="success"
       :top="true"
       :multi-line="true"
-      >{{ success_message }}
-      <v-btn
-        dark
-        flat
-        @click="success = false"
-      >
-        Close
-      </v-btn>
-      </v-snackbar>
+    >
+      {{ success_message }}
+      <v-btn dark flat @click="success = false;">Close</v-btn>
+    </v-snackbar>
     <v-content>
       <v-container>
         <v-snackbar
@@ -300,20 +291,19 @@ export default {
           // ErrorMessage pls
           this.failed = true;
         }
-      
-        if (this.mutationName === "AddParkingAreaRate") {
-        const data = result.data.addParkingAreaRate;
-        if (data) {
-          // Display snackbar!
-          this.failed = true;
-          this.error_message = data[0].message
-        } else {
-          // Display snackbar!
-          this.success = true;
-          this.success_message = "Add rate successful.";
-        }
-      }
 
+        if (this.mutationName === "AddParkingAreaRate") {
+          const data = result.data.addParkingAreaRate;
+          if (data) {
+            // Display snackbar!
+            this.failed = true;
+            this.error_message = data[0].message;
+          } else {
+            // Display snackbar!
+            this.success = true;
+            this.success_message = "Add rate successful.";
+          }
+        }
       }
     }
   }

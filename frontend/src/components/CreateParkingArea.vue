@@ -6,28 +6,13 @@
       icon="warning"
       :top="true"
       :multi-line="true"
-      >{{ error_message }}<v-btn
-        dark
-        flat
-        @click="failed = false"
-      >
-        Close
-      </v-btn>
+      >{{ error_message
+      }}<v-btn dark flat @click="failed = false;"> Close </v-btn>
     </v-snackbar>
-    <v-snackbar
-      v-model="success"
-      color="success"
-      :top="true"
-      :multi-line="true"
+    <v-snackbar v-model="success" color="success" :top="true" :multi-line="true"
       >{{ success_message }}
-      <v-btn
-        dark
-        flat
-        @click="success = false"
-      >
-        Close
-      </v-btn>
-      </v-snackbar>
+      <v-btn dark flat @click="success = false;"> Close </v-btn>
+    </v-snackbar>
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
@@ -316,22 +301,21 @@ export default {
       console.log(data);
 
       if (data) {
-          this.failed = true;
-          this.failed_message = "Creating new parking area was unsuccessful";
+        this.failed = true;
+        this.failed_message = "Creating new parking area was unsuccessful";
         // Redirect to Parking Area list
         this.$router.push({ name: "ParkingAreas" });
       } else {
         // Display snackbar!
         this.success = true;
         this.success_message = "Creating new parking area was successful";
-
       }
-        if (this.mutationName === "AddParkingArea") {
+      if (this.mutationName === "AddParkingArea") {
         const data = result.data.addParkingArea;
         if (data) {
           // Display snackbar!
           this.failed = true;
-          this.error_message = data[0].message
+          this.error_message = data[0].message;
         } else {
           // Display snackbar!
           this.success = true;

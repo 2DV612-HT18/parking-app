@@ -15,7 +15,7 @@ export const resolvers = {
       });
 
       if (!parkingArea) {
-        return [{path: "editParkingArea", message: "Edit failed. " + name + " do not exist!"}];
+        return [{path: "editParkingArea", message: `Edit failed. ${  name  } do not exist!`}];
       }
 
       parkingArea.name = name;

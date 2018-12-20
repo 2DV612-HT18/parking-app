@@ -6,28 +6,13 @@
       icon="warning"
       :top="true"
       :multi-line="true"
-      >{{ error_message }}<v-btn
-        dark
-        flat
-        @click="failed = false"
-      >
-        Close
-      </v-btn>
-      </v-snackbar>
-    <v-snackbar
-      v-model="success"
-      color="success"
-      :top="true"
-      :multi-line="true"
+      >{{ error_message
+      }}<v-btn dark flat @click="failed = false;"> Close </v-btn>
+    </v-snackbar>
+    <v-snackbar v-model="success" color="success" :top="true" :multi-line="true"
       >{{ success_message }}
-      <v-btn
-        dark
-        flat
-        @click="success = false"
-      >
-        Close
-      </v-btn>
-      </v-snackbar>
+      <v-btn dark flat @click="success = false;"> Close </v-btn>
+    </v-snackbar>
     <v-card class="elevation-12">
       <v-toolbar dark color="primary">
         <v-toolbar-title>{{ form_title }}</v-toolbar-title>
@@ -151,13 +136,13 @@ export default {
       });
 
       // Register user
-      if (this.mutationName === 'RegisterUser') {
-          const data = result.data.registerUser;
+      if (this.mutationName === "RegisterUser") {
+        const data = result.data.registerUser;
         // If data is not null, display error message.
-        if(data) {
+        if (data) {
           // Display snackbar and error message
           this.failed = true;
-          this.error_message = data[0].message
+          this.error_message = data[0].message;
         } else {
           // Display snackbar and redirect to /login
           this.success = true;
@@ -165,13 +150,13 @@ export default {
           this.$router.push({ path: "/login", query: { registered: true } });
         }
 
-      // Admin create a user
+        // Admin create a user
       } else if (this.mutationName === "AddUser") {
         const data = result.data.addUser;
         if (data) {
           // Display snackbar!
           this.failed = true;
-          this.error_message = data[0].message
+          this.error_message = data[0].message;
         } else {
           // Display snackbar!
           this.success = true;

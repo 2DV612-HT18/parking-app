@@ -12,28 +12,13 @@
       icon="warning"
       :top="true"
       :multi-line="true"
-      >{{ error_message }}<v-btn
-        dark
-        flat
-        @click="failed = false"
-      >
-        Close
-      </v-btn>
-      </v-snackbar>
-    <v-snackbar
-      v-model="success"
-      color="success"
-      :top="true"
-      :multi-line="true"
+      >{{ error_message
+      }}<v-btn dark flat @click="failed = false;"> Close </v-btn>
+    </v-snackbar>
+    <v-snackbar v-model="success" color="success" :top="true" :multi-line="true"
       >{{ success_message }}
-      <v-btn
-        dark
-        flat
-        @click="success = false"
-      >
-        Close
-      </v-btn>
-      </v-snackbar>
+      <v-btn dark flat @click="success = false;"> Close </v-btn>
+    </v-snackbar>
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>

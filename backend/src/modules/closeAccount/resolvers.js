@@ -39,9 +39,9 @@ export const resolvers = {
           connection.manager.remove(data);
          
           return null;
-        }else{
-          return [{path: "closeAccount", message: "Remove account failed. Wrong password."}];
         }
+          return [{path: "closeAccount", message: "Remove account failed. Wrong password."}];
+        
       }
       // No user found
       return [{path: "closeAccount", message: "Remove account failed. User not found."}];

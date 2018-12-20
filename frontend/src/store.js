@@ -21,9 +21,9 @@ export default new Vuex.Store({
       if (!state.user) {
         return false;
       }
-      
+
       const roles = state.user.roles;
-      return roles.find(role => (role.name === "User" || role.admin));
+      return roles.find(role => role.name === "User" || role.admin);
     },
     addParkingAreaPermission: state => {
       if (!state.user) {

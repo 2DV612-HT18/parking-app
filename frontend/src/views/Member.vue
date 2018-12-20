@@ -2,7 +2,7 @@
   <div>
     <v-content>
       <v-container>
-        <CurrentParkingAreas v-if="userRole"/>
+        <CurrentParkingAreas v-if="userRole" />
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
             <v-toolbar-title>Profile</v-toolbar-title>
@@ -48,7 +48,7 @@ export default {
     },
     userRole() {
       return this.$store.getters.userPermission;
-    },
+    }
   },
   components: {
     AddVehicle,
