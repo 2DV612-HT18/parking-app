@@ -308,7 +308,7 @@ export default {
         } else {
           // Display snackbar!
           this.success = true;
-          this.success_message = "Notification successful.";
+          this.success_message = "Add rate successful.";
         }
       }
 
