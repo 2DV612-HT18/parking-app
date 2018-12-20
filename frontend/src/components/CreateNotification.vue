@@ -59,8 +59,10 @@ const AddNotification = require("@/graphql/AddNotification.gql");
 export default {
   props: ["form_title", "mutationName"],
   data: () => ({
-    notification: ""
-  }),
+    notification: "",
+    error_message: null,
+    success_message: null
+    }),
   methods: {
     async sendMsg() {
       const result = await this.$apollo.mutate({

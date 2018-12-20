@@ -214,7 +214,9 @@ export default {
         "Couldnt add rate, make sure its not overlapping with any previous rates",
       successRate: "Added rate!",
       failed: "",
-      success: ""
+      success: "",
+      error_message: null,
+      success_message: null
     };
   },
   watch: {
