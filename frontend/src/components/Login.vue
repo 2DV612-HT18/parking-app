@@ -110,7 +110,7 @@ export default {
         this.$router.push("/");
       } else {
         // Login unsuccessful
-        this.error_message = data.error[0].message
+        this.error_message = data.error[0].message;
         this.LoginError = true;
       }
     },

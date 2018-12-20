@@ -5,12 +5,16 @@
         <v-toolbar-title>My active parking areas</v-toolbar-title>
       </v-toolbar>
       <v-list v-if="user.currentParkingAreas.length">
-        <v-list-tile v-for="parkingArea in user.currentParkingAreas" :key="parkingArea.id" avatar>
+        <v-list-tile
+          v-for="parkingArea in user.currentParkingAreas"
+          :key="parkingArea.id"
+          avatar
+        >
           <v-list-tile-avatar>
             <v-icon large light>local_parking</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title>{{parkingArea.name}}</v-list-tile-title>
+            <v-list-tile-title>{{ parkingArea.name }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>

@@ -17,7 +17,7 @@ export const resolvers = {
 
       // Can't add to role, registration unsuccessful
       if (!role) {
-        return [{path: "addUser", message: "Registration failed. " + args.role + " is not a existing role!"}];
+        return [{path: "addUser", message: `Registration failed. ${  args.role  } is not a existing role!`}];
       }
 
       const user = new User(
@@ -43,7 +43,7 @@ export const resolvers = {
         return null;
       }
       // Throw Error?
-      return [{path: "addUser", message: "Registration failed. user with email " + args.email + " already exists!"}];
+      return [{path: "addUser", message: `Registration failed. user with email ${  args.email  } already exists!`}];
     }
   }
 };

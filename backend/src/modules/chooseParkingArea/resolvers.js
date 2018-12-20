@@ -24,7 +24,8 @@ export const resolvers = {
             message: "Selected parking area was not found."
           }
         ];
-      } else if (
+      }
+      if (
         loggedInUser.currentParkingAreas.some(
           p => p.id === selectedParkingArea.id
         )
@@ -35,10 +36,9 @@ export const resolvers = {
             message: "Parking area already in users list of current areas."
           }
         ];
-      } else {
-        loggedInUser.currentParkingAreas.push(selectedParkingArea);
-        connection.manager.save(loggedInUser);
       }
+      loggedInUser.currentParkingAreas.push(selectedParkingArea);
+      await connection.manager.save(loggedInUser);
 
       return null;
     }

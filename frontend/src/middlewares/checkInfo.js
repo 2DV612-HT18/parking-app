@@ -5,7 +5,8 @@ import store from "../store";
 export default async ({ next }) => {
   try {
     const data = await apolloProvider.defaultClient.query({
-      query: myInfo
+      query: myInfo,
+      fetchPolicy: "no-cache"
     });
 
     const user = data.data.myInfo;

@@ -20,7 +20,9 @@ export const resolvers = {
         !startTime.match(timeReg) ||
         !endTime.match(timeReg)
       ) {
-        return null;
+        return [
+          { path: "addRate", message: "Dates are not in the correct format" }
+        ];
       }
 
       const connection = getConnection();
@@ -33,7 +35,7 @@ export const resolvers = {
 
       // Cancel if we can't find a parking area
       if (!parkingArea) {
-        return null;
+        return [{ path: "addRate", message: "Parking area not found" }];
       }
 
       const startDate1 = moment().format(`${startDate} ${startTime}`);
@@ -41,7 +43,9 @@ export const resolvers = {
 
       // Cancel if our end date is before our start date
       if (!moment(startDate1).isSameOrBefore(endDate1)) {
-        return null;
+        return [
+          { path: "addRate", message: "Start date cannot be after end date" }
+        ];
       }
 
       // Filter highest priority dates that are overlapping

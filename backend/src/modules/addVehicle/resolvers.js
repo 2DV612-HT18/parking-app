@@ -35,7 +35,7 @@ export const resolvers = {
       }
       // Throw Error already exsist
       console.log("addVehicle throws error");
-      return [{path: "addVehicle", message: "Add car "+ args.registrationNumber +" failed. The car already exsists."}];
+      return [{path: "addVehicle", message: `Add car ${ args.registrationNumber } failed. The car already exsists.`}];
     }
   }
 };

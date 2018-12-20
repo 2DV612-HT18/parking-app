@@ -6,28 +6,13 @@
       icon="warning"
       :top="true"
       :multi-line="true"
-      >{{ error_message }}<v-btn
-        dark
-        flat
-        @click="failed = false"
-      >
-        Close
-      </v-btn>
-      </v-snackbar>
-    <v-snackbar
-      v-model="success"
-      color="success"
-      :top="true"
-      :multi-line="true"
+      >{{ error_message
+      }}<v-btn dark flat @click="failed = false;"> Close </v-btn>
+    </v-snackbar>
+    <v-snackbar v-model="success" color="success" :top="true" :multi-line="true"
       >{{ success_message }}
-      <v-btn
-        dark
-        flat
-        @click="success = false"
-      >
-        Close
-      </v-btn>
-      </v-snackbar>
+      <v-btn dark flat @click="success = false;"> Close </v-btn>
+    </v-snackbar>
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
@@ -335,8 +320,6 @@ export default {
         };
       });
 
-
-
       const result = await this.$apollo.mutate({
         mutation: EditParkingArea,
         variables: {
@@ -346,17 +329,17 @@ export default {
         }
       });
 
-        const data = result.data.editParkingArea;
+      const data = result.data.editParkingArea;
 
-        if(data){
-          // Display snackbar and error message
-          this.failed = true;
-          this.error_message = data[0].message;
-        }else{
-          this.success = true;
-          this.success_message = "Edit successful.";
-          this.$router.push({ name: "ParkingAreas" });
-        }
+      if (data) {
+        // Display snackbar and error message
+        this.failed = true;
+        this.error_message = data[0].message;
+      } else {
+        this.success = true;
+        this.success_message = "Edit successful.";
+        this.$router.push({ name: "ParkingAreas" });
+      }
     },
     addMarker(latitude, longitude) {
       const marker = {
