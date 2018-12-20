@@ -24,7 +24,7 @@
           <v-list-tile-content>
             <v-list-tile-title>{{ area.name }}</v-list-tile-title>
           </v-list-tile-content>
-          <v-list-tile-action>
+          <v-list-tile-action v-if="userRole">
             <v-icon
               v-if="activeParkingIds.indexOf(area.id) > -1"
               icon
@@ -66,6 +66,9 @@ export default {
   },
   computed: {
     ...mapState(["user"]),
+    userRole() {
+      return this.$store.getters.userPermission;
+    },
     activeParkingIds: function() {
       let activeParkingIds = [];
       _.each(this.user.currentParkingAreas, (activeParkingArea) =>{
@@ -76,7 +79,6 @@ export default {
   },
   methods: {
     async chooseArea(areaId, index) {
-
       this.addedActiveError = false;
       const result = await this.$apollo.mutate({
         mutation: ChooseParkingArea,
@@ -87,14 +89,11 @@ export default {
         const data = result.data.chooseParkingArea;
         if (data) { //if data data != null then there has been an error
           //Something went wrong when adding parking area as active
-          console.log("ERROR adding active");
           this.addedActiveError = true;
           this.addedActiveErrorMessage = data[0].message;
         } else {
           //Wihoo, I have added the parking area as active
-          //Add to store
-
-          console.log("SUCCESS adding active");
+          //Add to store (not needed right now so just add in this components data)
           this.activeParkingIds.push(areaId);
           //fix so the button becomes checkmarked... (just re render corresponding list item)
           this.$set(this.areas, index, this.areas[index]);
