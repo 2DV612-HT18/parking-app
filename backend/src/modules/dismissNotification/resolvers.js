@@ -20,7 +20,7 @@ export const resolvers = {
 
       // If successfully found logged in user and notification, push the logged in user to the dismissed array.
       if (loggedInUser && notification) {
-        notification.dismissed.push(loggedInUser);
+        notification.dismissedUsers.push(loggedInUser);
         await connection.manager.save(notification);
         return true;
       }
