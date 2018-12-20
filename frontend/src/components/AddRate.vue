@@ -283,26 +283,13 @@ export default {
         });
         const data = result.data.addRate;
         if (data) {
-          // successful
+          // Display snackbar!
+          this.failed = true;
+          this.error_message = data[0].message;
+        } else {
           // Display snackbar!
           this.success = true;
-        } else {
-          // unsuccessful
-          // ErrorMessage pls
-          this.failed = true;
-        }
-
-        if (this.mutationName === "AddParkingAreaRate") {
-          const data = result.data.addParkingAreaRate;
-          if (data) {
-            // Display snackbar!
-            this.failed = true;
-            this.error_message = data[0].message;
-          } else {
-            // Display snackbar!
-            this.success = true;
-            this.success_message = "Add rate successful.";
-          }
+          this.success_message = "Add rate successful.";
         }
       }
     }
