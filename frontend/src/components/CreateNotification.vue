@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-snackbar
+        <v-snackbar
       v-model="failed"
       color="error"
       icon="warning"
@@ -13,7 +13,22 @@
       >
         Close
       </v-btn>
-    </v-snackbar>
+      </v-snackbar>
+    <v-snackbar
+      v-model="success"
+      color="success"
+      :top="true"
+      :multi-line="true"
+      >{{ success_message }}
+      <v-btn
+        dark
+        flat
+        @click="success = false"
+      >
+        Close
+      </v-btn>
+      </v-snackbar>
+
   <v-card class="elevation-12">
       <v-toolbar dark color="primary">
         <v-toolbar-title>{{ form_title }}</v-toolbar-title>
@@ -55,13 +70,18 @@ export default {
         }
       });
 
-        if (this.mutationName === "AddNotification") {
+      if (this.mutationName === "AddNotification") {
         const data = result.data.AddNotification;
         if (data) {
           // Display snackbar!
           this.failed = true;
-          this.error_message = "Adding the notification was unsuccessful"
-        } 
+          this.error_message = data[0].message
+        } else {
+          // Display snackbar!
+          this.success = true;
+          this.success_message = "Notification successful.";
+          this.$router.push({ path: "/admin", query: { created: true } });
+        }
       }
     }
   }

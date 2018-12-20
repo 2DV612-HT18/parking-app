@@ -331,7 +331,12 @@ export default {
         if (data) {
           // Display snackbar!
           this.failed = true;
-          this.failed_message = "Creating new parking area was successful"
+          this.error_message = data[0].message
+        } else {
+          // Display snackbar!
+          this.success = true;
+          this.success_message = "Adding a parking ares was successful.";
+          this.$router.push({ path: "/area", query: { created: true } });
         }
       }
     },
