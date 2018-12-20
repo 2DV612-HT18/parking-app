@@ -11,10 +11,17 @@ export const resolvers = {
       // Query the database to check if role exists with rolename specified.
       const data = await roleRepository.find({ where: { role: args.role } });
 
-      // If no role of the same name exists, add it.
-      if (data.length < 1) {
-        return connection.manager.save(role);
+      // Send error message if same role exists
+      if (data.length > 1) {
+        return [
+          {
+            path: "addRole",
+            message: "Role already exist"
+          }
+        ];
       }
+
+      await connection.manager.save(role);
       return null;
     }
   }
