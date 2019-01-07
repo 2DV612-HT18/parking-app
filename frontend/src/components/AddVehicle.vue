@@ -86,10 +86,10 @@ export default {
         this.failed = true;
         this.error_message = data[0].message;
       } else {
-        //succses adding a car
+        //successfully adding a car
         this.success = true;
-        this.success_message = "Successful added " + this.registrationNumber;
-        
+        this.success_message = "Successful added " + this.registrationNumber;        
+        this.addVehicle({id: 0, registrationNumber: this.registrationNumber, userId: this.user.id})
         this.$refs.form.reset()
       }
     }

@@ -19,7 +19,7 @@
         </v-list-tile>
       </v-list>
       <v-card-title v-if="!user.currentParkingAreas.length">
-        <span class="mb-2">You don't have any active parking areas</span>
+        <span class="mb-2">You have no active parking areas!</span>
       </v-card-title>
     </v-card>
   </div>
