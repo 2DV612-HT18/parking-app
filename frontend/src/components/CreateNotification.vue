@@ -25,7 +25,7 @@
         <v-toolbar-title>{{ form_title }}</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
-        <v-form v-model="validForm">
+        <v-form v-model="validForm" ref="notificationForm">
           <v-text-field
             v-model="notification"
             label="Notification"
@@ -75,6 +75,7 @@ export default {
           this.success = true;
           this.success_message = "Notification successful.";
           this.$router.push({ path: "/admin", query: { created: true } });
+          this.$refs.notificationForm.reset();
         }
       }
     }

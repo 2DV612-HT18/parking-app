@@ -18,7 +18,7 @@
         <v-toolbar-title>{{ form_title }}</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
-        <v-form v-model="validForm">
+        <v-form v-model="validForm" ref="createUserForm">
           <v-text-field
             v-model="firstName"
             :rules="firstNameRules"
@@ -146,7 +146,7 @@ export default {
         } else {
           // Display snackbar and redirect to /login
           this.success = true;
-          this.success_message = "Edit successful.";
+          this.success_message = "Register successful.";
           this.$router.push({ path: "/login", query: { registered: true } });
         }
 
@@ -160,8 +160,9 @@ export default {
         } else {
           // Display snackbar!
           this.success = true;
-          this.success_message = "Edit successful.";
+          this.success_message = `Creating the user "${this.email}" was successful!`;
           this.$router.push({ path: "/admin", query: { created: true } });
+          this.$refs.createUserForm.reset()
         }
       }
     }
