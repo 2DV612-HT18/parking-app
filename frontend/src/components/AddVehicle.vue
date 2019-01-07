@@ -18,7 +18,7 @@
         <v-toolbar-title>Add car</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
-        <v-form v-model="validForm">
+        <v-form v-model="validForm" ref="form">
           <v-text-field
             v-model="registrationNumber"
             :rules="registrationNumberRules"
@@ -89,6 +89,8 @@ export default {
         //succses adding a car
         this.success = true;
         this.success_message = "Successful added " + this.registrationNumber;
+        
+        this.$refs.form.reset()
       }
     }
   }
